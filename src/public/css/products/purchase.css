@@ -1,0 +1,61 @@
+.purchase-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.purchase-left,
+.purchase-right {
+    width: 48%;
+}
+
+.purchase-left {
+    border-right: 1px solid #ccc;
+    padding-right: 20px;
+}
+
+.purchase-right {
+    padding-left: 20px;
+}
+
+.purchase-image img {
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+}
+
+.payment-method,
+.delivery-address {
+    margin-top: 20px;
+}
+
+.payment-method select,
+.address-change-button {
+    margin-top: 10px;
+}
+
+.purchase-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.purchase-button:hover {
+    background-color: #218838;
+}
+
+.address-change-button {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.address-change-button:hover {
+    text-decoration: underline;
+}

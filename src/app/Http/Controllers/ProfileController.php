@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\AddressRequest;
 
 class ProfileController extends Controller
 {
@@ -13,7 +14,7 @@ class ProfileController extends Controller
     {
         return view('profile.show');
     }
-    public function updateProfile(Request $request)
+    public function updateProfile(AddressRequest $request)
     {
         $user = Auth()->user();
 

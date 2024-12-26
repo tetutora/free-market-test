@@ -41,9 +41,9 @@ Route::post('/purchase/address/{item_id}', [AddressController::class,'update']);
 // プロフィールページ（ログイン済みのみアクセス可能）
 Route::middleware(['auth'])->group(function () {
     // プロフィール画面を表示
-    Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     // プロフィール編集処理を実行
-    Route::post('/mypage', [ProfileController::class, 'updateProfile']);
+    Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     // 購入した商品一覧を表示
     Route::get('/mypage?tab=buy', [ProfileController::class, 'showPurchases']);
     // 出品した商品一覧を表示
@@ -67,6 +67,3 @@ Route::get('/purchase/{product}', [PurchaseController::class, 'show'])->name('pu
 
 // 購入処理を実行
 Route::post('/purchase/{product}', [PurchaseController::class, 'complete'])->name('purchase.complete');
-
-
-

@@ -41,11 +41,11 @@
     }
 }
 
-.register__content {
+.profile__content {
     margin: auto;
 }
 
-.register-form__heading {
+.profile-form__heading {
     text-align: center;
     color: rgba(0, 0, 0, 1);
     margin: 20px 0;
@@ -98,12 +98,19 @@
     border: none;
 }
 
-.login__link {
-    margin-top: 30px;
+.form__group-photo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+image-preview {
+    display: block;
     text-align: center;
 }
 
-.login__button-submit {
-    color: rgba(0, 115, 204, 1);
-    text-decoration: none;
+#image-preview img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 4px;
 }
