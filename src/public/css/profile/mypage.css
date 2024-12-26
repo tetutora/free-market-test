@@ -1,0 +1,90 @@
+/* プロフィールエリア */
+
+.mypage{
+    max-width: 1500px;
+    margin: auto;
+    margin-top: 70px;
+}
+.mypage-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+    /* 中央寄せ */
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* 中央寄せ */
+}
+
+.profile-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-details {
+    display: flex;
+    /* 横並びにするため */
+    align-items: center;
+    /* 高さを揃える */
+    justify-content: center;
+    /* 中央寄せ */
+}
+
+.profile-details h2 {
+    margin: 0;
+    font-size: 24px;
+    margin-right: 20px;
+    /* ユーザー名とボタンの間にスペースを追加 */
+}
+
+.btn-edit-profile {
+    padding: 5px 15px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.btn-edit-profile:hover {
+    background-color: #0056b3;
+}
+
+/* ボタンエリア */
+.mypage-buttons {
+    margin-bottom: 20px;
+    display: flex;
+    text-align: left;
+    /* justify-content: center; */
+    /* 中央寄せ */
+}
+
+.btn-toggle {
+    padding: 10px 20px;
+    background-color: transparent;
+    /* 背景色なし */
+    border: none;
+    /* 枠なし */
+    cursor: pointer;
+    margin-right: 20px;
+    font-size: 16px;
+    color: black;
+    /* 文字色を黒に設定 */
+    text-decoration: none;
+}
+
+.btn-toggle.active {
+    color: red;
+    /* 選択中は赤色 */
+}
+
+.btn-toggle:hover {
+    color: #555;
+    /* ホバー時に少し濃い色に */
+}

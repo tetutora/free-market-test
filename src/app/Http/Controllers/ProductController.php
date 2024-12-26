@@ -42,28 +42,31 @@ class ProductController extends Controller
 
     // 商品出品処理
     public function store(Request $request)
-    {
-        // 画像のアップロード
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('product_images', 'public');
-        }
-
-        // 商品を作成
-        $product = Product::create([
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'image' => $imagePath,
-            'status_id' => $request->status_id,
-        ]);
-
-        // カテゴリを多対多で関連付け
-        if ($request->has('category_ids')) {
-            $product->categories()->sync($request->category_ids); // 複数のカテゴリIDを渡す
-        }
-
-        return redirect()->route('home');
+{
+    // 画像のアップロード
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('product_images', 'public');
     }
+
+    // 商品を作成
+    $product = Product::create([
+        'name' => $request->name,
+        'price' => $request->price,
+        'description' => $request->description,
+        'image' => $imagePath,
+        'status_id' => $request->status_id,
+        'user_id' => auth()->id(), // ログインユーザーID
+    ]);
+
+    // カテゴリを多対多で関連付け
+    if ($request->has('category_ids')) {
+        $product->categories()->sync($request->category_ids); // 複数のカテゴリIDを渡す
+    }
+
+    // リダイレクト
+    return redirect()->route('products.index');
+}
+
 
     public function addComment(Request $request, $id)
     {

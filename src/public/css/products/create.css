@@ -1,0 +1,85 @@
+.center-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.image-upload {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.category-tag {
+    background-color: white;
+    color: red;
+    border: 2px solid red;
+    border-radius: 20px;
+    padding: 10px 15px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category-tag.selected {
+    background-color: red;
+    color: white;
+}
+
+.category-tag input[type="radio"] {
+    margin-right: 10px;
+    /* ラジオボタンとラベルの間にスペースを作る */
+}
+
+.category-tag:hover {
+    background-color: #f2f2f2;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+button.submit-btn {
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+button.submit-btn:hover {
+    background-color: #e60000;
+}

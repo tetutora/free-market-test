@@ -14,7 +14,7 @@ class Category extends Model
     // 商品とのリレーション
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'category_product');
+        return $this->belongsToMany(Product::class, 'products_categories');
     }
 }
 

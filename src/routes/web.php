@@ -6,17 +6,16 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AddressController;
 
 // トップページで商品一覧を表示
 Route::get('/', [ProductController::class, 'index'])->name('home');
-// マイリスト付き商品一覧画面
-Route::get('/?tab=myList', [ProductController::class, 'index']);
 // 商品詳細を表示
-Route::get('/item/{item_id}', [ProductController::class, 'show']);
+Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');
 // 商品出品画面を表示
 Route::get('/sell', [ProductController::class, 'create'])->name('sell');
 // 商品出品処理を実行
-Route::post('/sell', [ProductController::class, 'store']);
+Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
 
 // 会員登録画面を表示
 Route::get('/register', [RegisterController::class, 'showRegistrationForm']);
@@ -28,8 +27,6 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 // ログイン処理を実行
 Route::post('/login', [LoginController::class, 'login']);
 
-// 商品購入画面を表示
-// Route::get('/purchase/{item_id}', [PurchaseController::class, 'showPurchaseForm']);
 // 商品購入処理を実行
 Route::post('/purchase/{item_id}', [PurchaseController::class, 'processPurchase']);
 
@@ -50,22 +47,26 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mypage?tab=buy', [ProfileController::class, 'showPurchases']);
     // 出品した商品一覧を表示
     Route::get('/mypage?tab=sell', [ProfileController::class, 'showSales']);
-});
-
-// 住所編集ページ
-Route::middleware(['auth'])->group(function () {
+    // 住所編集ページ
     Route::get('/mypage/address/edit', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
     Route::post('/mypage/address/edit', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
 });
+Route::post('/sell', [ProductController::class, 'store'])->middleware('auth')->name('products.store');
 
-// 商品関連
-// Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('product.show');
-
-Route::post('/products/{id}/comment', [ProductController::class, 'addComment'])->name('product.comment');
 
 // 商品購入画面を表示
 Route::get('/purchase/{product}', [PurchaseController::class, 'show'])->name('purchase.show');
-
 // 購入処理を実行
 Route::post('/purchase/{product}', [PurchaseController::class, 'complete'])->name('purchase.complete');
+
+// ログアウト処理
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');  // 商品一覧ページにリダイレクト
+})->name('logout');
+
+// プロフィール編集ページ
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::resource('products', ProductController::class);

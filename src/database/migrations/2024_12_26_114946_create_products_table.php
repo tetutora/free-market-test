@@ -20,11 +20,9 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 10, 2);
             $table->string('image');
             $table->unsignedBigInteger('status_id');
-            // $table->string('category');
-            $table->unsignedBigInteger('category_id');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('cascade');
+
         });
     }
 

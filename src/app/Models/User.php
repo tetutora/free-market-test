@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'zipcode',
+        'address',
+        'building',
+        'profile_picture',
     ];
 
     /**
@@ -41,4 +45,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sales()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
+
+    // プロフィールとの1対1リレーション
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }
