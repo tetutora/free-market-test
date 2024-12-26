@@ -14,6 +14,12 @@ class ProfileController extends Controller
     {
         return view('profile.show');
     }
+
+    public function mypage()
+    {
+        return view('profile.mypage');
+    }
+
     public function updateProfile(AddressRequest $request)
     {
         $user = Auth()->user();

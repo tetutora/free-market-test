@@ -44,6 +44,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     // プロフィール編集処理を実行
     Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    // マイページ表示
+    Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
     // 購入した商品一覧を表示
     Route::get('/mypage?tab=buy', [ProfileController::class, 'showPurchases']);
     // 出品した商品一覧を表示
