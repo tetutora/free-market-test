@@ -1,14 +1,75 @@
 .product-container {
+    max-width: 800px;
+    margin: auto;
     display: flex;
     gap: 20px;
     padding: 20px;
 }
 
+/* ボタン行のスタイル */
+.button-row {
+    display: flex;
+    /* 横並びにする */
+    gap: 10px;
+    /* ボタン間のスペース */
+    align-items: center;
+    /* 縦方向で中央揃え */
+    margin-bottom: 15px;
+    /* 下余白を調整 */
+}
+
+.icon-button {
+    display: flex;
+    flex-direction: column;
+    /* アイコンとカウントを縦並びに */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 5px;
+    /* アイコンとカウントの間のスペース */
+}
+
+/* アイコンスタイル */
+.favorite-icon,
+.comment-icon {
+    font-size: 24px;
+    color: #555;
+}
+
+/* カウントのスタイル */
+.favorite-count,
+.comment-count {
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+}
+
+/* 購入手続きボタン・コメント送信ボタン */
+.purchase-button,
+.comment-submit-button {
+    background-color: red;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.purchase-button:hover,
+.comment-submit-button:hover {
+    background-color: darkred;
+}
+
+/* 商品画像エリア */
 .product-image {
     flex: 1;
     text-align: center;
 }
 
+/* 商品情報エリア */
 .product-details {
     flex: 2;
 }
@@ -17,48 +78,11 @@
     margin-top: 0;
 }
 
-.button-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
 .button-column {
     margin-bottom: 20px;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* お気に入りボタン */
-.favorite-button {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.favorite-icon {
-    font-size: 24px;
-    /* ☆マークの大きさ */
-    color: gold;
-    /* 星の色 */
-}
-
-/* お気に入り登録人数 */
-.favorite-count {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #555;
-}
-
-/* 商品情報 */
+/* 商品情報のスタイル */
 h2 {
     margin-top: 20px;
     font-size: 1.5rem;
@@ -90,10 +114,4 @@ h2 {
 textarea {
     width: 100%;
     resize: vertical;
-}
-
-.comment-submit-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
 }

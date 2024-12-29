@@ -17,19 +17,21 @@
         <h1>{{ $product->name }}</h1>
 
         <!-- 価格 -->
-        <p><strong>価格:</strong> {{ round($product->price) }}円</p>
+        <p>¥<strong>{{ round($product->price) }}</strong>(税込)</p>
 
         <!-- お気に入りボタンとコメントボタン (横並び) -->
         <div class="button-row">
-            <!-- お気に入りボタン（☆マーク） -->
-            <button class="favorite-button">
-                <span class="favorite-icon">☆</span> お気に入りに登録
-            </button>
-            <button class="comment-view-button">コメントを見る</button>
+            <!-- お気に入りボタン -->
+            <div class="icon-button">
+                <span class="favorite-icon">☆</span>
+                <p class="favorite-count">{{ $product->favorites->count() }}</p>
+            </div>
+            <!-- コメントボタン -->
+            <div class="icon-button">
+                <span class="comment-icon">💬</span>
+                <p class="comment-count">{{ $product->comments->count() }}</p>
+            </div>
         </div>
-
-        <!-- お気に入り登録人数 -->
-        <p class="favorite-count">お気に入り登録人数: {{ $product->favorites->count() }} 人</p>
 
         <!-- 購入手続きボタン -->
         <div class="button-column">
@@ -69,11 +71,10 @@
         <h2>コメントを追加</h2>
         <form action="{{ route('product.comment', $product->id) }}" method="POST">
             @csrf
-            <textarea name="comment" rows="4" cols="50" placeholder="コメントを入力してください"></textarea>
+            <textarea name="content" rows="4" cols="50" placeholder="コメントを入力してください"></textarea>
             <br>
             <button type="submit" class="comment-submit-button">コメントを送信</button>
         </form>
     </div>
 </div>
-
 @endsection
