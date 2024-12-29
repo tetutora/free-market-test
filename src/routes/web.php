@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CommentController;
+
 
 // トップページで商品一覧を表示
 Route::get('/', [ProductController::class, 'index'])->name('home');
@@ -42,7 +44,7 @@ Route::middleware(['auth'])->group(function () {
     // プロフィール編集処理を実行
     Route::post('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     // マイページ表示
-    Route::get('/mypage', [ProfileController::class, 'mypage'])->name('mypage');
+    Route::get('/mypage', [ProfileController::class, 'mypage'])->name('profile.mypage');
     // 購入した商品一覧を表示
     Route::get('/mypage?tab=buy', [ProfileController::class, 'showPurchases']);
     // 出品した商品一覧を表示
@@ -70,3 +72,29 @@ Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.e
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
 Route::resource('products', ProductController::class);
+
+Route::match(['POST', 'PUT'], '/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/profile/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+Route::post('/product/{product}/comment', [CommentController::class, 'store'])->name('product.comment');
+
+// 商品詳細表示
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+// コメント投稿
+Route::post('/product/{id}/comment', [ProductController::class, 'addComment'])->name('product.comment');
+// 商品詳細表示
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+// コメント投稿
+Route::post('/product/{id}/comment', [CommentController::class, 'store'])->name('product.comment');
+
+// コメント投稿用のルート
+Route::post('/product/{id}/comment', [CommentController::class, 'store'])->name('product.comment');
+
+Route::middleware('auth')->post('/product/{id}/comment', [CommentController::class, 'store'])->name('product.comment');

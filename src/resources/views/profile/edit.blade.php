@@ -35,7 +35,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input">
-                    <input class="form__input-text" type="text" name="name" value="{{ old('name', $user->name) }}" />
+                    <input class="form__input-text" type="text" name="name" value="{{ old('name', $profile->name) }}" />
                 </div>
                 <div class="form__error">
                     @error('name')
@@ -52,7 +52,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input">
-                    <input class="form__input-text" type="text" id="zipcode" name="zipcode" value="{{ old('zipcode', $user->zipcode) }}" pattern="\d{3}-\d{4}|\d{7}" maxlength="8" placeholder="123-4567 または 1234567" />
+                    <input class="form__input-text" type="text" id="zipcode" name="zipcode" value="{{ old('zipcode', $profile->zipcode) }}" pattern="\d{3}-\d{4}|\d{7}" maxlength="8" placeholder="123-4567 または 1234567" />
                 </div>
                 <div class="form__error">
                     @error('zipcode')
@@ -69,7 +69,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input">
-                    <input class="form__input-text" type="text" name="address" value="{{ old('address', $user->address) }}" />
+                    <input class="form__input-text" type="text" name="address" value="{{ old('address', $profile->address) }}" />
                 </div>
                 <div class="form__error">
                     @error('address')
@@ -86,7 +86,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input">
-                    <input class="form__input-text" type="text" name="building" value="{{ old('building', $user->building) }}" />
+                    <input class="form__input-text" type="text" name="building" value="{{ old('building', $profile->building) }}" />
                 </div>
             </div>
         </div>

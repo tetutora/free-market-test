@@ -17,11 +17,14 @@
     margin-top: 0;
 }
 
-/* 横並びのボタン */
 .button-row {
     display: flex;
     gap: 10px;
     margin-bottom: 15px;
+}
+
+.button-column {
+    margin-bottom: 20px;
 }
 
 button {
@@ -30,12 +33,37 @@ button {
     cursor: pointer;
 }
 
-/* 購入手続きボタン (ボタン行の下) */
-.button-column {
-    margin-bottom: 20px;
+/* お気に入りボタン */
+.favorite-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
 }
 
-/* タグスタイル */
+.favorite-icon {
+    font-size: 24px;
+    /* ☆マークの大きさ */
+    color: gold;
+    /* 星の色 */
+}
+
+/* お気に入り登録人数 */
+.favorite-count {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #555;
+}
+
+/* 商品情報 */
+h2 {
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -50,7 +78,6 @@ button {
     border-radius: 20px;
     padding: 5px 15px;
     font-size: 14px;
-    display: inline-block;
 }
 
 .comment-item {
@@ -63,4 +90,10 @@ button {
 textarea {
     width: 100%;
     resize: vertical;
+}
+
+.comment-submit-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
 }

@@ -10,9 +10,8 @@
             <!-- プロフィール写真、ユーザー名、プロフィール編集ボタン -->
             <div class="profile-info">
                 <img src="{{ $profile_picture }}" alt="プロフィール写真" class="profile-image">
-
                 <div class="profile-details">
-                    <h2>{{ Auth::user()->name }}</h2>
+                    <h2>{{ $profile->name ?? $user->name }}</h2>
                     <a href="{{ route('profile.edit') }}" class="btn-edit-profile">プロフィール編集</a>
                 </div>
             </div>
@@ -30,8 +29,11 @@
             <div class="product-container" id="sell-products">
                 @foreach ($user->sales as $product)
                     <div class="product-item">
-                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="商品画像" class="product-image">
-                        <p class="product-name">{{ $product->name }}</p>
+                        <!-- 商品画像をクリックできるようにする -->
+                        <a href="{{ route('product.show', $product->id) }}">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="商品画像" class="product-image">
+                            <p class="product-name">{{ $product->name }}</p>
+                        </a>
                     </div>
                 @endforeach
             </div>
@@ -40,14 +42,16 @@
             <div class="product-container" id="purchase-products" style="display: none;">
                 @foreach ($user->purchases as $product)
                     <div class="product-item">
-                        <img src="{{ asset('storage/' . $purchase->product->image_path) }}" alt="商品画像" class="product-image">
-                        <p class="product-name">{{ $purchase->product->name }}</p>
+                        <!-- 商品画像をクリックできるようにする -->
+                        <a href="{{ route('product.show', $product->id) }}">
+                            <img src="{{ asset('storage/' . $product->image_path) }}" alt="商品画像" class="product-image">
+                            <p class="product-name">{{ $product->name }}</p>
+                        </a>
                     </div>
                 @endforeach
             </div>
         </div>
     </div>
-
 @endsection
 
 @section('scripts')

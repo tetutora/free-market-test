@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Status;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ProductController extends Controller
@@ -26,9 +28,10 @@ class ProductController extends Controller
     }
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('comments')->findOrFail($id);
         return view('products.show', compact('product'));
     }
+
 
     // 商品出品画面の表示
     public function create()
@@ -42,30 +45,38 @@ class ProductController extends Controller
 
     // 商品出品処理
     public function store(Request $request)
-{
-    // 画像のアップロード
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('product_images', 'public');
+    {
+        // 商品を作成
+        $product = new Product([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'status_id' => $request->status_id,
+            'user_id' => auth()->id(), // ログインユーザーID
+        ]);
+
+        // 画像がアップロードされた場合
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public'); // 画像を保存してパスを取得
+            $product->image = $path; // パスをデータベースに保存
+        }
+
+        $product->save(); // 商品情報を保存
+
+        if ($request->has('category_id')) {
+            foreach ($request->category_id as $categoryId) {
+                DB::table('products_categories')->insert([
+                    'category_id' => $categoryId,
+                    'product_id' => $product->id,
+                    'user_id' => auth()->id(), // ログインユーザーのIDを挿入
+                ]);
+            }
+        }
+
+        // リダイレクト
+        return redirect()->route('products.index')->with('success', '商品を出品しました！');
     }
 
-    // 商品を作成
-    $product = Product::create([
-        'name' => $request->name,
-        'price' => $request->price,
-        'description' => $request->description,
-        'image' => $imagePath,
-        'status_id' => $request->status_id,
-        'user_id' => auth()->id(), // ログインユーザーID
-    ]);
-
-    // カテゴリを多対多で関連付け
-    if ($request->has('category_ids')) {
-        $product->categories()->sync($request->category_ids); // 複数のカテゴリIDを渡す
-    }
-
-    // リダイレクト
-    return redirect()->route('products.index');
-}
 
 
     public function addComment(Request $request, $id)
@@ -85,4 +96,5 @@ class ProductController extends Controller
 
         return redirect()->route('product.show', $product->id)->with('success', 'コメントを投稿しました！');
     }
+
 }

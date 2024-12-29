@@ -18,14 +18,18 @@ class ProfileController extends Controller
 
     public function myPage()
     {
-        $user = Auth::user(); // ログイン中のユーザーを取得
-        $profile_picture = $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('images/default-profile.jpg'); // プロフィール画像のパスを設定
+        $user = Auth::user();
+        $profile = $user->profile; // プロフィール情報を取得
 
-        // 購入データを取得（リレーション）
-        $purchases = $user->purchases()->with('product')->get();
+        $profile_picture = $profile && $profile->profile_picture 
+            ? asset('storage/' . $profile->profile_picture) 
+            : asset('images/default-profile.jpg'); // デフォルト画像の設定
 
-        // ビューにデータを渡す
-        return view('profile.mypage', compact('user', 'purchases', 'profile_picture'));
+        return view('profile.mypage', [
+            'user' => $user,
+            'profile' => $profile,
+            'profile_picture' => $profile_picture,
+        ]);
     }
 
 
@@ -33,16 +37,18 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user->name = $request->name;
-        $user->zipcode = $request->zipcode;
-        $user->address = $request->address;
-        $user->building = $request->building;
 
         // プロフィール画像の保存処理
         if ($request->hasFile('profile_picture')) {
+            // 古い画像があれば削除
+            if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
+                Storage::delete('public/' . $user->profile_picture);
+            }
             // 新しい画像を保存
             $path = $request->file('profile_picture')->store('profiles', 'public');
             $user->profile_picture = $path;
         }
+
         $user->save();
 
         return redirect()->route('profile.mypage');
@@ -73,10 +79,11 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user(); // ログイン中のユーザー情報を取得
-        $imagePath = $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
-        return view('profile.edit', compact('user', 'imagePath'));
-    }
+        $profile = $user->profile ?? new Profile(); // プロフィールを取得または新規インスタンス作成
+        $imagePath = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
 
+        return view('profile.edit', compact('user', 'profile', 'imagePath')); // $profileを追加
+    }
 
     public function update(AddressRequest $request)
     {
@@ -105,14 +112,5 @@ class ProfileController extends Controller
         $profile->save();
 
         return redirect()->route('profile.mypage');
-    }
-
-
-
-    public function editProfile()
-    {
-        $user = Auth::user(); // 認証済みユーザーを取得
-        $imagePath = $user->profile_picture ? asset('storage/' . $user->profile_picture) : null;
-        return view('profile.mypage', compact('user', 'imagePath'));
     }
 }
