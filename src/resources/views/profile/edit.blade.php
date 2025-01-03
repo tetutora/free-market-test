@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profile/edit.css') }}">
 @endsection
 
 @section('content')
 <div class="profile__content">
     <div class="profile-form__heading">
-        <h2>プロフィール設定（編集）</h2>
+        <h2>プロフィール設定</h2>
     </div>
     <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -15,18 +15,20 @@
 
         <!-- プロフィール画像 -->
         <div class="form__group-photo">
-            <div id="image-preview" style="{{ $imagePath ? '' : 'display:none;' }}">
-                <img id="image-preview-img" src="{{ $imagePath }}" alt="プロフィール画像" width="200" height="200" />
-            </div>
-            <div class="form__input">
-                <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)">
-            </div>
-            <div class="form__error">
-                @error('profile_picture')
-                    {{ $message }}
-                @enderror
-            </div>
-        </div>
+    <div id="image-preview" style="{{ $profile_picture ? '' : 'display:none;' }}">
+        <img id="image-preview-img" src="{{ $profile_picture }}" alt="プロフィール画像" width="200" height="200" />
+    </div>
+    <div class="form__input">
+        <label for="profile_picture" class="custom-file-label">画像を選択</label>
+        <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display: none;">
+    </div>
+    <div class="form__error">
+        @error('profile_picture')
+            {{ $message }}
+        @enderror
+    </div>
+</div>
+
 
         <!-- ユーザー名 -->
         <div class="form__group">

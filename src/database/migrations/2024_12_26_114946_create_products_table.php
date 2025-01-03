@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
             $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
 
         });
     }

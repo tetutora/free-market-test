@@ -105,13 +105,57 @@ h2 {
 }
 
 .comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    /* 画像とコメント内容の間隔 */
     margin: 10px 0;
     padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comment-profile .profile-image {
+    width: 50px;
+    /* プロフィール画像の幅 */
+    height: 50px;
+    /* プロフィール画像の高さ */
+    border-radius: 50%;
+    /* 丸い画像にする */
+    object-fit: cover;
+    /* 画像を枠内に収める */
+    border: 1px solid #ccc;
+    /* 画像の枠線 */
+}
+
+.comment-content {
+    flex: 1;
+    /* 残りのスペースを占める */
+    font-size: 14px;
+    /* コメントの文字サイズ */
+}
+
+.comment-content strong {
+    font-size: 16px;
+    /* 名前の文字サイズ */
+    margin-bottom: 5px;
+    display: block;
 }
 
 textarea {
     width: 100%;
     resize: vertical;
+}
+
+.favorite-button {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #ff9f00;
+    cursor: pointer;
+}
+
+.favorite-button:focus {
+    outline: none;
 }

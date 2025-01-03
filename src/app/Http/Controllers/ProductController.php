@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Status;
 use App\Models\Comment;
+use App\Models\Favorite;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,12 +28,20 @@ class ProductController extends Controller
 
         return view('products.index', compact('products'));
     }
+
     public function show($id)
     {
-        $product = Product::with('comments')->findOrFail($id);
-        return view('products.show', compact('product'));
-    }
+        $product = Product::findOrFail($id);
+        $user = Auth::user();
+        $profile = $user->profile;
 
+        // プロフィール画像のパスを設定
+        $profile_picture = $profile && $profile->profile_picture
+            ? asset('storage/' . $profile->profile_picture)
+            : asset('images/default-profile.jpg'); // デフォルト画像
+
+        return view('products.show', compact('product', 'profile_picture'));
+    }
 
     // 商品出品画面の表示
     public function create()
@@ -95,6 +105,27 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('product.show', $product->id)->with('success', 'コメントを投稿しました！');
+    }
+
+    public function toggleFavorite(Product $product)
+    {
+        $user = Auth::user();
+
+        // お気に入りがすでに登録されているか確認
+        $favorite = $product->favorites()->where('user_id', $user->id)->first();
+
+        if ($favorite) {
+            // 既にお気に入りに登録されている場合は削除
+            $favorite->delete();
+        } else {
+            // お気に入りを追加
+            Favorite::create([
+                'user_id' => $user->id,
+                'product_id' => $product->id,
+            ]);
+        }
+
+        return back();
     }
 
 }

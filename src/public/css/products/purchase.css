@@ -2,11 +2,19 @@
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    gap: 20px;
+    /* 左右の間隔 */
+}
+
+.purchase-content {
+    display: flex;
+    width: 100%;
 }
 
 .purchase-left,
 .purchase-right {
     width: 48%;
+    /* 左右で等分 */
 }
 
 .purchase-left {
@@ -19,7 +27,9 @@
 }
 
 .purchase-image img {
-    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
 }
 
 h1,
@@ -28,14 +38,34 @@ h3 {
     margin-top: 0;
 }
 
+.section-divider {
+    margin: 10px 0;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
 .payment-method,
 .delivery-address {
     margin-top: 20px;
 }
 
-.payment-method select,
-.address-change-button {
+.payment-method select {
     margin-top: 10px;
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.address-change-button {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.address-change-button:hover {
+    text-decoration: underline;
 }
 
 .purchase-button {
@@ -44,18 +74,10 @@ h3 {
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .purchase-button:hover {
     background-color: #218838;
-}
-
-.address-change-button {
-    color: #007bff;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.address-change-button:hover {
-    text-decoration: underline;
 }

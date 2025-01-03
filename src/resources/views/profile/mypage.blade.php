@@ -9,7 +9,7 @@
         <div class="mypage-header">
             <!-- プロフィール写真、ユーザー名、プロフィール編集ボタン -->
             <div class="profile-info">
-                <img src="{{ $profile_picture }}" alt="プロフィール写真" class="profile-image">
+                <img src="{{ $profile_picture ?? asset('images/default-profile.jpg') }}" alt="プロフィール画像" class="profile-image">
                 <div class="profile-details">
                     <h2>{{ $profile->name ?? $user->name }}</h2>
                     <a href="{{ route('profile.edit') }}" class="btn-edit-profile">プロフィール編集</a>
@@ -27,7 +27,7 @@
         <div id="product-list" class="product-list">
             <!-- 出品した商品 -->
             <div class="product-container" id="sell-products">
-                @foreach ($user->sales as $product)
+                @foreach ($user->sales ?? [] as $product)  <!-- $user が null の場合を考慮 -->
                     <div class="product-item">
                         <!-- 商品画像をクリックできるようにする -->
                         <a href="{{ route('product.show', $product->id) }}">
@@ -40,7 +40,7 @@
 
             <!-- 購入した商品 -->
             <div class="product-container" id="purchase-products" style="display: none;">
-                @foreach ($user->purchases as $product)
+                @foreach ($user->purchases ?? [] as $product)  <!-- $user が null の場合を考慮 -->
                     <div class="product-item">
                         <!-- 商品画像をクリックできるようにする -->
                         <a href="{{ route('product.show', $product->id) }}">

@@ -19,11 +19,23 @@ class ProfileController extends Controller
     public function myPage()
     {
         $user = Auth::user();
-        $profile = $user->profile; // プロフィール情報を取得
 
-        $profile_picture = $profile && $profile->profile_picture 
-            ? asset('storage/' . $profile->profile_picture) 
-            : asset('images/default-profile.jpg'); // デフォルト画像の設定
+        if (!$user) {
+            return redirect()->route('login');
+        }
+
+        $profile = $user->profile;
+
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->name = $user->name;
+            $profile->save();
+        }
+
+        $profile_picture = $profile->profile_picture
+            ? asset('storage/' . $profile->profile_picture)
+            : asset('images/default-profile.jpg');
 
         return view('profile.mypage', [
             'user' => $user,
@@ -31,7 +43,6 @@ class ProfileController extends Controller
             'profile_picture' => $profile_picture,
         ]);
     }
-
 
     public function updateProfile(Request $request)
     {
@@ -78,37 +89,52 @@ class ProfileController extends Controller
 
     public function edit()
     {
-        $user = Auth::user(); // ログイン中のユーザー情報を取得
-        $profile = $user->profile ?? new Profile(); // プロフィールを取得または新規インスタンス作成
-        $imagePath = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
+        $user = auth()->user();
 
-        return view('profile.edit', compact('user', 'profile', 'imagePath')); // $profileを追加
+        // プロフィールが存在しない場合、新しいプロフィールを作成
+        $profile = $user->profile;
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->save();  // プロフィールを保存
+        }
+
+        // プロフィール画像のパスを取得
+        $profile_picture = $profile->profile_picture 
+            ? asset('storage/' . $profile->profile_picture) 
+            : asset('images/default-profile.png');  // デフォルト画像を設定
+
+        return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
 
     public function update(AddressRequest $request)
     {
-        $user = Auth::user();
+        $user = auth()->user();
+        $profile = $user->profile;
 
-        // ユーザーに関連するプロフィールを取得（存在しない場合は新しいインスタンスを作成）
-        $profile = $user->profile ?? new Profile();
-        
-        // プロフィールデータの更新
-        $profile->name = $request->input('name');
-        $profile->address = $request->input('address');
-        $profile->zipcode = $request->input('zipcode');
-        $profile->building = $request->input('building');
-
-        // 画像のアップロード処理
-        if ($request->hasFile('profile_picture')) {
-            // 新しい画像を保存
-            $path = $request->file('profile_picture')->store('profiles', 'public');
-            $profile->profile_picture = $path;
+        // プロフィールが存在しない場合、新しいプロフィールを作成
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->name = $user->name;
+            $profile->zipcode = $request->input('zipcode');
+            $profile->address = $request->input('address');
+            $profile->building = $request->input('building');
+            $profile->save();
         }
 
-        // ユーザーに関連付け
-        $profile->user_id = $user->id;
+        // プロフィール画像がアップロードされていれば保存
+        if ($request->hasFile('profile_picture')) {
+            $filePath = $request->file('profile_picture')->store('profiles', 'public');
+            $profile->profile_picture = $filePath;
+        }
 
-        // プロフィールを保存
+        // 他のフィールドを更新
+        $profile->name = $request->input('name');
+        $profile->zipcode = $request->input('zipcode');
+        $profile->address = $request->input('address');
+        $profile->building = $request->input('building');
+
         $profile->save();
 
         return redirect()->route('profile.mypage');

@@ -23,7 +23,15 @@
         <div class="button-row">
             <!-- お気に入りボタン -->
             <div class="icon-button">
-                <span class="favorite-icon">☆</span>
+                <form action="{{ route('product.favorite', $product->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="favorite-button">
+                        <!-- お気に入りの状態に応じて☆マークのスタイルを変更 -->
+                        <span class="favorite-icon">
+                            {{ $product->favorites->where('user_id', auth()->id())->count() > 0 ? '★' : '☆' }}
+                        </span>
+                    </button>
+                </form>
                 <p class="favorite-count">{{ $product->favorites->count() }}</p>
             </div>
             <!-- コメントボタン -->
@@ -60,7 +68,27 @@
             <h2>コメント一覧</h2>
             @foreach($product->comments as $comment)
                 <div class="comment-item">
-                    <strong>{{ $comment->user->name }}:</strong> {{ $comment->content }}
+                    @if($comment->user && $comment->user->profile)
+                        <!-- プロフィール画像 -->
+                        <div class="comment-profile">
+                            <img 
+                                src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.png') }}" 
+                                alt="{{ $comment->user->name }}のプロフィール画像" 
+                                class="profile-image"
+                            >
+                        </div>
+                        <!-- コメント内容 -->
+                        <div class="comment-content">
+                            <strong>{{ $comment->user->name }}:</strong>
+                            <p>{{ $comment->content }}</p>
+                        </div>
+                    @else
+                        <!-- ユーザーやプロフィールが存在しない場合 -->
+                        <div class="comment-content">
+                            <strong>削除されたユーザー:</strong>
+                            <p>{{ $comment->content }}</p>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         @else
