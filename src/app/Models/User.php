@@ -56,8 +56,6 @@ class User extends Authenticatable
         return $this->hasManyThrough(Product::class, Purchase::class, 'user_id', 'id', 'id', 'product_id');
     }
 
-
-    // プロフィールとの1対1リレーション
     public function profile()
     {
         return $this->hasOne(Profile::class);

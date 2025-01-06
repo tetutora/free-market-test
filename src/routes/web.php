@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;  // 修正: 正しいインポート
 use App\Http\Controllers\{
     RegisterController,
     LoginController,
@@ -22,11 +22,11 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', function () {
-    Auth::logout();
+    Auth::logout();  // Authを使用
     return redirect('/'); // トップページにリダイレクト
 })->name('logout');
 
-// 商品関連（認証が必要な部分はmiddlewareを利用）
+// 商品関連
 Route::middleware(['auth'])->group(function () {
     Route::get('/sell', [ProductController::class, 'create'])->name('sell');
     Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
@@ -48,8 +48,12 @@ Route::middleware(['auth'])->group(function () {
 
 // 購入関連
 Route::middleware(['auth'])->group(function () {
-    Route::get('/purchase/{product}', [PurchaseController::class, 'show'])->name('purchase.show');
-    Route::post('/purchase/{product}', [PurchaseController::class, 'complete'])->name('purchase.complete');
+    Route::get('/purchase/{productId}', [PurchaseController::class, 'purchase'])->name('purchase.show');
+    Route::post('/purchase/complete/{productId}', [PurchaseController::class, 'complete'])->name('purchase.complete');
     Route::get('/purchase/address/{item_id}', [AddressController::class, 'edit'])->name('purchase.address.edit');
     Route::post('/purchase/address/{item_id}', [AddressController::class, 'update'])->name('purchase.address.update');
 });
+
+Route::middleware(['auth'])->post('/mypage/address/edit', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
+Route::get('purchase/{productId}', [PurchaseController::class, 'show'])->name('purchase.show');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');

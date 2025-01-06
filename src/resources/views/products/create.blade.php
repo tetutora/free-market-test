@@ -12,7 +12,15 @@
 
     <!-- 商品画像 -->
     <div class="form-group">
-        <label for="image">商品画像</label>
+        <label for="image"><strong>商品画像</strong></label>
+
+        <!-- 画像プレビュー枠 -->
+        <div id="image-preview" class="image-preview">
+            <p>ここに画像が表示されます</p>
+        </div>
+
+        <!-- 画像選択ボタン -->
+        <label for="image" class="custom-file-label">画像を選択</label>
         <input type="file" id="image" name="image" accept="image/*" required class="image-upload">
     </div>
 
@@ -66,17 +74,44 @@
 
 @section('js')
 <script>
-    // チェックボックスが選択されたときの処理
-    document.querySelectorAll('input[name="category_id[]"]').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
-            // 選択されたカテゴリのIDを配列に追加/削除
-            let selectedCategories = [];
-            document.querySelectorAll('input[name="category_id[]"]:checked').forEach(function(checkedCheckbox) {
-                selectedCategories.push(checkedCheckbox.value);
-            });
+    document.addEventListener('DOMContentLoaded', () => {
+        const imageInput = document.getElementById('image');
+        const preview = document.getElementById('image-preview');
 
-            // 隠しフィールドに選択されたカテゴリのIDをカンマ区切りで設定
-            document.getElementById('category_id').value = selectedCategories.join(',');
+        if (imageInput) {
+            imageInput.addEventListener('change', function (event) {
+                const file = event.target.files[0]; // 選択した画像ファイルを取得
+                preview.innerHTML = ''; // プレビューをリセット
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        const img = document.createElement('img'); // 画像要素を作成
+                        img.src = e.target.result; // 読み込んだ画像データを設定
+                        img.style.maxWidth = '100%'; // 最大幅を指定
+                        img.style.maxHeight = '100%'; // 最大高さを指定
+                        preview.appendChild(img); // プレビュー枠に画像を追加
+                    };
+
+                    reader.readAsDataURL(file); // 画像ファイルをデータURLとして読み込む
+                } else {
+                    preview.innerHTML = '<p>ここに画像が表示されます</p>'; // 画像が選ばれていない場合のメッセージ
+                }
+            });
+        } else {
+            console.error('imageInput が見つかりません');
+        }
+
+        // チェックボックスが選択されたときの処理
+        document.querySelectorAll('input[name="category_id[]"]').forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                let selectedCategories = [];
+                document.querySelectorAll('input[name="category_id[]"]:checked').forEach(function(checkedCheckbox) {
+                    selectedCategories.push(checkedCheckbox.value);
+                });
+                document.getElementById('category_id').value = selectedCategories.join(',');
+            });
         });
     });
 </script>

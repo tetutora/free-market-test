@@ -7,45 +7,15 @@
 @section('content')
 <div class="profile__content">
     <div class="profile-form__heading">
-        <h2>プロフィール設定</h2>
+        <h2>住所の変更</h2>
     </div>
-    <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{ route('profile.address.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
-
-        <!-- プロフィール画像 -->
-        <div class="form__group-photo">
-            <div id="image-preview" style="{{ $profile_picture ? '' : 'display:none;' }}">
-                <img id="image-preview-img" src="{{ $profile_picture }}" alt="プロフィール画像" width="200" height="200" />
-            </div>
-            <div class="form__input">
-                <label for="profile_picture" class="custom-file-label">画像を選択</label>
-                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*" onchange="previewImage(event)" style="display: none;">
-            </div>
-            <div class="form__error">
-                @error('profile_picture')
-                    {{ $message }}
-                @enderror
-            </div>
-        </div>
-
-        <!-- ユーザー名 -->
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">ユーザー名</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__input">
-                    <input class="form__input-text" type="text" name="name" value="{{ old('name', $profile->name) }}" />
-                </div>
-                <div class="form__error">
-                    @error('name')
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
-
+        @method('POST')
+        
+        <!-- hidden フィールドで productId を渡す -->
+        <input type="hidden" name="productId" value="{{ $productId }}">
+        
         <!-- 郵便番号 -->
         <div class="form__group">
             <div class="form__group-title">
@@ -97,23 +67,4 @@
         </div>
     </form>
 </div>
-
-<script>
-function previewImage(event) {
-    var file = event.target.files[0];
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-        var preview = document.getElementById('image-preview');
-        var previewImg = document.getElementById('image-preview-img');
-        
-        preview.style.display = 'block'; // プレビューを表示
-        previewImg.src = e.target.result; // 画像を表示
-    };
-
-    if (file) {
-        reader.readAsDataURL(file); // 画像を読み込む
-    }
-}
-</script>
 @endsection

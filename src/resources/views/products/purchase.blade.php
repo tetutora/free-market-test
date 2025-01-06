@@ -32,14 +32,12 @@
             <hr class="section-divider"> <!-- アンダーライン -->
 
             <!-- 配送先 -->
+            <!-- 配送先 -->
             <div class="delivery-address">
                 <h3>配送先 <a href="{{ route('profile.address.edit') }}" class="address-change-button">住所変更</a></h3>
-                @if(Auth::user()->address)
-                    <p><strong>郵便番号:</strong> {{ Auth::user()->address->postal_code }}</p>
-                    <p><strong>住所:</strong> {{ Auth::user()->address->address }}</p>
-                @else
-                    <p>住所が登録されていません。</p>
-                @endif
+                <p><strong>郵便番号:</strong> {{$zipcode }}</p>
+                <p><strong>住所:</strong> {{ $address }}</p>
+                <p><strong>建物名:</strong> {{ $building }}</p>
             </div>
         </div>
 

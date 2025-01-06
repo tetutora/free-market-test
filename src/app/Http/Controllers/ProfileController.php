@@ -66,11 +66,13 @@ class ProfileController extends Controller
     }
 
 
-    // 住所編集フォームを表示
-    public function editAddress()
+    public function editAddress(Request $request)
     {
-        $user = Auth::user();
-        return view('profile.address.edit', compact('user'));
+        $profile = auth()->user()->profile;
+
+        $productId = $request->query('productId');
+
+        return view('profile.address.edit', compact('profile', 'productId'));
     }
 
     // 住所を更新
@@ -78,13 +80,17 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        // 住所の更新
-        $user->address->update([
-            'postal_code' => $request->postal_code,
-            'address' => $request->address,
-        ]);
+        // ユーザーの住所を更新
+        $profile = $user->profile;
+        $profile->zipcode = $request->zipcode;
+        $profile->address = $request->address;
+        $profile->building = $request->building;
 
-        return redirect()->route('mypage')->with('success', '住所が更新されました');
+        // 更新された情報を保存
+        $profile->save();
+
+        // 更新後、購入ページにリダイレクト
+        return redirect()->route('purchase.show', ['productId' => $request->productId]);  // productIdをリダイレクトURLに追加
     }
 
     public function edit()

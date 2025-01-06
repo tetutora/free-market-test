@@ -16,7 +16,6 @@
                 <a class="header__logo" href="/"><img src="{{ asset('images/logo.svg') }}" alt="アイコン" class="header__logo-icon"></a>
                 <nav>
                     <ul class="header-nav">
-                        @if (Auth::check())
                         <li class="header-nav__item">
                             <form class="header-nav__search" action="{{ url()->current() }}" method="GET" id="searchForm">
                                 <input
@@ -40,7 +39,6 @@
                         <li class="header-nav__item">
                             <a class="header-nav__link" href="{{ route('sell') }}">出品</a>
                         </li>
-                    @endif
                     </ul>
                 </nav>
             </div>

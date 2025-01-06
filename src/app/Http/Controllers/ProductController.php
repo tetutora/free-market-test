@@ -32,16 +32,20 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $user = Auth::user();
-        $profile = $user->profile;
 
-        // プロフィール画像のパスを設定
-        $profile_picture = $profile && $profile->profile_picture
-            ? asset('storage/' . $profile->profile_picture)
-            : asset('images/default-profile.jpg'); // デフォルト画像
+        $user = Auth::user(); // ログイン中のユーザーを取得
+        $profile_picture = asset('images/default-profile.jpg'); // デフォルト画像
+
+        // ユーザーがログインしている場合、プロフィール画像を取得
+        if ($user && $user->profile) {
+            $profile_picture = $user->profile->profile_picture
+                ? asset('storage/' . $user->profile->profile_picture)
+                : $profile_picture; // プロフィール画像がない場合はデフォルト画像
+        }
 
         return view('products.show', compact('product', 'profile_picture'));
     }
+
 
     // 商品出品画面の表示
     public function create()
@@ -87,8 +91,6 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', '商品を出品しました！');
     }
 
-
-
     public function addComment(Request $request, $id)
     {
         $request->validate([
@@ -127,5 +129,4 @@ class ProductController extends Controller
 
         return back();
     }
-
 }
