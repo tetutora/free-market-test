@@ -14,9 +14,10 @@ class Product extends Model
     ];
 
     // カテゴリとの多対多リレーション
+    // Productモデル
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'products_categories');
+        return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id');
     }
 
     // ステータスとのリレーション

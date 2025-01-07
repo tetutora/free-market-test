@@ -49,7 +49,6 @@ class ProductController extends Controller
     // 商品出品画面の表示
     public function create()
     {
-        // カテゴリを全て取得してフォームに渡す
         $categories = Category::all();
         $statuses = Status::all();
 
@@ -76,8 +75,10 @@ class ProductController extends Controller
 
         $product->save(); // 商品情報を保存
 
+        // category_id がカンマ区切りの文字列として渡されているので、配列に変換
         if ($request->has('category_id')) {
-            foreach ($request->category_id as $categoryId) {
+            $categoryIds = explode(',', $request->category_id); // カンマ区切りの文字列を配列に変換
+            foreach ($categoryIds as $categoryId) {
                 DB::table('products_categories')->insert([
                     'category_id' => $categoryId,
                     'product_id' => $product->id,
@@ -87,7 +88,7 @@ class ProductController extends Controller
         }
 
         // リダイレクト
-        return redirect()->route('products.index')->with('success', '商品を出品しました！');
+        return redirect()->route('products.index');
     }
 
     public function addComment(Request $request, $id)

@@ -26,15 +26,15 @@
 
     <!-- 商品カテゴリ -->
     <div class="form-group">
-        <label for="category_id">カテゴリ</label>
+        <label for="category_id"><strong>カテゴリ</strong></label>
         <div id="category-tags">
             @foreach($categories as $category)
-                <div class="category-tag">
-                    <input type="checkbox" name="category_id[]" value="{{ $category->id }}" id="category_{{ $category->id }}">
-                    <label for="category_{{ $category->id }}">{{ $category->name }}</label>
+                <div class="category-tag" data-id="{{ $category->id }}">
+                    {{ $category->name }}
                 </div>
             @endforeach
         </div>
+        <input type="hidden" id="category_id" name="category_id" value="">
     </div>
 
     <!-- 商品状態 -->
@@ -102,17 +102,23 @@
         } else {
             console.error('imageInput が見つかりません');
         }
+    });
 
-        // チェックボックスが選択されたときの処理
-        document.querySelectorAll('input[name="category_id[]"]').forEach(function(checkbox) {
-            checkbox.addEventListener('change', function() {
-                let selectedCategories = [];
-                document.querySelectorAll('input[name="category_id[]"]:checked').forEach(function(checkedCheckbox) {
-                    selectedCategories.push(checkedCheckbox.value);
-                });
-                document.getElementById('category_id').value = selectedCategories.join(',');
-            });
+    document.addEventListener('DOMContentLoaded', () => {
+    const categoryTags = document.querySelectorAll('.category-tag');
+    const categoryIdField = document.getElementById('category_id');
+
+    categoryTags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            tag.classList.toggle('selected');
+
+            const selectedCategories = Array.from(document.querySelectorAll('.category-tag.selected'))
+                .map(selectedTag => selectedTag.getAttribute('data-id'));
+
+            categoryIdField.value = selectedCategories.join(',');
         });
     });
+});
+
 </script>
 @endsection

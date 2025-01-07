@@ -9,36 +9,28 @@
     <div class="purchase-content">
         <!-- 左側：商品画像、商品名、価格、支払い方法、配送先 -->
         <div class="purchase-left">
-            <!-- 商品情報 -->
             <div class="purchase-info">
-                <!-- 商品画像 -->
                 <div class="purchase-image">
                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: auto; border-radius: 5px;">
                 </div>
                 <div class="purchase-details">
-                    <!-- 商品名 -->
                     <h3>{{ $product->name }}</h3>
-                    <hr class="section-divider">
-                    <!-- 商品価格 -->
-                    <p><strong>価格:</strong> {{ round($product->price) }}円</p>
+                    <p><strong>¥</strong> {{ number_format(round($product->price)) }}</p>
                 </div>
             </div>
 
             <hr class="section-divider">
 
-            <!-- 支払い方法 -->
             <div class="payment-method">
                 <label for="payment-method"><strong>お支払い方法</strong></label>
-                <select name="payment-method" id="payment-method">
-                    <option value="credit_card">クレジットカード</option>
-                    <option value="bank_transfer">銀行振込</option>
-                    <option value="cash_on_delivery">代金引換</option>
+                <select name="payment-method" id="payment-method" onchange="updatePaymentMethod()">
+                    <option value="credit_card">カード払い</option>
+                    <option value="bank_transfer">コンビニ払い</option>
                 </select>
             </div>
 
             <hr class="section-divider">
 
-            <!-- 配送先 -->
             <div class="delivery-address">
                 <h3>配送先 <a href="{{ route('profile.address.edit', ['productId' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
                 <p><strong>〒 {{$zipcode }}</strong></p>
@@ -46,11 +38,9 @@
             </div>
         </div>
 
-        <!-- 右側：購入確認 -->
         <div class="purchase-right">
-            <h2>購入確認</h2>
-            <p><strong>商品代金:</strong> {{ round($product->price) }}円</p>
-            <p><strong>支払い方法:</strong></p>
+            <p><strong>商品代金</strong> ¥{{ number_format(round($product->price)) }}</p>
+            <p><strong>支払い方法:</strong> <span id="selected-payment-method">カード払い</span></p>
             <form action="{{ route('purchase.complete', ['productId' => $product->id]) }}" method="POST">
                 @csrf
                 <button type="submit" class="purchase-button">購入する</button>
@@ -58,4 +48,27 @@
         </div>
     </div>
 </div>
+
+@section('js')
+<script>
+    function updatePaymentMethod() {
+        var paymentMethod = document.getElementById('payment-method').value;
+        var methodText = '';
+
+        if (paymentMethod === 'credit_card') {
+            methodText = 'カード払い';
+        } else if (paymentMethod === 'bank_transfer') {
+            methodText = 'コンビニ払い';
+        }
+
+        document.getElementById('selected-payment-method').textContent = methodText;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updatePaymentMethod();
+    });
+</script>
+@endsection
+
+
 @endsection

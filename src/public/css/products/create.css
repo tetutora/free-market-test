@@ -55,10 +55,15 @@
     border: 2px solid red;
     border-radius: 20px;
     padding: 10px 15px;
-    display: inline-flex;
-    align-items: center;
+    display: inline-block;
+    margin: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.category-tag.selected {
+    background-color: red;
+    color: white;
 }
 
 textarea {
