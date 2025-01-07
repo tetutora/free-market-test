@@ -75,6 +75,7 @@ class ProfileController extends Controller
         return view('profile.address.edit', compact('profile', 'productId'));
     }
 
+
     // 住所を更新
     public function updateAddress(Request $request)
     {
@@ -85,7 +86,7 @@ class ProfileController extends Controller
         $profile->zipcode = $request->zipcode;
         $profile->address = $request->address;
         $profile->building = $request->building;
-
+        
         // 更新された情報を保存
         $profile->save();
 

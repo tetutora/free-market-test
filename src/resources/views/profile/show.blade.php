@@ -11,6 +11,7 @@
     </div>
     <form class="form" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
     <div class="form__group-photo">
         <div id="image-preview" style="display:none;">
             <img name="profile_picture" id="image-preview-img" src="#" alt="プロフィール画像" width="200" height="200" />

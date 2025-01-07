@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Auth; // 正しいインポート
 
 class PurchaseController extends Controller
 {
-    public function show(Product $product)
+    public function show($productId)
     {
-        return view('products.purchase', compact('product'));
-    }
+        $product = Product::find($productId);
 
-    public function purchase($productId)
-    {
-        $product = Product::findOrFail($productId);
+        if (!$product) {
+            return abort(404, 'Product not found');
+        }
+
         $user = Auth::user();
         $profile = $user->profile;
 
@@ -24,13 +24,13 @@ class PurchaseController extends Controller
         $address = $profile->address ?? '未登録';
         $building = $profile->building ?? '未登録';
 
-        return view('products.purchase', compact('product', 'zipcode', 'address', 'building'));
+        return view('products.purchase', compact('product', 'zipcode', 'address', 'building', 'productId'));
     }
 
-    public function complete(Product $product)
+    public function complete($productId)
     {
-        // 購入処理を行うコードをここに追加
-        // 支払い情報、配送先情報などを保存
+        $product = Product::findOrFail($productId);
+
 
         return redirect()->route('home');
     }

@@ -57,3 +57,5 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->post('/mypage/address/edit', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
 Route::get('purchase/{productId}', [PurchaseController::class, 'show'])->name('purchase.show');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::post('/purchase/complete/{productId}', [PurchaseController::class, 'complete'])->name('purchase.complete');
+

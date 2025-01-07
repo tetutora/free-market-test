@@ -19,7 +19,7 @@
     align-items: center;
     margin-bottom: 10px;
     background-color: #f9f9f9;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .image-preview img {

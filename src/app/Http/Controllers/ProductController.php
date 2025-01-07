@@ -32,20 +32,19 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-
         $user = Auth::user(); // ログイン中のユーザーを取得
-        $profile_picture = asset('images/default-profile.jpg'); // デフォルト画像
 
-        // ユーザーがログインしている場合、プロフィール画像を取得
-        if ($user && $user->profile) {
-            $profile_picture = $user->profile->profile_picture
-                ? asset('storage/' . $user->profile->profile_picture)
-                : $profile_picture; // プロフィール画像がない場合はデフォルト画像
-        }
+        // ユーザーのプロフィール情報を取得
+        $profile = $user ? $user->profile : null;
 
-        return view('products.show', compact('product', 'profile_picture'));
+        // プロフィール情報が存在しない場合、デフォルトの空データを使用
+        $zipcode = $profile ? $profile->zipcode : '未設定'; // デフォルト値を設定
+        $address = $profile ? $profile->address : '未設定'; // デフォルト値を設定
+        $building = $profile ? $profile->building : '未設定'; // デフォルト値を設定
+
+        // ビューにデータを渡す
+        return view('products.show', compact('product', 'zipcode', 'address', 'building'));
     }
-
 
     // 商品出品画面の表示
     public function create()

@@ -34,10 +34,13 @@
             <!-- 配送先 -->
             <!-- 配送先 -->
             <div class="delivery-address">
-                <h3>配送先 <a href="{{ route('profile.address.edit') }}" class="address-change-button">住所変更</a></h3>
+                <h3>配送先 <a href="{{ route('profile.address.edit', ['productId' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
                 <p><strong>郵便番号:</strong> {{$zipcode }}</p>
                 <p><strong>住所:</strong> {{ $address }}</p>
                 <p><strong>建物名:</strong> {{ $building }}</p>
+                <!-- Debugging Output -->
+
+
             </div>
         </div>
 
@@ -46,7 +49,7 @@
             <h2>購入確認</h2>
             <p><strong>商品代金:</strong> {{ round($product->price) }}円</p>
             <p><strong>選択したお支払い方法:</strong> クレジットカード</p>
-            <form action="{{ route('purchase.complete', $product->id) }}" method="POST">
+            <form action="{{ route('purchase.complete', ['productId' => $product->id]) }}" method="POST">
                 @csrf
                 <button type="submit" class="purchase-button">購入する</button>
             </form>

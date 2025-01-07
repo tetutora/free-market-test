@@ -11,11 +11,8 @@
     </div>
     <form class="form" action="{{ route('profile.address.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('POST')
-        
-        <!-- hidden フィールドで productId を渡す -->
         <input type="hidden" name="productId" value="{{ $productId }}">
-        
+
         <!-- 郵便番号 -->
         <div class="form__group">
             <div class="form__group-title">
