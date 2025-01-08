@@ -17,7 +17,11 @@
     @foreach($products as $product)
         <div class="product-item">
             <a href="{{ route('product.show', $product->id) }}">
-                <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                @if(str_starts_with($product->image, 'http'))
+                    <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                @else
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                @endif
             </a>
             <p>
                 {{ $product->name }}

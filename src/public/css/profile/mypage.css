@@ -110,4 +110,6 @@
 .product-name {
     margin-top: 10px;
     font-size: 14px;
+    text-decoration: none;
+    pointer-events: none;
 }

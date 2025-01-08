@@ -19,11 +19,9 @@ class CreateProductsTable extends Migration
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->string('image');
-            $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id')->constrained('users')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-
         });
     }
 

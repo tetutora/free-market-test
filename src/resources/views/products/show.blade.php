@@ -8,7 +8,11 @@
 <div class="product-container">
     <!-- 左側：商品画像 -->
     <div class="product-image">
-        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 300px;">
+        @if(str_starts_with($product->image, 'http'))
+            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width: 300px;">
+        @else
+            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 300px;">
+        @endif
     </div>
 
     <!-- 右側：商品情報 -->
@@ -61,7 +65,7 @@
         </div>
 
         <!-- 商品の状態 -->
-        <p><strong>商品の状態:</strong> {{ $product->status->name ?? '情報なし' }}</p>
+        <p><strong>商品の状態:</strong> {{ $product->status ?? '情報なし' }}</p>
 
         <!-- コメント一覧 -->
         @if($product->comments->isNotEmpty())

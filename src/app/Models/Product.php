@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'description', 'price', 'image', 'status_id','user_id',
+        'name', 'description', 'price', 'status', 'image','user_id',
     ];
 
     // カテゴリとの多対多リレーション
@@ -18,12 +18,6 @@ class Product extends Model
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id');
-    }
-
-    // ステータスとのリレーション
-    public function status()
-    {
-        return $this->belongsTo(Status::class);
     }
 
     public function comments()
@@ -35,5 +29,6 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorites');
     }
+    
 
 }

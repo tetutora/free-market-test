@@ -11,7 +11,11 @@
         <div class="purchase-left">
             <div class="purchase-info">
                 <div class="purchase-image">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: auto; border-radius: 5px;">
+                    @if(str_starts_with($product->image, 'http'))
+                        <img src="{{ $product->image }}" alt="{{ $product->name }}" style="width: 100%; height: auto; border-radius: 5px;">
+                    @else
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: auto; border-radius: 5px;">
+                    @endif
                 </div>
                 <div class="purchase-details">
                     <h3>{{ $product->name }}</h3>

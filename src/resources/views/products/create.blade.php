@@ -41,9 +41,10 @@
     <div class="form-group">
         <label for="status_id">商品状態</label>
         <select id="status_id" name="status_id" required>
-            @foreach($statuses as $status)
-                <option value="{{ $status->id }}">{{ $status->name }}</option>
-            @endforeach
+            <option value="良好">良好</option>
+            <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
+            <option value="やや傷や汚れあり">やや傷や汚れあり</option>
+            <option value="状態が悪い">状態が悪い</option>
         </select>
     </div>
 
