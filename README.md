@@ -3,6 +3,8 @@
 ## Dockerビルド
 - ・git clone https://github.com/tetutora/coachtech-test
 - ・docker-compose up -d --build
+- ・php artisan db:seed --class=UserSeeder
+- ・php artisan db:seed
 
 ## Laravel環境構築
 - ・docker-compose exec php bash

@@ -10,11 +10,10 @@ class ProductSeeder extends Seeder
 {
     public function run()
     {
-        // デフォルトのユーザーを取得
+        // デフォルトユーザーを取得
         $defaultUser = User::where('email', 'default@example.com')->first();
 
         if (!$defaultUser) {
-            // ユーザーが存在しない場合は例外を投げる
             throw new \Exception('Default user not found. Please run the UserSeeder first.');
         }
 
@@ -23,7 +22,7 @@ class ProductSeeder extends Seeder
                 'name' => '腕時計',
                 'price' => 15000,
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
-                'image' => $request->hasFile('image') ? $request->file('image')->store('products', 'public') : 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
+                'image' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
                 'status' => '良好',
                 'user_id' => $defaultUser->id,
             ],
