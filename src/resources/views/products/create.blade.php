@@ -15,8 +15,7 @@
         <label for="image"><strong>商品画像</strong></label>
 
         <!-- 画像プレビュー枠 -->
-        <div id="image-preview" class="image-preview">
-        </div>
+        <div id="image-preview" class="image-preview">画像を選択してください</div>
 
         <!-- 画像選択ボタン -->
         <label for="image" class="custom-file-label">画像を選択</label>
@@ -25,12 +24,10 @@
 
     <!-- 商品カテゴリ -->
     <div class="form-group">
-        <label for="category_id"><strong>カテゴリ</strong></label>
-        <div id="category-tags">
+        <label for="categories"><strong>カテゴリ</strong></label>
+        <div id="categories">
             @foreach($categories as $category)
-                <div class="category-tag" data-id="{{ $category->id }}">
-                    {{ $category->name }}
-                </div>
+                <div class="category-tag" data-id="{{ $category->id }}">{{ $category->name }}</div>
             @endforeach
         </div>
         <input type="hidden" id="category_id" name="category_id" value="">
@@ -75,51 +72,47 @@
 
 @section('js')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoryTags = document.querySelectorAll('.category-tag');
+        const categoryIdInput = document.getElementById('category_id');
         const imageInput = document.getElementById('image');
-        const preview = document.getElementById('image-preview');
+        const imagePreview = document.getElementById('image-preview');
 
-        if (imageInput) {
-            imageInput.addEventListener('change', function (event) {
-                const file = event.target.files[0]; // 選択した画像ファイルを取得
-                preview.innerHTML = ''; // プレビューをリセット
+        let selectedCategories = [];
 
-                if (file) {
-                    const reader = new FileReader();
+        // カテゴリ選択
+        categoryTags.forEach(tag => {
+            tag.addEventListener('click', function () {
+                const categoryId = this.getAttribute('data-id');
 
-                    reader.onload = function (e) {
-                        const img = document.createElement('img'); // 画像要素を作成
-                        img.src = e.target.result; // 読み込んだ画像データを設定
-                        img.style.maxWidth = '100%'; // 最大幅を指定
-                        img.style.maxHeight = '100%'; // 最大高さを指定
-                        preview.appendChild(img); // プレビュー枠に画像を追加
-                    };
-
-                    reader.readAsDataURL(file); // 画像ファイルをデータURLとして読み込む
+                if (selectedCategories.includes(categoryId)) {
+                    // すでに選択済みの場合、選択を解除
+                    selectedCategories = selectedCategories.filter(id => id !== categoryId);
+                    this.classList.remove('selected');
                 } else {
-                    preview.innerHTML = '<p>ここに画像が表示されます</p>'; // 画像が選ばれていない場合のメッセージ
+                    // 未選択の場合、選択リストに追加
+                    selectedCategories.push(categoryId);
+                    this.classList.add('selected');
                 }
+
+                // hidden input に選択されたカテゴリ ID を保存
+                categoryIdInput.value = selectedCategories.join(',');
             });
-        } else {
-            console.error('imageInput が見つかりません');
-        }
-    });
+        });
 
-    document.addEventListener('DOMContentLoaded', () => {
-    const categoryTags = document.querySelectorAll('.category-tag');
-    const categoryIdField = document.getElementById('category_id');
-
-    categoryTags.forEach(tag => {
-        tag.addEventListener('click', () => {
-            tag.classList.toggle('selected');
-
-            const selectedCategories = Array.from(document.querySelectorAll('.category-tag.selected'))
-                .map(selectedTag => selectedTag.getAttribute('data-id'));
-
-            categoryIdField.value = selectedCategories.join(',');
+        // 画像プレビュー表示
+        imageInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="プレビュー画像">`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.innerHTML = "画像を選択してください";
+            }
         });
     });
-});
-
 </script>
 @endsection

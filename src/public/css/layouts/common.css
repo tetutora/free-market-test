@@ -15,18 +15,17 @@ li {
     padding: 10px;
     background-color: #000;
     width: 100%;
+    box-sizing: border-box;
+    /* 幅計算にパディングを含む */
 }
 
 .header__inner {
-    max-width: 1200px;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.header__logo-icon {
-    height: 40px;
+    flex-wrap: wrap;
+    /* 必要に応じて折り返し */
 }
 
 .header-nav {
@@ -34,23 +33,31 @@ li {
     align-items: center;
     list-style: none;
     gap: 20px;
+    flex-wrap: wrap;
+    /* 小さい画面で折り返し可能 */
 }
 
 .header-nav__search {
     flex-grow: 1;
+    /* 検索欄が可能な限り幅を取る */
     display: flex;
     align-items: center;
 }
 
 .header-nav__search-input {
     width: 100%;
+    /* 親要素に合わせる */
     max-width: 700px;
+    /* 大画面での制限 */
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    /* パディングを幅計算に含む */
 }
 
+/* リンクやボタン */
 .header-nav__link,
 .header-nav__button {
     text-decoration: none;
@@ -76,6 +83,11 @@ li {
 
 /* Responsive */
 @media screen and (max-width: 850px) {
+    .header__inner {
+        flex-wrap: wrap;
+        /* 必要に応じて折り返し */
+    }
+
     .header-nav {
         gap: 10px;
     }
@@ -87,7 +99,11 @@ li {
     }
 
     .header-nav__search-input {
-        max-width: 90%;
+        width: 100%;
+        /* 親要素に合わせる */
+        max-width: none;
+        /* 制限を解除 */
         padding: 8px;
+        font-size: 14px;
     }
 }

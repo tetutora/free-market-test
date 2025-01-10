@@ -42,12 +42,13 @@ class ProductController extends Controller
         return view('products.show', compact('product', 'zipcode', 'address', 'building'));
     }
 
-    public function create(ExhibitionRequest $request)
+    public function create()
     {
         $categories = Category::all();
 
         return view('products.create', compact('categories'));
     }
+
 
     public function store(Request $request)
     {
@@ -55,7 +56,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
-            'status' => $request->status_id,
+            'status' => $request->status,
             'user_id' => auth()->id(), // ログインユーザーID
         ]);
 

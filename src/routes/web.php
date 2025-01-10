@@ -28,7 +28,6 @@ Route::post('/logout', function () {
 
 // 商品関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/sell', [ProductController::class, 'create'])->name('sell');
     Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
     Route::post('/product/{product}/favorite', [ProductController::class, 'toggleFavorite'])->name('product.favorite');
 });
@@ -56,3 +55,20 @@ Route::middleware(['auth'])->group(function () {
 
 // 商品一覧 (非ログインでも可)
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// 商品出品ページ (ログインしている場合)
+Route::get('/sell', function () {
+    if (Auth::check()) {
+        return view('products.create');
+    }
+    return redirect()->route('login');
+})->name('sell');
+
+// 商品出品ページ (ログイン状態に応じて処理を分岐)
+Route::get('/sell', function () {
+    if (Auth::check()) {
+        return app(ProductController::class)->create();
+    }
+    return redirect()->route('login');
+})->name('sell');
+
