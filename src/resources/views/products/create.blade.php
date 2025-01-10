@@ -16,7 +16,6 @@
 
         <!-- 画像プレビュー枠 -->
         <div id="image-preview" class="image-preview">
-            <p>ここに画像が表示されます</p>
         </div>
 
         <!-- 画像選択ボタン -->
@@ -39,8 +38,9 @@
 
     <!-- 商品状態 -->
     <div class="form-group">
-        <label for="status_id">商品状態</label>
-        <select id="status_id" name="status_id" required>
+        <label for="status"><strong>商品状態</strong></label>
+        <select id="status" name="status" required>
+            <option value="">-- 選択してください --</option>
             <option value="良好">良好</option>
             <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
             <option value="やや傷や汚れあり">やや傷や汚れあり</option>
@@ -50,18 +50,18 @@
 
     <!-- 商品名と説明 -->
     <div class="form-group">
-        <label for="name">商品名</label>
+        <label for="name"><strong>商品名</strong></label>
         <input type="text" id="name" name="name" required>
     </div>
 
     <div class="form-group">
-        <label for="description">商品説明</label>
+        <label for="description"><strong>商品説明</strong></label>
         <textarea id="description" name="description" required></textarea>
     </div>
 
     <!-- 販売価格 -->
     <div class="form-group">
-        <label for="price">価格</label>
+        <label for="price"><strong>価格</strong></label>
         <input type="number" id="price" name="price" required>
     </div>
 

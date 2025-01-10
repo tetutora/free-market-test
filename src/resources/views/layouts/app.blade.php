@@ -12,36 +12,35 @@
 <body>
     <header class="header">
         <div class="header__inner">
-            <div class="header-utilities">
-                <a class="header__logo" href="/"><img src="{{ asset('images/logo.svg') }}" alt="アイコン" class="header__logo-icon"></a>
-                <nav>
-                    <ul class="header-nav">
-                        <li class="header-nav__item">
-                            <form class="header-nav__search" action="{{ url()->current() }}" method="GET" id="searchForm">
-                                <input
-                                    type="text" 
-                                    name="search" 
-                                    placeholder="なにをお探しですか？" 
-                                    class="header-nav__search-input" 
-                                    value="{{ request('search') }}" 
-                                    id="searchInput">
-                            </form>
-                        </li>
-                        <li class="header-nav__item">
-                            <a class="header-nav__link" href="/mypage">マイページ</a>
-                        </li>
-                        <li class="header-nav__item">
-                            <form class="form" action="/logout" method="post">
-                                @csrf
-                                <button class="header-nav__button">ログアウト</button>
-                            </form>
-                        </li>
-                        <li class="header-nav__item">
-                            <a class="header-nav__link" href="{{ route('sell') }}">出品</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            <a class="header__logo" href="/">
+                <img src="{{ asset('images/logo.svg') }}" alt="アイコン" class="header__logo-icon">
+            </a>
+            <nav class="header__nav">
+                <ul class="header-nav">
+                    <li class="header-nav__item">
+                        <form class="header-nav__search" action="{{ url()->current() }}" method="GET">
+                            <input 
+                                type="text" 
+                                name="search" 
+                                placeholder="なにをお探しですか？" 
+                                class="header-nav__search-input" 
+                                value="{{ request('search') }}">
+                        </form>
+                    </li>
+                    <li class="header-nav__item">
+                        <a class="header-nav__link" href="/mypage">マイページ</a>
+                    </li>
+                    <li class="header-nav__item">
+                        <form class="form" action="/logout" method="post">
+                            @csrf
+                            <button class="header-nav__button">ログアウト</button>
+                        </form>
+                    </li>
+                    <li class="header-nav__item">
+                        <a class="header-nav__link header-nav__link--highlight" href="{{ route('sell') }}">出品</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </header>
 
@@ -49,21 +48,24 @@
         @yield('content')
         @yield('js')
     </main>
+
+    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const searchInput = document.getElementById('searchInput');
-        const searchForm = document.getElementById('searchForm');
+        const searchInput = document.querySelector('.header-nav__search-input');
+        const searchForm = document.querySelector('.header-nav__search');
         let debounceTimeout;
 
-        searchInput.addEventListener('input', () => {
-            // 入力後 500ms 待ってから検索実行
-            clearTimeout(debounceTimeout);
-            debounceTimeout = setTimeout(() => {
-                searchForm.submit();
-            }, 500);
-        });
+        if (searchInput && searchForm) {
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimeout);
+                debounceTimeout = setTimeout(() => {
+                    searchForm.submit();
+                }, 500);
+            });
+        }
     });
 </script>

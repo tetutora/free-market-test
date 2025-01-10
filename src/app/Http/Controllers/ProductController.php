@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
-use App\Models\Status;
 use App\Models\Comment;
 use App\Models\Favorite;
+use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -42,12 +42,11 @@ class ProductController extends Controller
         return view('products.show', compact('product', 'zipcode', 'address', 'building'));
     }
 
-    public function create()
+    public function create(ExhibitionRequest $request)
     {
         $categories = Category::all();
-        $statuses = Status::all();
 
-        return view('products.create', compact('categories', 'statuses'));
+        return view('products.create', compact('categories'));
     }
 
     public function store(Request $request)
