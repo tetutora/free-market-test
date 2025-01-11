@@ -110,3 +110,41 @@
     </div>
 </div>
 @endsection
+
+@section('js')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const favoriteBtns = document.querySelectorAll('.favorite-button');
+
+        favoriteBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const form = btn.closest('form');
+                const productId = form.getAttribute('action').split('/').pop();
+
+                fetch(`/products/${productId}/toggle-favorite`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({}),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const favoriteIcon = btn.querySelector('.favorite-icon');
+                    if (data.favorited) {
+                        favoriteIcon.textContent = '★';
+                    } else {
+                        favoriteIcon.textContent = '☆';
+                    }
+                    // 更新するお気に入りカウント
+                    const favoriteCount = btn.nextElementSibling;
+                    favoriteCount.textContent = data.favoriteCount;
+                })
+                .catch(error => console.error('エラー:', error));
+            });
+        });
+    });
+</script>
+@endsection

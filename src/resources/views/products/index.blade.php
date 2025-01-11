@@ -33,10 +33,10 @@
     @endforeach
 </div>
 
-<!-- マイリスト表示 (初期は非表示) -->
+<!-- マイリスト表示 -->
 <div id="mylist" class="product-list" style="display: none;">
     <h1>マイリスト</h1>
-    @if(Auth::check() && Auth::user()->is_approved)
+    @if(Auth::check())
         @foreach($likedProducts as $likedProduct)
             <div class="product-item">
                 <a href="{{ route('product.show', $likedProduct->id) }}">
@@ -60,32 +60,47 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const recommendationBtn = document.getElementById('recommendation-btn');
-    const mylistBtn = document.getElementById('mylist-btn');
-    const productList = document.getElementById('product-list');
-    const mylist = document.getElementById('mylist');
+        const recommendationBtn = document.getElementById('recommendation-btn');
+        const mylistBtn = document.getElementById('mylist-btn');
+        const productList = document.getElementById('product-list');
+        const mylist = document.getElementById('mylist');
 
-    if (recommendationBtn && mylistBtn && productList && mylist) {
-        recommendationBtn.addEventListener('click', () => {
-            console.log('おすすめボタンがクリックされました');
-            console.log('productList', productList);
-            console.log('mylist', mylist);
+        if (recommendationBtn && mylistBtn && productList && mylist) {
+            recommendationBtn.addEventListener('click', () => {
+                productList.style.display = 'flex';
+                mylist.style.display = 'none';
+            });
 
-            productList.style.display = 'flex';
-            mylist.style.display = 'none';
-        });
-
-        mylistBtn.addEventListener('click', () => {
-            console.log('マイリストボタンがクリックされました');
-            console.log('productList', productList);
-            console.log('mylist', mylist);
-
-            productList.style.display = 'none';
-            mylist.style.display = 'flex';
-        });
-    } else {
-        console.error('ボタンまたは表示要素が見つかりません');
-    }
-});
+            mylistBtn.addEventListener('click', () => {
+                fetch('/products/liked')
+                    .then(response => response.json())
+                    .then(data => {
+                        mylist.innerHTML = '';
+                        if (data.length === 0) {
+                            mylist.innerHTML = '<p>マイリストは表示されません。</p>';
+                        } else {
+                            data.forEach(product => {
+                                mylist.innerHTML += `
+                                    <div class="product-item">
+                                        <a href="/item/${product.id}">
+                                            <img src="${product.image}" alt="${product.name}">
+                                        </a>
+                                        <p>
+                                            ${product.name}
+                                            ${product.is_sold ? '<span class="sold-label">Sold</span>' : ''}
+                                        </p>
+                                    </div>
+                                `;
+                            });
+                        }
+                        productList.style.display = 'none';
+                        mylist.style.display = 'flex';
+                    })
+                    .catch(error => console.error('エラー:', error));
+            });
+        } else {
+            console.error('ボタンまたは表示要素が見つかりません');
+        }
+    });
 </script>
 @endsection

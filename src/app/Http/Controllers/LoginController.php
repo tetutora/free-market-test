@@ -34,11 +34,11 @@ class LoginController extends Controller
         // 認証を試行
         if (Auth::attempt($credentials)) {
             // 認証成功時にリダイレクト
-            return redirect()->intended('/');
+            return redirect()->route('products.index');
         }
 
         // 認証失敗時
-        return redirect()->back()->withErrors(['email' => 'ユーザー名またはメールアドレス、もしくはパスワードが正しくありません。']);
+        return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません']);
     }
 }
 

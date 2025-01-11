@@ -11,21 +11,26 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
         $search = $request->get('search');
+        $userId = Auth::id();
 
+        // ログインユーザーが出品した商品を除外
         $products = Product::query()
             ->when($search, function ($query) use ($search) {
                 return $query->where('name', 'like', '%' . $search . '%');
             })
+            ->when($userId, function ($query) use ($userId) {
+                return $query->where('user_id', '!=', $userId);
+            })
             ->get();
 
-        return view('products.index', compact('products'));
+        $likedProducts = Auth::check() ? Auth::user()->favorites()->with('product')->get()->pluck('product') : [];
+
+        return view('products.index', compact('products', 'likedProducts'));
     }
 
     public function show($id)
@@ -48,7 +53,6 @@ class ProductController extends Controller
 
         return view('products.create', compact('categories'));
     }
-
 
     public function store(Request $request)
     {
@@ -116,5 +120,18 @@ class ProductController extends Controller
         }
 
         return back();
+    }
+
+    public function likedProducts()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $likedProducts = $user->favorites()->with('product')->get()->pluck('product');
+
+        return response()->json($likedProducts);
     }
 }

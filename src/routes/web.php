@@ -72,3 +72,9 @@ Route::get('/sell', function () {
     return redirect()->route('login');
 })->name('sell');
 
+Route::middleware(['auth'])->get('/products/liked', [ProductController::class, 'likedProducts'])->name('products.liked');
+
+Route::post('/products/{product}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.toggleFavorite');
+
+Route::post('products/{id}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.favorite');
+
