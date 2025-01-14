@@ -76,5 +76,8 @@ Route::middleware(['auth'])->get('/products/liked', [ProductController::class, '
 
 Route::post('/products/{product}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.toggleFavorite');
 
-Route::post('products/{id}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.favorite');
+Route::post('/products/{id}/toggle-favorite', [ProductController::class, 'toggleFavorite'])
+    ->name('product.favorite')
+    ->middleware('auth');
+
 

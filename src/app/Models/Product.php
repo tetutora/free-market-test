@@ -13,8 +13,6 @@ class Product extends Model
         'name', 'description', 'price', 'status', 'image','user_id',
     ];
 
-    // カテゴリとの多対多リレーション
-    // Productモデル
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'products_categories', 'product_id', 'category_id');
@@ -27,8 +25,17 @@ class Product extends Model
 
     public function favorites()
     {
-        return $this->belongsToMany(User::class, 'favorites');
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
-    
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function product()
+{
+    return $this->belongsTo(Product::class);
+}
 
 }

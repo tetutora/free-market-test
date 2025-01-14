@@ -104,22 +104,21 @@ class ProductController extends Controller
         return redirect()->route('product.show', $product->id)->with('success', 'コメントを投稿しました！');
     }
 
-    public function toggleFavorite(Product $product)
+    public function toggleFavorite(Request $request, $id)
     {
+        $product = Product::findOrFail($id);
         $user = Auth::user();
 
-        $favorite = $product->favorites()->where('user_id', $user->id)->first();
-
-        if ($favorite) {
-            $favorite->delete();
-        } else {
-            Favorite::create([
-                'user_id' => $user->id,
-                'product_id' => $product->id,
-            ]);
+        if (!$user) {
+            return response()->json(['message' => 'ログインが必要です'], 401);
         }
 
-        return back();
+        $user->favorites()->toggle($product->id);
+
+        return response()->json([
+            'favorited' => $user->favorites->contains($product),
+            'favoriteCount' => $product->favorites()->count(),
+        ]);
     }
 
     public function likedProducts()

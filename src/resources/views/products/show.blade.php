@@ -27,16 +27,12 @@
         <div class="button-row">
             <!-- お気に入りボタン -->
             <div class="icon-button">
-                <form action="{{ route('product.favorite', $product->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="favorite-button">
-                        <!-- お気に入りの状態に応じて☆マークのスタイルを変更 -->
-                        <span class="favorite-icon">
-                            {{ $product->favorites->where('user_id', auth()->id())->count() > 0 ? '★' : '☆' }}
-                        </span>
+                <div class="icon-button">
+                    <button id="favorite-button" class="favorite-button {{ Auth::user() && Auth::user()->favorites->contains($product) ? 'favorited' : '' }}" data-product-id="{{ $product->id }}">
+                        <span id="favorite-icon">{{ Auth::user() && Auth::user()->favorites->contains($product) ? '★' : '☆' }}</span>
                     </button>
-                </form>
-                <p class="favorite-count">{{ $product->favorites->count() }}</p>
+                    <p id="favorite-count" class="favorite-count">{{ $product->favorites->count() }}</p>
+                </div>
             </div>
             <!-- コメントボタン -->
             <div class="icon-button">
@@ -72,35 +68,35 @@
 
         <!-- コメント一覧 -->
         @if($product->comments->isNotEmpty())
-            <h2>コメント</h2>
-            @foreach($product->comments as $comment)
-                <div class="comment-item">
-                    @if($comment->user && $comment->user->profile)
-                        <!-- プロフィール画像 -->
-                        <div class="comment-profile">
-                            <img 
-                                src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.png') }}" 
-                                alt="{{ $comment->user->name }}のプロフィール画像" 
-                                class="profile-image"
-                            >
-                        </div>
-                        <!-- コメント内容 -->
-                        <div class="comment-content">
-                            <strong>{{ $comment->user->name }}:</strong>
-                            <p>{{ $comment->content }}</p>
-                        </div>
-                    @else
-                        <!-- ユーザーやプロフィールが存在しない場合 -->
-                        <div class="comment-content">
-                            <strong>削除されたユーザー:</strong>
-                            <p>{{ $comment->content }}</p>
-                        </div>
-                    @endif
-                </div>
-            @endforeach
-        @else
-            <p class="no-comments">まだコメントはありません。</p>
-        @endif
+        <h2>コメント</h2>
+        @foreach($product->comments as $comment)
+            <div class="comment-item">
+                @if($comment->user && $comment->user->profile)
+                    <!-- プロフィール画像 -->
+                    <div class="comment-profile">
+                        <img 
+                            src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.png') }}" 
+                            alt="{{ $comment->user->name }}のプロフィール画像" 
+                            class="profile-image"
+                        >
+                    </div>
+                    <!-- コメント内容 -->
+                    <div class="comment-content">
+                        <strong>{{ $comment->user->name }}:</strong>
+                        <p>{{ $comment->content }}</p>
+                    </div>
+                @else
+                    <!-- ユーザーやプロフィールが存在しない場合 -->
+                    <div class="comment-content">
+                        <strong>削除されたユーザー:</strong>
+                        <p>{{ $comment->content }}</p>
+                    </div>
+                @endif
+            </div>
+        @endforeach
+    @else
+        <p class="no-comments">まだコメントはありません。</p>
+    @endif
 
         <!-- コメント入力欄 -->
         <p><strong>商品へのコメント</strong></p>
@@ -116,37 +112,24 @@
 
 @section('js')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const favoriteBtns = document.querySelectorAll('.favorite-button');
+    document.getElementById('favorite-button').addEventListener('click', function () {
+        const productId = this.dataset.productId;
 
-        favoriteBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const form = btn.closest('form');
-                const productId = form.getAttribute('action').split('/').pop();
-
-                fetch(`/products/${productId}/toggle-favorite`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({}),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const favoriteIcon = btn.querySelector('.favorite-icon');
-                    if (data.favorited) {
-                        favoriteIcon.textContent = '★';
-                    } else {
-                        favoriteIcon.textContent = '☆';
-                    }
-                    // 更新するお気に入りカウント
-                    const favoriteCount = btn.nextElementSibling;
-                    favoriteCount.textContent = data.favoriteCount;
-                })
-                .catch(error => console.error('エラー:', error));
-            });
+        fetch(`/products/${productId}/toggle-favorite`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.favorited !== undefined) {
+                document.getElementById('favorite-icon').textContent = data.favorited ? '★' : '☆';
+                document.getElementById('favorite-count').textContent = data.favoriteCount;
+            } else {
+                alert(data.message || 'エラーが発生しました。');
+            }
         });
     });
 </script>

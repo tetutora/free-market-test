@@ -68,6 +68,12 @@ class User extends Authenticatable
 
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(Product::class, 'favorites')->withTimestamps();
     }
+
+    public function productCategories()
+    {
+        return $this->belongsToMany(Product::class, 'products_categories', 'user_id', 'product_id');
+    }
+
 }
