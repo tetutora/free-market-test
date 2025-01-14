@@ -11,7 +11,7 @@
         @if(str_starts_with($product->image, 'http'))
             <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width: 300px;">
         @else
-            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 300px;">
+            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 500px;">
         @endif
     </div>
 
@@ -21,7 +21,7 @@
         <h1>{{ $product->name }}</h1>
 
         <!-- 価格 -->
-        <p>¥<strong>{{ round($product->price) }}</strong>(税込)</p>
+        <p>¥<span class="product-price">{{ number_format(round($product->price)) }}</span>(税込)</p>
 
         <!-- お気に入りボタンとコメントボタン (横並び) -->
         <div class="button-row">
@@ -56,8 +56,10 @@
         <h2>商品説明</h2>
         <p>{{ $product->description }}</p>
 
+        <h2>商品情報</h2>
+
         <!-- カテゴリをタグ形式で表示 -->
-        <h2>カテゴリ</h2>
+        <p class="product-category"><strong>カテゴリ</strong></p>
         <div class="tags">
             @foreach($product->categories as $category)
                 <span class="tag">{{ $category->name }}</span>
@@ -65,11 +67,12 @@
         </div>
 
         <!-- 商品の状態 -->
-        <p><strong>商品の状態:</strong> {{ $product->status ?? '情報なし' }}</p>
+        <p class="product-status"><strong>商品の状態:</strong></p>
+        <div>{{ $product->status ?? '情報なし' }}</div>
 
         <!-- コメント一覧 -->
         @if($product->comments->isNotEmpty())
-            <h2>コメント一覧</h2>
+            <h2>コメント</h2>
             @foreach($product->comments as $comment)
                 <div class="comment-item">
                     @if($comment->user && $comment->user->profile)
@@ -96,11 +99,11 @@
                 </div>
             @endforeach
         @else
-            <p>まだコメントはありません。</p>
+            <p class="no-comments">まだコメントはありません。</p>
         @endif
 
         <!-- コメント入力欄 -->
-        <h2>コメントを追加</h2>
+        <p><strong>商品へのコメント</strong></p>
         <form action="{{ route('product.comment', $product->id) }}" method="POST">
             @csrf
             <textarea name="content" rows="4" cols="50" placeholder="コメントを入力してください"></textarea>

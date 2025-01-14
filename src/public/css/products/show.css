@@ -1,5 +1,6 @@
 .product-container {
-    max-width: 800px;
+    max-width: 1000px;
+    width: 100%;
     margin: auto;
     display: flex;
     gap: 20px;
@@ -9,24 +10,19 @@
 /* ボタン行のスタイル */
 .button-row {
     display: flex;
-    /* 横並びにする */
-    gap: 10px;
-    /* ボタン間のスペース */
+    gap: 30px;
     align-items: center;
-    /* 縦方向で中央揃え */
-    margin-bottom: 15px;
-    /* 下余白を調整 */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .icon-button {
     display: flex;
     flex-direction: column;
-    /* アイコンとカウントを縦並びに */
     align-items: center;
     justify-content: center;
     cursor: pointer;
     gap: 5px;
-    /* アイコンとカウントの間のスペース */
 }
 
 /* アイコンスタイル */
@@ -74,8 +70,19 @@
     flex: 2;
 }
 
+.product-category,
+.product-status,
+.tags {
+    margin-bottom: 20px;
+}
+
 .product-details h1 {
     margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.product-price {
+    font-size: 24px;
 }
 
 .button-column {
@@ -84,7 +91,7 @@
 
 /* 商品情報のスタイル */
 h2 {
-    margin-top: 20px;
+    margin: 20px 0;
     font-size: 1.5rem;
 }
 
@@ -108,7 +115,6 @@ h2 {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    /* 画像とコメント内容の間隔 */
     margin: 10px 0;
     padding: 10px;
     background-color: #f9f9f9;
@@ -118,34 +124,33 @@ h2 {
 
 .comment-profile .profile-image {
     width: 50px;
-    /* プロフィール画像の幅 */
     height: 50px;
-    /* プロフィール画像の高さ */
     border-radius: 50%;
-    /* 丸い画像にする */
     object-fit: cover;
-    /* 画像を枠内に収める */
     border: 1px solid #ccc;
-    /* 画像の枠線 */
 }
 
 .comment-content {
     flex: 1;
-    /* 残りのスペースを占める */
     font-size: 14px;
-    /* コメントの文字サイズ */
 }
 
 .comment-content strong {
     font-size: 16px;
-    /* 名前の文字サイズ */
     margin-bottom: 5px;
     display: block;
+}
+
+.no-comments {
+    margin: 20px 0;
+    text-align: center;
+    color: #555;
 }
 
 textarea {
     width: 100%;
     resize: vertical;
+    margin-bottom: 40px;
 }
 
 .favorite-button {
