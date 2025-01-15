@@ -51,9 +51,8 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'user_id');
     }
 
-    public function purchases()
-    {
-        return $this->hasManyThrough(Product::class, Purchase::class, 'user_id', 'id', 'id', 'product_id');
+    public function purchasedProducts() {
+        return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id');
     }
 
     public function profile()
@@ -76,4 +75,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'products_categories', 'user_id', 'product_id');
     }
 
+    public function purchases() {
+        return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id')->withTimestamps();
+    }
 }

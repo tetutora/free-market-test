@@ -37,13 +37,13 @@
 
         <!-- 購入商品リスト -->
         <div class="product-container" id="purchase-products" style="display: none;">
-            @foreach ($user->purchases ?? [] as $product)
-            <div class="product-item">
-                <a href="{{ route('product.show', $product->id) }}">
-                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="商品画像" class="product-image">
-                    <p class="product-name">{{ $product->name }}</p>
-                </a>
-            </div>
+            @foreach ($purchasedProducts ?? [] as $product)
+                <div class="product-item">
+                    <a href="{{ route('product.show', $product->id) }}">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="商品画像" class="product-image">
+                        <p class="product-name">{{ $product->name }}</p>
+                    </a>
+                </div>
             @endforeach
         </div>
     </div>

@@ -31,7 +31,26 @@ class PurchaseController extends Controller
     {
         $product = Product::findOrFail($productId);
 
+        if (!$product) {
+            return redirect()->route('home')->with('error', 'Product not found');
+        }
 
-        return redirect()->route('home');
+        $product->is_sold = true;
+        $product->save();
+
+        // 購入済み商品の情報をユーザーのマイページに追加
+        $user = Auth::user();
+        $user->purchasedProducts()->attach($productId);  // マイページに購入済みの商品を追加
+
+        return redirect()->route('profile.mypage')->with('success', 'Purchase complete');
     }
+
+    public function myPurchases()
+{
+    $user = Auth::user();
+    $purchasedProducts = $user->purchases()->get();
+
+    return view('products.my-purchases', compact('purchasedProducts'));
+}
+
 }

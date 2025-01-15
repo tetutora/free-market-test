@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('status');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->boolean('is_sold')->default(false);
             $table->timestamps();
         });
     }

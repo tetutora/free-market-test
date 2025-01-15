@@ -71,6 +71,30 @@
     document.addEventListener('DOMContentLoaded', function() {
         updatePaymentMethod();
     });
+
+    // 購入処理後の処理
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault(); // デフォルトのフォーム送信をキャンセル
+        
+        const productId = {{ $product->id }};
+        
+        fetch(`/purchase/complete/${productId}`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+        })
+        .then(response => {
+            if (response.ok) {
+                // 商品情報を更新してSoldout表示に変更
+                alert('購入が完了しました。商品はSoldoutに表示されます');
+                window.location.href = '/my-purchases'; // マイページにリダイレクト
+            } else {
+                throw new Error('Error in purchase');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
 </script>
 @endsection
 
