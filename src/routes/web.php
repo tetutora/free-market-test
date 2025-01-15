@@ -80,4 +80,6 @@ Route::post('/products/{id}/toggle-favorite', [ProductController::class, 'toggle
     ->name('product.favorite')
     ->middleware('auth');
 
+Route::patch('/products/{product}/toggle-favorite', [ProductController::class, 'toggleFavorite']);
 
+Route::post('/products/{id}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.toggleFavorite');

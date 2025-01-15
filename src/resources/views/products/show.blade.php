@@ -23,16 +23,15 @@
         <!-- 価格 -->
         <p>¥<span class="product-price">{{ number_format(round($product->price)) }}</span>(税込)</p>
 
-        <!-- お気に入りボタンとコメントボタン (横並び) -->
         <div class="button-row">
-            <!-- お気に入りボタン -->
-            <div class="icon-button">
-                <div class="icon-button">
-                    <button id="favorite-button" class="favorite-button {{ Auth::user() && Auth::user()->favorites->contains($product) ? 'favorited' : '' }}" data-product-id="{{ $product->id }}">
-                        <span id="favorite-icon">{{ Auth::user() && Auth::user()->favorites->contains($product) ? '★' : '☆' }}</span>
-                    </button>
-                    <p id="favorite-count" class="favorite-count">{{ $product->favorites->count() }}</p>
-                </div>
+            <!-- いいねボタン -->
+            <div class="favorite-section">
+                <button id="favorite-button" 
+                        class="favorite-button {{ $isFavorited ? 'favorited' : '' }}" 
+                        data-product-id="{{ $product->id }}">
+                    <span id="favorite-icon">{{ $isFavorited ? '★' : '☆' }}</span>
+                </button>
+                <p id="favorite-count" class="favorite-count">{{ $favoriteCount }}</p>
             </div>
             <!-- コメントボタン -->
             <div class="icon-button">

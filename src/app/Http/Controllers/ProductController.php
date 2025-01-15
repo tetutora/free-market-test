@@ -38,13 +38,11 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $user = Auth::user();
 
-        $profile = $user ? $user->profile : null;
+        // いいね状態とカウント
+        $isFavorited = $user ? $user->favorites()->where('product_id', $id)->exists() : false;
+        $favoriteCount = $product->favorites()->count();
 
-        $zipcode = $profile ? $profile->zipcode : '未設定';
-        $address = $profile ? $profile->address : '未設定';
-        $building = $profile ? $profile->building : '未設定';
-
-        return view('products.show', compact('product', 'zipcode', 'address', 'building'));
+        return view('products.show', compact('product', 'isFavorited', 'favoriteCount'));
     }
 
     public function create()
@@ -82,7 +80,6 @@ class ProductController extends Controller
             }
         }
 
-        // リダイレクト
         return redirect()->route('products.index');
     }
 
@@ -113,10 +110,11 @@ class ProductController extends Controller
             return response()->json(['message' => 'ログインが必要です'], 401);
         }
 
+        // いいねのトグル
         $user->favorites()->toggle($product->id);
 
         return response()->json([
-            'favorited' => $user->favorites->contains($product),
+            'favorited' => $user->favorites()->where('product_id', $id)->exists(),
             'favoriteCount' => $product->favorites()->count(),
         ]);
     }
