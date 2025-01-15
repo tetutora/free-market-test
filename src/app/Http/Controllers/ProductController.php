@@ -18,7 +18,6 @@ class ProductController extends Controller
         $search = $request->get('search');
         $userId = Auth::id();
 
-        // ログインユーザーが出品した商品を除外
         $products = Product::query()
             ->when($search, function ($query) use ($search) {
                 return $query->where('name', 'like', '%' . $search . '%');
@@ -28,7 +27,7 @@ class ProductController extends Controller
             })
             ->get();
 
-        $likedProducts = Auth::check() ? Auth::user()->favorites()->with('product')->get()->pluck('product') : [];
+        $likedProducts = Auth::check() ? Auth::user()->favorites : collect([]);
 
         return view('products.index', compact('products', 'likedProducts'));
     }

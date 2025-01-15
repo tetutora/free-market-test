@@ -33,14 +33,16 @@
     @endforeach
 </div>
 
-<!-- マイリスト表示 (初期は非表示) -->
 <div id="mylist" class="product-list" style="display: none;">
-    <h1>マイリスト</h1>
-    @if(Auth::check() && Auth::user()->is_approved)
+    @if($likedProducts->isNotEmpty())
         @foreach($likedProducts as $likedProduct)
             <div class="product-item">
                 <a href="{{ route('product.show', $likedProduct->id) }}">
-                    <img src="{{ asset('storage/' . $likedProduct->image) }}" alt="{{ $likedProduct->name }}">
+                    @if(str_starts_with($likedProduct->image, 'http')) <!-- 外部リンク対応 -->
+                        <img src="{{ $likedProduct->image }}" alt="{{ $likedProduct->name }}">
+                    @else
+                        <img src="{{ asset('storage/' . $likedProduct->image) }}" alt="{{ $likedProduct->name }}">
+                    @endif
                 </a>
                 <p>
                     {{ $likedProduct->name }}
@@ -51,9 +53,10 @@
             </div>
         @endforeach
     @else
-        <p>マイリストは表示されません。</p>
+        <p>マイリストに商品はありません。</p>
     @endif
 </div>
+
 @endsection
 
 @section('js')

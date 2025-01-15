@@ -83,3 +83,5 @@ Route::post('/products/{id}/toggle-favorite', [ProductController::class, 'toggle
 Route::patch('/products/{product}/toggle-favorite', [ProductController::class, 'toggleFavorite']);
 
 Route::post('/products/{id}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.toggleFavorite');
+
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
