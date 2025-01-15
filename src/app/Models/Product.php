@@ -25,7 +25,7 @@ class Product extends Model
 
     public function favorites()
     {
-        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+        return $this->hasMany(Favorite::class);
     }
 
     public function user()
@@ -34,8 +34,7 @@ class Product extends Model
     }
 
     public function product()
-{
-    return $this->belongsTo(Product::class);
-}
-
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

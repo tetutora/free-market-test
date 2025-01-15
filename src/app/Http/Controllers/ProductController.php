@@ -131,6 +131,6 @@ class ProductController extends Controller
 
         $likedProducts = $user->favorites()->with('product')->get()->pluck('product');
 
-        return response()->json($likedProducts);
+        return view('products.mylist', compact('likedProducts'));
     }
 }

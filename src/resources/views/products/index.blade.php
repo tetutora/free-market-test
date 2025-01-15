@@ -54,38 +54,29 @@
         <p>マイリストは表示されません。</p>
     @endif
 </div>
-
 @endsection
 
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const recommendationBtn = document.getElementById('recommendation-btn');
-    const mylistBtn = document.getElementById('mylist-btn');
-    const productList = document.getElementById('product-list');
-    const mylist = document.getElementById('mylist');
+        const recommendationBtn = document.getElementById('recommendation-btn');
+        const mylistBtn = document.getElementById('mylist-btn');
+        const productList = document.getElementById('product-list');
+        const mylist = document.getElementById('mylist');
 
-    if (recommendationBtn && mylistBtn && productList && mylist) {
-        recommendationBtn.addEventListener('click', () => {
-            console.log('おすすめボタンがクリックされました');
-            console.log('productList', productList);
-            console.log('mylist', mylist);
+        if (recommendationBtn && mylistBtn && productList && mylist) {
+            recommendationBtn.addEventListener('click', () => {
+                productList.style.display = 'flex';
+                mylist.style.display = 'none';
+            });
 
-            productList.style.display = 'flex';
-            mylist.style.display = 'none';
-        });
-
-        mylistBtn.addEventListener('click', () => {
-            console.log('マイリストボタンがクリックされました');
-            console.log('productList', productList);
-            console.log('mylist', mylist);
-
-            productList.style.display = 'none';
-            mylist.style.display = 'flex';
-        });
-    } else {
-        console.error('ボタンまたは表示要素が見つかりません');
-    }
-});
+            mylistBtn.addEventListener('click', () => {
+                productList.style.display = 'none';
+                mylist.style.display = 'flex';
+            });
+        } else {
+            console.error('ボタンまたは表示要素が見つかりません');
+        }
+    });
 </script>
 @endsection
