@@ -49,6 +49,7 @@
                         @else
                             <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- ローカル画像 -->
                         @endif
+                        <p class="product-name">{{ $product->name }}</p>
                     </a>
                 </div>
             @empty
