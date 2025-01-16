@@ -23,10 +23,9 @@
                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"> <!-- ローカル画像 -->
                 @endif
             </a>
-            <p>
-                {{ $product->name }}
+            <p>{{ $product->name }}
                 @if($product->is_sold)
-                    <span class="sold-label">Sold</span>
+                    <span class="sold-label">sold</span>
                 @endif
             </p>
         </div>
@@ -44,10 +43,9 @@
                         <img src="{{ asset('storage/' . $likedProduct->image) }}" alt="{{ $likedProduct->name }}">
                     @endif
                 </a>
-                <p>
-                    {{ $likedProduct->name }}
+                <p>{{ $likedProduct->name }}
                     @if($likedProduct->is_sold)
-                        <span class="sold-label">Sold</span>
+                        <span class="sold-label">sold</span>
                     @endif
                 </p>
             </div>
