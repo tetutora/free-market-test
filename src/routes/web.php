@@ -14,7 +14,9 @@ use App\Http\Controllers\{
 
 // トップページ関連
 Route::get('/', [ProductController::class, 'index'])->name('home');                      // 商品一覧画面（トップ画面）
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');    // 商品一覧画面（商品一覧用）
 Route::get('/products/mylist', [ProductController::class, 'index'])->name('home.mylist'); // 商品一覧画面（トップ画面）_マイリスト
+
 
 // 会員登録関連
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');  // 会員登録画面
@@ -32,7 +34,14 @@ Route::post('/logout', function () {                                            
 Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');        // 商品詳細画面
 
 // 商品コメント関連
-Route::post('/products/{id}/comment', [ProductController::class, 'addComment'])->name('product.comment');  // コメント投稿
+Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.Comment');
+Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.comment');
+Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
+Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
+
+Route::get('/item/{id}', [ProductController::class, 'show'])->name('products.show');
+
+
 
 // 商品購入関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {

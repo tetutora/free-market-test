@@ -50,13 +50,16 @@ class ProductController extends Controller
     }
 
     // コメント投稿
-    public function addComment(Request $request, $id)
+    public function addComment(Request $request, Product $product)
     {
+        if (!Auth::check()) {
+            // ログインしていない場合、商品詳細ページに戻す
+            return redirect()->route('products.show', $product->id)->with('error', 'ログインが必要です');
+        }
+
         $request->validate([
             'content' => 'required|string|max:255',
         ]);
-
-        $product = Product::findOrFail($id);
 
         Comment::create([
             'product_id' => $product->id,
@@ -64,7 +67,7 @@ class ProductController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('product.show', $id);
+        return response()->json(['success' => 'コメントを追加しました']);
     }
 
     // 商品出品ページ表示
@@ -78,25 +81,27 @@ class ProductController extends Controller
     // 商品保存処理
     public function store(Request $request)
     {
-        $product = new Product([
+        // 画像の保存
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public'); // ストレージに保存
+        } else {
+            $imagePath = null; // 画像がない場合は null
+        }
+
+        // 商品データを保存
+        $product = Product::create([
             'name' => $request->name,
-            'price' => $request->price,
+            'brand_name' => $request->brand_name,
             'description' => $request->description,
+            'price' => $request->price,
             'status' => $request->status,
-            'user_id' => auth()->id(), // ログインユーザーID
+            'user_id' => Auth::id(),
+            'image' => $imagePath, // 保存した画像のパスを設定
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $product->image = $path;
-        }
-
-        $product->save();
-
-        // カテゴリーの紐付けを正確に処理
-        if ($request->has('category_id')) {
-            $product->categories()->attach(explode(',', $request->category_id));
-        }
+        // カテゴリの関連付け
+        $categoryIds = explode(',', $request->category_id);
+        $product->categories()->attach($categoryIds, ['user_id' => Auth::id()]);
 
         return redirect()->route('products.index');
     }

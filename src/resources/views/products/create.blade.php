@@ -45,10 +45,15 @@
         </select>
     </div>
 
-    <!-- 商品名と説明 -->
+    <!-- 商品名とブランド名と商品説明 -->
     <div class="form-group">
         <label for="name"><strong>商品名</strong></label>
         <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+        <label for="brand_name"><strong>ブランド名</strong></label>
+        <input type="text" id="brand_name" name="brand_name">
     </div>
 
     <div class="form-group">

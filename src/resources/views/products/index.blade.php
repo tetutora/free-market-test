@@ -25,7 +25,7 @@
             </a>
             <p>{{ $product->name }}
                 @if($product->is_sold)
-                    <span class="sold-label">sold</span>
+                    <span class="sold-label">SSold</span>
                 @endif
             </p>
         </div>
@@ -45,7 +45,7 @@
                 </a>
                 <p>{{ $likedProduct->name }}
                     @if($likedProduct->is_sold)
-                        <span class="sold-label">sold</span>
+                        <span class="sold-label">Sold</span>
                     @endif
                 </p>
             </div>

@@ -20,6 +20,9 @@
         <!-- 商品名 -->
         <h1>{{ $product->name }}</h1>
 
+        <!-- ブランド名 -->
+        <p class="product-brand">{{ $product->brand_name ?? 'ブランド情報なし' }}</p>
+
         <!-- 価格 -->
         <p>¥<span class="product-price">{{ number_format(round($product->price)) }}</span>(税込)</p>
 
@@ -99,7 +102,7 @@
 
         <!-- コメント入力欄 -->
         <p><strong>商品へのコメント</strong></p>
-        <form action="{{ route('product.comment', $product->id) }}" method="POST">
+        <form action="{{ route('product.addComment', $product->id) }}" method="POST">
             @csrf
             <textarea name="content" rows="4" cols="50" placeholder="コメントを入力してください"></textarea>
             <br>
@@ -131,5 +134,35 @@
             }
         });
     });
+
+    document.getElementById('comment-form').addEventListener('submit', function(e) {
+    e.preventDefault();  // フォームのデフォルト送信を防ぐ
+
+    fetch('{{ route('product.addComment', $product->id) }}', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            content: document.querySelector('textarea[name="content"]').value
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);  // エラーメッセージをアラートで表示
+        } else if (data.success) {
+            alert(data.success);  // 成功時のメッセージ
+            
+            // リロード後にコメントが表示されるようにする
+            location.reload();
+        }
+    })
+    .catch(error => {
+        alert('エラーが発生しました');
+    });
+});
+
 </script>
 @endsection
