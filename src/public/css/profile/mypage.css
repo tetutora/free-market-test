@@ -85,8 +85,8 @@ h2 {
 }
 
 .product-container {
-    display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) ;
     gap: 20px;
     width: 100%;
 }
@@ -96,15 +96,14 @@ h2 {
 }
 
 .product-image {
-    width: 100%;
-    max-width: 700px;
+    max-width: 50%;
     height: auto;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .product-name {
     margin-top: 10px;
     font-size: 14px;
-    text-decoration: none;
     pointer-events: none;
 }

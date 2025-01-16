@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    // 商品一覧表示
     public function index(Request $request)
     {
         $search = $request->get('search');
@@ -32,18 +33,41 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'likedProducts'));
     }
 
+    // 商品詳細表示
     public function show($id)
     {
-        $product = Product::findOrFail($id);
-        $user = Auth::user();
+        $product = Product::find($id);
 
-        // いいね状態とカウント
+        if (!$product) {
+            return abort(404, '商品が見つかりません');
+        }
+
+        $user = Auth::user();
         $isFavorited = $user ? $user->favorites()->where('product_id', $id)->exists() : false;
         $favoriteCount = $product->favorites()->count();
 
         return view('products.show', compact('product', 'isFavorited', 'favoriteCount'));
     }
 
+    // コメント投稿
+    public function addComment(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|string|max:255',
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        Comment::create([
+            'product_id' => $product->id,
+            'user_id' => Auth::id(),
+            'content' => $request->content,
+        ]);
+
+        return redirect()->route('product.show', $id);
+    }
+
+    // 商品出品ページ表示
     public function create()
     {
         $categories = Category::all();
@@ -51,6 +75,7 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
+    // 商品保存処理
     public function store(Request $request)
     {
         $product = new Product([
@@ -68,38 +93,15 @@ class ProductController extends Controller
 
         $product->save();
 
+        // カテゴリーの紐付けを正確に処理
         if ($request->has('category_id')) {
-            $categoryIds = explode(',', $request->category_id);
-            foreach ($categoryIds as $categoryId) {
-                DB::table('products_categories')->insert([
-                    'category_id' => $categoryId,
-                    'product_id' => $product->id,
-                    'user_id' => auth()->id(),
-                ]);
-            }
+            $product->categories()->attach(explode(',', $request->category_id));
         }
 
         return redirect()->route('products.index');
     }
 
-    public function addComment(Request $request, $id)
-    {
-        $request->validate([
-            'comment' => 'required|string|max:500',
-        ]);
-
-        $product = Product::findOrFail($id);
-
-        // コメントを保存
-        Comment::create([
-            'product_id' => $product->id,
-            'user_id' => auth()->id(),
-            'content' => $request->comment,
-        ]);
-
-        return redirect()->route('product.show', $product->id)->with('success', 'コメントを投稿しました！');
-    }
-
+    // いいね機能
     public function toggleFavorite(Request $request, $id)
     {
         $product = Product::findOrFail($id);
@@ -118,6 +120,7 @@ class ProductController extends Controller
         ]);
     }
 
+    // いいねした商品一覧
     public function likedProducts()
     {
         $user = Auth::user();

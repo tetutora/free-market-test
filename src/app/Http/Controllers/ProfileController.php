@@ -11,11 +11,13 @@ use App\Http\Requests\AddressRequest;
 
 class ProfileController extends Controller
 {
+    // プロフィール表示
     public function show()
     {
         return view('profile.show');
     }
 
+    // マイページ表示
     public function myPage()
     {
         $user = Auth::user();
@@ -29,7 +31,6 @@ class ProfileController extends Controller
         if (!$profile) {
             $profile = new Profile();
             $profile->user_id = $user->id;
-            $profile->name = $user->name;
             $profile->save();
         }
 
@@ -37,13 +38,12 @@ class ProfileController extends Controller
             ? asset('storage/' . $profile->profile_picture)
             : asset('images/default-profile.jpg');
 
-        return view('profile.mypage', [
-            'user' => $user,
-            'profile' => $profile,
-            'profile_picture' => $profile_picture,
-        ]);
+        $purchasedProducts = $user->purchasedProducts()->with('categories')->get();
+
+        return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts'));
     }
 
+    // プロフィール更新処理
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
@@ -65,7 +65,7 @@ class ProfileController extends Controller
         return redirect()->route('profile.mypage');
     }
 
-
+    // 住所編集画面
     public function editAddress(Request $request)
     {
         $profile = auth()->user()->profile;
@@ -75,25 +75,21 @@ class ProfileController extends Controller
         return view('profile.address.edit', compact('profile', 'productId'));
     }
 
-
-    // 住所を更新
+    // 住所更新処理
     public function updateAddress(Request $request)
     {
-        $user = Auth::user();
+        $profile = auth()->user()->profile;
 
-        // ユーザーの住所を更新
-        $profile = $user->profile;
         $profile->zipcode = $request->zipcode;
         $profile->address = $request->address;
         $profile->building = $request->building;
-        
-        // 更新された情報を保存
+
         $profile->save();
 
-        // 更新後、購入ページにリダイレクト
-        return redirect()->route('purchase.show', ['productId' => $request->productId]);  // productIdをリダイレクトURLに追加
+        return redirect()->route('purchase.show', ['productId' => $request->productId]); 
     }
 
+    // プロフィール編集画面
     public function edit()
     {
         $user = auth()->user();
@@ -114,6 +110,7 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
 
+    // プロフィール更新処理
     public function update(AddressRequest $request)
     {
         $user = auth()->user();

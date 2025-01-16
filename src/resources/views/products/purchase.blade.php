@@ -36,7 +36,7 @@
             <hr class="section-divider">
 
             <div class="delivery-address">
-                <h3>配送先 <a href="{{ route('profile.address.edit', ['productId' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
+                <h3>配送先 <a href="{{ route('profile.address.edit', ['item_id' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
                 <p><strong>〒 {{$zipcode }}</strong></p>
                 <p><strong>{{ $address }} {{ $building }}</strong> </p>
             </div>
@@ -45,8 +45,9 @@
         <div class="purchase-right">
             <p><strong>商品代金</strong> ¥{{ number_format(round($product->price)) }}</p>
             <p><strong>支払い方法:</strong> <span id="selected-payment-method">カード払い</span></p>
-            <form action="{{ route('purchase.complete', ['productId' => $product->id]) }}" method="POST">
+            <form action="{{ route('purchase.complete', ['item_id' => $product->id]) }}" method="POST">
                 @csrf
+                <input type="hidden" name="item_id" value="{{ $product->id }}">
                 <button type="submit" class="purchase-button">購入する</button>
             </form>
         </div>

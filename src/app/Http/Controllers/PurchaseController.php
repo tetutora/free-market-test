@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth; // 正しいインポート
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
-    public function show($productId)
-    {
-        $product = Product::find($productId);
+    // 商品購入画面表示
+    public function show($item_id) {
+        $product = Product::find($item_id);
 
         if (!$product) {
             return abort(404, 'Product not found');
@@ -19,17 +19,16 @@ class PurchaseController extends Controller
         $user = Auth::user();
         $profile = $user->profile;
 
-        // 必要なデータを取得
         $zipcode = $profile->zipcode ?? '未登録';
         $address = $profile->address ?? '未登録';
         $building = $profile->building ?? '未登録';
 
-        return view('products.purchase', compact('product', 'zipcode', 'address', 'building', 'productId'));
+        return view('products.purchase', compact('product', 'zipcode', 'address', 'building', 'item_id'));
     }
 
-    public function complete($productId)
-    {
-        $product = Product::findOrFail($productId);
+    // 購入完了処理
+    public function complete($item_id) {
+        $product = Product::findOrFail($item_id);
 
         if (!$product) {
             return redirect()->route('home')->with('error', 'Product not found');
@@ -38,19 +37,9 @@ class PurchaseController extends Controller
         $product->is_sold = true;
         $product->save();
 
-        // 購入済み商品の情報をユーザーのマイページに追加
         $user = Auth::user();
-        $user->purchasedProducts()->attach($productId);  // マイページに購入済みの商品を追加
+        $user->purchasedProducts()->attach($item_id);
 
         return redirect()->route('profile.mypage')->with('success', 'Purchase complete');
     }
-
-    public function myPurchases()
-{
-    $user = Auth::user();
-    $purchasedProducts = $user->purchases()->get();
-
-    return view('products.my-purchases', compact('purchasedProducts'));
-}
-
 }

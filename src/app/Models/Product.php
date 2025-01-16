@@ -38,4 +38,18 @@ class Product extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function purchasedBy()
+    {
+        return $this->belongsToMany(User::class, 'purchases', 'product_id', 'user_id')
+            ->withTimestamps();
+    }
+
+    public function buyers()
+{
+    return $this->belongsToMany(User::class, 'purchases', 'product_id', 'user_id')
+                ->withTimestamps();
+}
+
+
 }

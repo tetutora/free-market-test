@@ -12,56 +12,82 @@ li {
 
 /* Header */
 .header {
+    width: 100%;
     padding: 10px;
     background-color: #000;
     width: 100%;
     box-sizing: border-box;
-    /* 幅計算にパディングを含む */
 }
 
 .header__inner {
-    margin: auto;
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
-    /* 必要に応じて折り返し */
+}
+
+.header__logo-icon {
+    width: 100%;
+}
+
+.header__nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    width: 60%;
+    justify-content: space-around;
 }
 
 .header-nav {
     display: flex;
-    align-items: center;
-    list-style: none;
-    gap: 20px;
     flex-wrap: wrap;
-    /* 小さい画面で折り返し可能 */
+    list-style: none;
+    width: 100%;
+}
+
+.header-nav__search-container {
+    display: flex;
+    justify-content: center;
 }
 
 .header-nav__search {
-    flex-grow: 1;
-    /* 検索欄が可能な限り幅を取る */
-    display: flex;
-    align-items: center;
+    width: 100%;
 }
 
 .header-nav__search-input {
     width: 100%;
-    /* 親要素に合わせる */
-    max-width: 700px;
-    /* 大画面での制限 */
-    padding: 10px;
+    padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-    /* パディングを幅計算に含む */
+}
+
+.header-nav__item{
+    flex: 1;
+    display: flex;
+    justify-content: center;
 }
 
 /* リンクやボタン */
-.header-nav__link,
 .header-nav__button {
+    width: 100%;
     text-decoration: none;
     color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 8px 12px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.header-nav__link{
+    width: 50%;
+    text-decoration: none;
+    color: white;
+    text-align: center;
     font-size: 16px;
     padding: 8px 12px;
     cursor: pointer;
@@ -85,25 +111,38 @@ li {
 @media screen and (max-width: 850px) {
     .header__inner {
         flex-wrap: wrap;
-        /* 必要に応じて折り返し */
     }
 
     .header-nav {
         gap: 10px;
     }
 
-    .header-nav__link,
-    .header-nav__button {
-        font-size: 12px;
-        padding: 6px 8px;
+    .header-nav__search-container {
+        width: 100%;
     }
 
     .header-nav__search-input {
-        width: 100%;
-        /* 親要素に合わせる */
-        max-width: none;
-        /* 制限を解除 */
-        padding: 8px;
         font-size: 14px;
+        padding: 10px;
     }
 }
+
+@media screen and (min-width: 850px) {
+    .header__inner {
+        flex-wrap: wrap;
+    }
+
+    .header-nav {
+        gap: 10px;
+    }
+
+    .header-nav__search-container {
+        width: 100%;
+    }
+
+    .header-nav__search-input {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+

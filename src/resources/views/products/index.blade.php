@@ -17,7 +17,7 @@
     @foreach($products as $product)
         <div class="product-item">
             <a href="{{ route('product.show', $product->id) }}">
-                @if(str_starts_with($product->image, 'http')) <!-- 外部リンクかどうかチェック -->
+                @if(str_starts_with($product->image, 'http'))
                     <img src="{{ $product->image }}" alt="{{ $product->name }}"> <!-- 外部リンク画像 -->
                 @else
                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"> <!-- ローカル画像 -->

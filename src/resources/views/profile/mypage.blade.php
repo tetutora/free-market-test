@@ -28,7 +28,11 @@
             @foreach ($user->sales ?? [] as $product)
             <div class="product-item">
                 <a href="{{ route('product.show', $product->id) }}">
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="商品画像" class="product-image">
+                    @if(str_starts_with($product->image, 'http'))
+                            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- 外部リンク画像 -->
+                        @else
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- ローカル画像 -->
+                        @endif
                     <p class="product-name">{{ $product->name }}</p>
                 </a>
             </div>
@@ -37,14 +41,19 @@
 
         <!-- 購入商品リスト -->
         <div class="product-container" id="purchase-products" style="display: none;">
-            @foreach ($purchasedProducts ?? [] as $product)
+            @forelse ($purchasedProducts as $product)
                 <div class="product-item">
                     <a href="{{ route('product.show', $product->id) }}">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="商品画像" class="product-image">
-                        <p class="product-name">{{ $product->name }}</p>
+                        @if(str_starts_with($product->image, 'http'))
+                            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- 外部リンク画像 -->
+                        @else
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- ローカル画像 -->
+                        @endif
                     </a>
                 </div>
-            @endforeach
+            @empty
+                <p>購入した商品はありません。</p>
+            @endforelse
         </div>
     </div>
 </div>
@@ -53,29 +62,30 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const btnSell = document.getElementById('btn-sell');
-        const btnPurchase = document.getElementById('btn-purchase');
-        const sellProducts = document.getElementById('sell-products');
-        const purchaseProducts = document.getElementById('purchase-products');
+    const btnSell = document.getElementById('btn-sell');
+    const btnPurchase = document.getElementById('btn-purchase');
+    const sellProducts = document.getElementById('sell-products');
+    const purchaseProducts = document.getElementById('purchase-products');
 
-        // 出品ボタンのクリック処理
-        btnSell.addEventListener('click', () => {
-            sellProducts.style.display = 'block';
-            purchaseProducts.style.display = 'none';
-            btnSell.classList.add('active');
-            btnPurchase.classList.remove('active');
-        });
-
-        // 購入ボタンのクリック処理
-        btnPurchase.addEventListener('click', () => {
-            purchaseProducts.style.display = 'block';
-            sellProducts.style.display = 'none';
-            btnPurchase.classList.add('active');
-            btnSell.classList.remove('active');
-        });
-
-        // 初期表示：出品商品を表示
-        btnSell.click();
+    // 出品ボタンのクリック処理
+    btnSell.addEventListener('click', () => {
+        sellProducts.style.display = 'grid';
+        purchaseProducts.style.display = 'none';
+        btnSell.classList.add('active');
+        btnPurchase.classList.remove('active');
     });
+
+    // 購入ボタンのクリック処理
+    btnPurchase.addEventListener('click', () => {
+        purchaseProducts.style.display = 'grid';
+        sellProducts.style.display = 'none';
+        btnPurchase.classList.add('active');
+        btnSell.classList.remove('active');
+    });
+
+    // 初期表示：出品商品を表示
+    btnSell.click();
+});
+
 </script>
 @endsection

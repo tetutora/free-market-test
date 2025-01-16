@@ -93,9 +93,9 @@
                 @endif
             </div>
         @endforeach
-    @else
-        <p class="no-comments">まだコメントはありません。</p>
-    @endif
+        @else
+            <p class="no-comments">まだコメントはありません。</p>
+        @endif
 
         <!-- コメント入力欄 -->
         <p><strong>商品へのコメント</strong></p>
