@@ -67,7 +67,7 @@ class ProductController extends Controller
             'content' => $request->content,
         ]);
 
-        return response()->json(['success' => 'コメントを追加しました']);
+        return redirect()->route('products.show', $product->id);
     }
 
     // 商品出品ページ表示
