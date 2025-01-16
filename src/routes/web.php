@@ -99,3 +99,10 @@ Route::middleware('auth')->group(function () {
     Route::post('email/verification-notice', [VerificationController::class, 'resend'])
         ->name('verification.resend'); // メール認証リンク再送
 });
+
+// 認証関連のルート
+Route::prefix('email')->name('verification.')->group(function () {
+    Route::get('verify', [VerificationController::class, 'show'])->name('notice');
+    Route::get('verify/{id}/{hash}', [VerificationController::class, 'verify'])->middleware('signed')->name('verify');
+    Route::post('resend', [VerificationController::class, 'resend'])->name('resend');
+});

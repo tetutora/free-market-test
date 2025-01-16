@@ -35,6 +35,7 @@ class RegisterController extends Controller
             Mail::to($user->email)->send(new VerifyEmail($user));
         } catch (\Exception $e) {
             \Log::error('メール送信エラー: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['email' => 'メールの送信に失敗しました。時間をおいて再度お試しください。']);
         }
 
         // ログイン処理
