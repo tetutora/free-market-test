@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\VerificationController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\{
     RegisterController,
@@ -79,3 +80,22 @@ Route::patch('/products/{product}/toggle-favorite', [ProductController::class, '
 // マイページ関連 (ログイン必須)
 Route::get('/my-purchases', [PurchaseController::class, 'myPurchases'])->name('my-purchases'); // マイページ_購入した商品一覧
 Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');       // マイページ_出品した商品一覧
+
+Route::get('email/verify', 'App\Http\Controllers\Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', 'App\Http\Controllers\Auth\VerificationController@verify')->name('verification.verify');
+Route::post('email/resend', 'App\Http\Controllers\Auth\VerificationController@resend')->name('verification.resend');
+
+Route::middleware('auth')->group(function () {
+    Route::get('email/verify', [VerificationController::class, 'verify'])
+        ->name('verification.verify'); // 署名付きリンクの確認用ルート
+    
+    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+        ->middleware('signed')
+        ->name('verification.verify');
+    
+    Route::get('email/verification-notice', [VerificationController::class, 'show'])
+        ->name('verification.notice'); // メール認証通知ページ
+    
+    Route::post('email/verification-notice', [VerificationController::class, 'resend'])
+        ->name('verification.resend'); // メール認証リンク再送
+});

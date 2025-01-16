@@ -78,4 +78,9 @@ class User extends Authenticatable
     public function purchases() {
         return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id')->withTimestamps();
     }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new \App\Notifications\VerifyEmail);
+    }
 }

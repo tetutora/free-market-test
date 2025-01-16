@@ -17,14 +17,11 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-        // 入力値の取得
-        $login = $request->input('email'); // ユーザー名またはメールアドレス
+        $login = $request->input('email');
         $password = $request->input('password');
 
-        // 認証条件を準備
         $credentials = ['password' => $password];
 
-        // 入力がメールアドレスかどうかを判定して認証条件を変更
         if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
             $credentials['email'] = $login;
         } else {
@@ -33,7 +30,9 @@ class LoginController extends Controller
 
         // 認証を試行
         if (Auth::attempt($credentials)) {
-            // 認証成功時にリダイレクト
+            if (!Auth::user()->hasVerifiedEmail()) {
+                return redirect()->route('verification.notice');
+            }
             return redirect()->route('products.index');
         }
 

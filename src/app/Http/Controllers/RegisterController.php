@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
 use App\Http\Requests\RegisterRequest;
 
 class RegisterController extends Controller
@@ -28,11 +30,17 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // メール送信処理
+        try {
+            Mail::to($user->email)->send(new VerifyEmail($user));
+        } catch (\Exception $e) {
+            \Log::error('メール送信エラー: ' . $e->getMessage());
+        }
+
         // ログイン処理
         Auth::login($user);
 
         // 管理画面にリダイレクト
         return redirect()->route('profile');
     }
-
 }
