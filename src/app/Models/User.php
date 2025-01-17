@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Notifications\VerifyEmail;
+
+
+
 
 class User extends Authenticatable
 {
@@ -25,6 +29,7 @@ class User extends Authenticatable
         'address',
         'building',
         'profile_picture',
+        'email_verification_has',
     ];
 
     /**
@@ -81,6 +86,6 @@ class User extends Authenticatable
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new \App\Notifications\VerifyEmail);
+        $this->notify(new VerifyEmail());
     }
 }
