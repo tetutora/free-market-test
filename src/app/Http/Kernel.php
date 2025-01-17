@@ -38,8 +38,6 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Fruitcake\Cors\HandleCors::class,
-            \Spatie\Cors\HandleCors::class,
-            \Tightenco\Ziggy\Middleware\Cors::class,
             \Illuminate\Session\Middleware\StartSession::class,
         ],
 
@@ -47,7 +45,8 @@ class Kernel extends HttpKernel
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Fruitcake\Cors\HandleCors::class,  // CORSミドルウェアの統一
+            \Fruitcake\Cors\HandleCors::class,
+            \Illuminate\Http\Middleware\HandleCors::class,
         ],
     ];
 

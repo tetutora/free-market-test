@@ -26,9 +26,15 @@ class VerifyEmail extends BaseVerifyEmail
             ->line('このメールを無視しても問題ありません。');
     }
 
+    // public function build()
+    // {
+    //     return $this->view('emails.verify')
+    //                 ->subject('Email Verification');
+    // }
+
     public function build()
-    {
-        return $this->view('emails.verify')
-                    ->subject('Email Verification');
-    }
+{
+    return $this->view('mail.testmail');
+}
+
 }

@@ -45,6 +45,15 @@ return [
             'auth_mode' => null,
         ],
 
+        'symfony' => [
+            'transport' => 'smtp',
+            'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
+            'port' => env('MAIL_PORT', 2525),
+            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
+        ],
+
         'ses' => [
             'transport' => 'ses',
         ],
@@ -111,7 +120,7 @@ return [
         'theme' => 'default',
 
         'paths' => [
-            resource_path('views/vendor/mail'),
+            resource_path('views/vendor/mail'),  // 追加する位置
         ],
     ],
 

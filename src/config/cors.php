@@ -15,12 +15,17 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie', 'login', 'register'],
-    'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    'allowed_origins' => ['*'],
-    'allowed_headers' => ['*'],
-    'exposed_headers' => [],
-    'max_age' => 0,
-    'supports_credentials' => true,
+    'paths' => ['api/*'],  // CORSを適用するAPIのパスを指定
 
+    'allowed_methods' => ['*'],  // 許可するHTTPメソッド
+
+    'allowed_origins' => ['*'],  // 任意のオリジンを許可
+
+    'allowed_headers' => ['*'],  // 任意のヘッダーを許可
+
+    'exposed_headers' => [],  // クライアントに渡すヘッダー
+
+    'max_age' => 0,
+
+    'supports_credentials' => false,
 ];
