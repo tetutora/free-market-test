@@ -3,37 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Mail\VerifyEmail;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log; // Log をインポート
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class VerificationController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify'); // 署名付きリンクの処理
-        $this->middleware('throttle:6,1')->only('verify', 'resend'); // リクエストの速さ制御
+        $this->middleware('signed')->only('verify');
+        $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-    public function verify(Request $request, $id, $hash)
+    // メール認証を完了する
+    public function verify(EmailVerificationRequest $request)
     {
-        Log::info("Verification process started for user ID: {$id}");
-
-        $user = User::find($id);
-
-        if ($user && hash_equals($hash, sha1($user->email))) {
-            Log::info("Verification successful for user ID: {$id}");
-            $user->markEmailAsVerified();
-            return redirect()->intended('/')->with('status', 'Email successfully verified!');
+        try {
+            $request->fulfill();
+            Log::info("Verification successful for user ID: " . $request->user()->id);
+            return redirect('/')->with('status', 'Email successfully verified!');
+        } catch (\Exception $e) {
+            Log::error("Verification failed: " . $e->getMessage());
+            return redirect()->route('verification.notice')->with('error', 'Verification failed.');
         }
-
-        Log::warning("Verification failed for user ID: {$id}");
-        return redirect()->route('verification.notice')->with('error', 'Invalid signature');
     }
 
+    // 認証メールを再送する
     public function resend(Request $request)
     {
         $user = $request->user();
@@ -46,6 +41,7 @@ class VerificationController extends Controller
         return back()->withErrors(['error' => '認証リンクの再送ができませんでした。']);
     }
 
+    // 認証待ち画面を表示する
     public function show()
     {
         return view('auth.verify-email');

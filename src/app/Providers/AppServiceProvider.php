@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(SomeDependency::class, function ($app) {
+            return new SomeDependency(config('app.verification_url'));
+        });
     }
 
     /**

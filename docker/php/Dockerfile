@@ -1,4 +1,5 @@
-FROM php:7.4.9-fpm
+FROM php:8.3-fpm
+
 
 COPY php.ini /usr/local/etc/php/
 
@@ -11,3 +12,5 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && composer self-update
 
 WORKDIR /var/www
+
+ENV PATH=$PATH:/opt/homebrew/bin
