@@ -1,6 +1,7 @@
 services:
     nginx:
         image: nginx:1.21.1
+        container_name: nginx
         ports:
             - "80:80"
         volumes:
@@ -11,11 +12,13 @@ services:
 
     php:
         build: ./docker/php
+        container_name: php
         volumes:
             - ./src:/var/www/
 
     mysql:
-        image: mysql:8.0.26-arm64
+        container_name: mysql
+        image: mysql:8.0.40
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: laravel_db
@@ -26,14 +29,16 @@ services:
         volumes:
             - ./docker/mysql/data:/var/lib/mysql
             - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+            - ./docker/mysql/logs:/var/log/mysql
 
     phpmyadmin:
-        image: phpmyadmin/phpmyadmin:latest-arm64
+        image: arm64v8/phpmyadmin
+        container_name: phpmyadmin
         environment:
-            - PMA_ARBITRARY=1
-            - PMA_HOST=mysql
-            - PMA_USER=laravel_user
-            - PMA_PASSWORD=laravel_pass
+            PMA_ARBITRARY: 1
+            PMA_HOST: mysql
+            PMA_USER: laravel_user
+            PMA_PASSWORD: laravel_pass
         depends_on:
             - mysql
         ports:
