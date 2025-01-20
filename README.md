@@ -3,13 +3,11 @@
 ## Dockerビルド
 - git clone https://github.com/tetutora/coachtech-test
 - docker-compose up -d --build
-- php artisan db:seed --class=UserSeeder
-- php artisan db:seed
 
 ## Laravel環境構築
 - docker-compose exec php bash
 - composer install
-- cp .env.example .env　環境変数を適宜変更
+- cp .env.example .env 環境変数を適宜変更
 - php artisan key:generate
 - php artisan migrate
 - php artisan db:seed --class=UserSeeder
