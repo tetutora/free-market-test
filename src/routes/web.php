@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 // 商品詳細関連
-Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');
+Route::get('/item/{id}', [ProductController::class, 'show'])->name('product.show');  // 修正
 
 // 商品コメント関連
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
@@ -52,10 +53,14 @@ Route::middleware(['auth'])->group(function () {
 
 // プロフィール関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');
+});
+
+// マイページ関連 (ログイン必須)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');  // 追加
 });
 
 // 商品いいね関連 (ログイン必須)
@@ -77,3 +82,5 @@ Route::get('/email/verify/{id}/{hash}', [VerificationsController::class, 'verify
 Route::post('/email/verification-notification', [VerificationsController::class, 'resend'])
     ->middleware(['auth']) // ログインユーザーのみ再送可能
     ->name('verification.resend');
+
+Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');

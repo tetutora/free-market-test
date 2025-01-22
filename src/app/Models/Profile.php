@@ -10,12 +10,22 @@ class Profile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'profile_picture', 'name', 'zipcode', 'address', 'building'
+        'profile_picture', 'name', 'zipcode', 'address', 'building'
     ];
-
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($profile) {
+            if (!$profile->user_id) {
+                $profile->user_id = auth()->id();
+            }
+        });
     }
 }

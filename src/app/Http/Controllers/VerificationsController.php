@@ -33,7 +33,7 @@ class VerificationsController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route('profile.edit');
+            return redirect()->route('profile.show');
             } else {
                 return redirect()->route('verification.notice')->withErrors(['error' => '認証リンクが無効です。']);
             }
