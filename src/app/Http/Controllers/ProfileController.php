@@ -67,36 +67,24 @@ class ProfileController extends Controller
         return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts'));
     }
 
-    // public function updateProfile(Request $request)
-    // {
-    //     $user = auth()->user();
-    //     $profile = $user->profile;
+    // マイページのプロフィール編集ボタンクリック後のプロフィール設定ページ
+    public function edit()
+    {
+        $user = auth()->user();
+        $profile = $user->profile;
 
-    //     if (!$profile) {
-    //         $profile = new Profile();
-    //         $profile->user_id = $user->id;
-    //         $profile->name = $request->input('name', $user->name);
-    //         $profile->save();
-    //     }
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->save();
+        }
 
-    //     // プロフィール画像の保存処理
-    //     if ($request->hasFile('profile_picture')) {
-    //         if ($profile->profile_picture && Storage::exists('public/' . $profile->profile_picture)) {
-    //             Storage::delete('public/' . $profile->profile_picture);
-    //         }
-    //         $path = $request->file('profile_picture')->store('profiles', 'public');
-    //         $profile->profile_picture = $path;
-    //     }
+        $profile_picture = $profile->profile_picture
+            ? asset('storage/' . $profile->profile_picture)
+            : asset('images/default-profile.jpg');
 
-    //     // プロフィール情報の更新
-    //     $profile->zipcode = $request->input('zipcode');
-    //     $profile->address = $request->input('address');
-    //     $profile->building = $request->input('building');
-
-    //     $profile->save();
-
-    //     return redirect()->route('profile.mypage');
-    // }
+        return view('profile.edit', compact('user', 'profile', 'profile_picture'));
+    }
 
     // 住所編集画面
     public function editAddress(Request $request)
@@ -119,55 +107,6 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('purchase.show', ['productId' => $request->productId]); 
+        return redirect()->route('purchase.show', ['productId' => $request->productId]);
     }
-
-    // プロフィール設定画面
-    // public function edit(Request $request)
-    // {
-    //     $user = auth()->user();
-    //     $profile = $user->profile;
-
-    //     if (!$profile) {
-    //         $profile = new Profile();
-    //         $profile->user_id = $user->id;
-    //         $profile->name = $user->name;
-    //     }
-
-    //     // デフォルト値として空を設定する
-    //     $profile->zipcode = '';
-    //     $profile->address = '';
-    //     $profile->building = '';
-
-    //     // プロフィール画像の保存処理
-    //     if ($request->hasFile('profile_picture')) {
-    //         if ($profile->profile_picture && Storage::exists('public/' . $profile->profile_picture)) {
-    //             Storage::delete('public/' . $profile->profile_picture);
-    //         }
-    //         $path = $request->file('profile_picture')->store('profiles', 'public');
-    //         $profile->profile_picture = $path;
-    //     }
-
-    //     $profile->save();
-
-    //     return redirect()->route('profile.mypage');
-    // }
-
-    // {
-    //     $user = auth()->user();
-
-    //     $profile = $user->profile;
-    //     if (!$profile) {
-    //         $profile = new Profile();
-    //         $profile->user_id = $user->id;
-    //         $profile->save();  // プロフィールを保存
-    //     }
-
-    //     // プロフィール画像のパスを取得
-    //     $profile_picture = $profile->profile_picture 
-    //         ? asset('storage/' . $profile->profile_picture) 
-    //         : asset('images/default-profile.png');
-
-    //     return view('profile.edit', compact('user', 'profile', 'profile_picture'));
-    // }
 }

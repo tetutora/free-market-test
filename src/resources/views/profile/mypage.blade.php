@@ -63,30 +63,32 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const btnSell = document.getElementById('btn-sell');
-    const btnPurchase = document.getElementById('btn-purchase');
-    const sellProducts = document.getElementById('sell-products');
-    const purchaseProducts = document.getElementById('purchase-products');
+        const btnSell = document.getElementById('btn-sell');
+        const btnPurchase = document.getElementById('btn-purchase');
+        const sellProducts = document.getElementById('sell-products');
+        const purchaseProducts = document.getElementById('purchase-products');
+        
 
-    // 出品ボタンのクリック処理
-    btnSell.addEventListener('click', () => {
-        sellProducts.style.display = 'grid';
-        purchaseProducts.style.display = 'none';
-        btnSell.classList.add('active');
-        btnPurchase.classList.remove('active');
+        // 出品ボタンのクリック処理
+        btnSell.addEventListener('click', () => {
+            sellProducts.style.display = 'grid';
+            purchaseProducts.style.display = 'none';
+            btnSell.classList.add('active');
+            btnPurchase.classList.remove('active');
+        });
+
+        // 購入ボタンのクリック処理
+        btnPurchase.addEventListener('click', () => {
+            sellProducts.style.display = 'none';
+            purchaseProducts.style.display = 'grid';
+            btnPurchase.classList.add('active');
+            btnSell.classList.remove('active');
+        });
+
+        // 初期表示：出品商品を表示
+        btnSell.click();
     });
 
-    // 購入ボタンのクリック処理
-    btnPurchase.addEventListener('click', () => {
-        purchaseProducts.style.display = 'grid';
-        sellProducts.style.display = 'none';
-        btnPurchase.classList.add('active');
-        btnSell.classList.remove('active');
-    });
-
-    // 初期表示：出品商品を表示
-    btnSell.click();
-});
 
 </script>
 @endsection

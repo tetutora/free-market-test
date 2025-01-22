@@ -18,6 +18,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    // ログイン処理
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
@@ -30,7 +31,8 @@ class LoginController extends Controller
                 return redirect()->route('verification.notice')->withErrors(['email' => 'メール認証が完了していません。認証リンクを確認してください。']);
             }
 
-            return redirect()->route('profile.edit');
+            // ログイン後マイページへ移行
+            return redirect()->route('profile.mypage');
         }
 
         return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません。']);

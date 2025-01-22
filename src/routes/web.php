@@ -1,4 +1,3 @@
-
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -30,7 +29,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 // 商品詳細関連
-Route::get('/item/{id}', [ProductController::class, 'show'])->name('product.show');  // 修正
+Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');
 
 // 商品コメント関連
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
@@ -82,5 +81,3 @@ Route::get('/email/verify/{id}/{hash}', [VerificationsController::class, 'verify
 Route::post('/email/verification-notification', [VerificationsController::class, 'resend'])
     ->middleware(['auth']) // ログインユーザーのみ再送可能
     ->name('verification.resend');
-
-Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
