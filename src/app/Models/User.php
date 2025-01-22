@@ -84,8 +84,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id')->withTimestamps();
     }
 
-    public function sendEmailVerificationNotification()
+    public function mustBeVerified()
     {
-        $this->notify(new VerifyEmail());
+        return !$this->hasVerifiedEmail();
     }
 }

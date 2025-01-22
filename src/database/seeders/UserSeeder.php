@@ -18,8 +18,6 @@ class UserSeeder extends Seeder
             'name' => 'Default User',
             'email' => 'default@example.com',
             'password' => bcrypt('password'),
-            'email_verified_at' => now(),
-            'email_verification_hash' => bcrypt('default@example.com'),
         ]);
     }
 }

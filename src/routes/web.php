@@ -2,22 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\{
     RegisterController,
     LoginController,
     ProfileController,
     ProductController,
     PurchaseController,
-    AddressController,
-    VerificationController
+    VerificationsController
 };
 
 // トップページ関連
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/mylist', [ProductController::class, 'index'])->name('home.mylist');
-
 
 // 会員登録関連
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -34,15 +31,11 @@ Route::post('/logout', function () {
 // 商品詳細関連
 Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');
 
-
 // 商品コメント関連
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
 
-
-
 // 商品購入関連 (ログイン必須)
-Route::middleware(['auth'])->group(function ()
-{
+Route::middleware(['auth'])->group(function () {
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
     Route::post('/purchase/complete/{item_id}', [PurchaseController::class, 'complete'])->name('purchase.complete');
 
@@ -76,7 +69,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-purchases', [PurchaseController::class, 'myPurchases'])->name('my-purchases');
 });
 
-Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
-Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-    ->middleware(['auth', 'signed'])
-    ->name('verification.verify');
+// メール認証関連
+Route::get('/email/verify', [VerificationsController::class, 'show'])->name('verification.notice'); // 通知ページ表示
+Route::get('/email/verify/{id}/{hash}', [VerificationsController::class, 'verify'])
+    ->middleware(['signed']) // 署名検証のみ
+    ->name('verification.verify'); // 認証処理
+Route::post('/email/verification-notification', [VerificationsController::class, 'resend'])
+    ->middleware(['auth']) // ログインユーザーのみ再送可能
+    ->name('verification.resend');

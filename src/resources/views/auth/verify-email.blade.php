@@ -1,11 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1>メールアドレスの確認</h1>
-    <p>メールアドレスを確認するリンクをお送りしました。メールを確認し、アカウントを認証してください。</p>
-    <p>
-        <a href="{{ route('verification.resend') }}">認証リンクが届かない場合はこちらをクリックして再送する。</a>
-    </p>
+<div class="alert alert-info">
+    メール認証が完了していません。<br>
+    認証メールを確認し、リンクをクリックしてください。
 </div>
+@if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+@endif
+<form method="POST" action="{{ route('verification.resend') }}">
+    @csrf
+    <button type="submit" class="btn btn-primary">認証メールを再送する</button>
+</form>
 @endsection
