@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\Purchase;
+use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AddressRequest;
 
@@ -87,19 +88,19 @@ class ProfileController extends Controller
     }
 
     // 住所編集画面
-    public function editAddress(Request $request)
+    public function editAddress(Request $request, $productId)
     {
         $profile = auth()->user()->profile;
+        $product = Product::find($request->productId);
 
-        $productId = $request->query('productId');
-
-        return view('profile.address.edit', compact('profile', 'productId'));
+        return view('profile.address.edit', compact('profile','productId'));
     }
 
     // 住所更新処理
-    public function updateAddress(Request $request)
+    public function updateAddress(Request $request, $productId)
     {
         $profile = auth()->user()->profile;
+        $product = Product::find($request->productId);
 
         $profile->zipcode = $request->zipcode;
         $profile->address = $request->address;
@@ -107,6 +108,6 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('purchase.show', ['productId' => $request->productId]);
+        return redirect()->route('profile.mypage');
     }
 }

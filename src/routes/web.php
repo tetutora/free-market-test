@@ -31,6 +31,7 @@ Route::post('/logout', function () {
 // 商品詳細関連
 Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');
 
+
 // 商品コメント関連
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
 
@@ -40,9 +41,18 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/purchase/complete/{item_id}', [PurchaseController::class, 'complete'])->name('purchase.complete');
 
     // 住所関連
-    Route::get('/profile/address/{item_id}', [ProfileController::class, 'edit'])->name('profile.address.edit');
-    Route::post('/profile/address/{item_id}', [ProfileController::class, 'update'])->name('profile.address.update');
+    Route::get('/profile/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
+    Route::post('/profile/address/{item_id}', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
 });
+
+// 商品購入画面のルート
+Route::get('/products/{item_id}/purchase', [PurchaseController::class, 'show'])->name('products.purchase');
+
+
+// 住所編集画面
+Route::get('/profile/address/edit', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
+Route::post('/profile/address/update', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
+
 
 // 商品出品関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
@@ -74,10 +84,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // メール認証関連
-Route::get('/email/verify', [VerificationsController::class, 'show'])->name('verification.notice'); // 通知ページ表示
+Route::get('/email/verify', [VerificationsController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationsController::class, 'verify'])
-    ->middleware(['signed']) // 署名検証のみ
-    ->name('verification.verify'); // 認証処理
+    ->middleware(['signed'])
+    ->name('verification.verify');
 Route::post('/email/verification-notification', [VerificationsController::class, 'resend'])
-    ->middleware(['auth']) // ログインユーザーのみ再送可能
+    ->middleware(['auth'])
     ->name('verification.resend');

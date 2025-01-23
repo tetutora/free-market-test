@@ -10,11 +10,8 @@ class PurchaseController extends Controller
 {
     // 商品購入画面表示
     public function show($item_id) {
-        $product = Product::find($item_id);
 
-        if (!$product) {
-            return abort(404, 'Product not found');
-        }
+        $product = Product::find($item_id);
 
         $user = Auth::user();
         $profile = $user->profile;
