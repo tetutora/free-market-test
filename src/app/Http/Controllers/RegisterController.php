@@ -22,8 +22,6 @@ class RegisterController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        // dd($request);
-
         $validated = $request->validated();
 
         $user = User::create([

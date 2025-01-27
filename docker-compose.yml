@@ -32,13 +32,13 @@ services:
             - ./docker/mysql/logs:/var/log/mysql
 
     phpmyadmin:
-        image: arm64v8/phpmyadmin
-        container_name: phpmyadmin
+        # image: arm64v8/phpmyadmin
+        image: phpmyadmin/phpmyadmin
         environment:
-            PMA_ARBITRARY: 1
-            PMA_HOST: mysql
-            PMA_USER: laravel_user
-            PMA_PASSWORD: laravel_pass
+            - PMA_ARBITRARY=1
+            - PMA_HOST=mysql
+            - PMA_USER=laravel_user
+            - PMA_PASSWORD=laravel_pass
         depends_on:
             - mysql
         ports:

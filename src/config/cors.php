@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*'],  // CORSを適用するAPIのパスを指定
+    'paths' => ['*'],  // CORSを適用するAPIのパスを指定
 
     'allowed_methods' => ['*'],  // 許可するHTTPメソッド
 
@@ -27,5 +27,5 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 ];
