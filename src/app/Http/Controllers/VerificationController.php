@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Mail\VerifyEmail;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log; // Log をインポート
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 
 class VerificationController extends Controller
@@ -14,8 +14,8 @@ class VerificationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('signed')->only('verify'); // 署名付きリンクの処理
-        $this->middleware('throttle:6,1')->only('verify', 'resend'); // リクエストの速さ制御
+        $this->middleware('signed')->only('verify');
+        $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
     public function verify(Request $request, $id, $hash)

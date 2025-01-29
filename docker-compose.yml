@@ -1,6 +1,7 @@
 services:
     nginx:
         image: nginx:1.21.1
+        container_name: nginx
         ports:
             - "80:80"
         volumes:
@@ -11,11 +12,13 @@ services:
 
     php:
         build: ./docker/php
+        container_name: php
         volumes:
             - ./src:/var/www/
 
     mysql:
-        image: mysql:8.0.26
+        container_name: mysql
+        image: mysql:8.0.40
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: laravel_db
@@ -26,8 +29,10 @@ services:
         volumes:
             - ./docker/mysql/data:/var/lib/mysql
             - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+            - ./docker/mysql/logs:/var/log/mysql
 
     phpmyadmin:
+        # image: arm64v8/phpmyadmin
         image: phpmyadmin/phpmyadmin
         environment:
             - PMA_ARBITRARY=1
@@ -38,3 +43,9 @@ services:
             - mysql
         ports:
             - 8080:80
+
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+            - "1025:1025"
+            - "8025:8025"
