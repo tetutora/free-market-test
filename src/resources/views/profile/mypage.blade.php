@@ -5,6 +5,11 @@
 @endsection
 
 @section('content')
+
+@php
+    $currentPage = request()->query('page', 'sell'); // デフォルトは出品一覧
+@endphp
+
 <div class="mypage">
     <!-- プロフィール情報 -->
     <div class="mypage-header">
@@ -21,29 +26,29 @@
         <button class="btn-toggle" id="btn-purchase">購入した商品</button>
     </div>
 
-    <!-- 商品リスト -->
+    <!-- 出品リスト -->
     <div id="product-list" class="product-list">
         <!-- 出品商品リスト -->
-        <div class="product-container" id="sell-products">
+        <div class="product-container" id="sell-products" style="display: {{ $currentPage === 'sell' ? 'grid' : 'none' }};">
             @foreach ($user->sales ?? [] as $product)
             <div class="product-item">
-                <a href="{{ route('product.show', $product->id) }}">
+                <a href="{{ route('products.show', $product->id) }}">
                     @if(str_starts_with($product->image, 'http'))
-                            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- 外部リンク画像 -->
-                        @else
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- ローカル画像 -->
-                        @endif
+                        <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- 外部リンク画像 -->
+                    @else
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- ローカル画像 -->
+                    @endif
                     <p class="product-name">{{ $product->name }}</p>
                 </a>
             </div>
             @endforeach
         </div>
 
-        <!-- 購入商品リスト -->
-        <div class="product-container" id="purchase-products" style="display: none;">
+        <!-- 購入リスト -->
+        <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'buy' ? 'grid' : 'none' }};">
             @forelse ($purchasedProducts as $product)
                 <div class="product-item">
-                    <a href="{{ route('product.show', $product->id) }}">
+                    <a href="{{ route('products.show', $product->id) }}">
                         @if(str_starts_with($product->image, 'http'))
                             <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- 外部リンク画像 -->
                         @else
@@ -63,30 +68,20 @@
 @section('js')
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const btnSell = document.getElementById('btn-sell');
-    const btnPurchase = document.getElementById('btn-purchase');
-    const sellProducts = document.getElementById('sell-products');
-    const purchaseProducts = document.getElementById('purchase-products');
+        const btnSell = document.getElementById('btn-sell');
+        const btnPurchase = document.getElementById('btn-purchase');
 
-    // 出品ボタンのクリック処理
-    btnSell.addEventListener('click', () => {
-        sellProducts.style.display = 'grid';
-        purchaseProducts.style.display = 'none';
-        btnSell.classList.add('active');
-        btnPurchase.classList.remove('active');
+        if (btnSell && btnPurchase) {
+            btnSell.addEventListener('click', () => {
+                window.location.href = '/mypage?page=sell'; // 出品ページへ遷移
+            });
+
+            btnPurchase.addEventListener('click', () => {
+                window.location.href = '/mypage?page=buy'; // 購入ページへ遷移
+            });
+        } else {
+            console.error('ボタンが見つかりません');
+        }
     });
-
-    // 購入ボタンのクリック処理
-    btnPurchase.addEventListener('click', () => {
-        purchaseProducts.style.display = 'grid';
-        sellProducts.style.display = 'none';
-        btnPurchase.classList.add('active');
-        btnSell.classList.remove('active');
-    });
-
-    // 初期表示：出品商品を表示
-    btnSell.click();
-});
-
 </script>
 @endsection

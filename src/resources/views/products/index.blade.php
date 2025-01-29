@@ -6,6 +6,10 @@
 
 @section('content')
 
+@php
+    $currentPage = request()->query('page', 'recommendation'); // デフォルトは "recommendation"
+@endphp
+
 <!-- ボタンを配置 -->
 <div class="header-buttons">
     <button id="recommendation-btn" class="btn">おすすめ</button>
@@ -13,7 +17,7 @@
 </div>
 
 <!-- 商品一覧 (おすすめ表示) -->
-<div id="product-list" class="product-list">
+<div id="product-list" class="product-list" style="display: {{ $currentPage === 'recommendation' ? 'flex' : 'none' }};">
     @foreach($products as $product)
         <div class="product-item">
             <a href="{{ route('products.show', $product->id) }}">
@@ -32,11 +36,12 @@
     @endforeach
 </div>
 
-<div id="mylist" class="product-list" style="display: none;">
+<!-- マイリスト表示 -->
+<div id="mylist" class="product-list" style="display: {{ $currentPage === 'mylist' ? 'flex' : 'none' }};">
     @if($likedProducts->isNotEmpty())
         @foreach($likedProducts as $likedProduct)
             <div class="product-item">
-                <a href="{{ route('product.show', $likedProduct->id) }}">
+                <a href="{{ route('products.show', $likedProduct->id) }}">
                     @if(str_starts_with($likedProduct->image, 'http')) <!-- 外部リンク対応 -->
                         <img src="{{ $likedProduct->image }}" alt="{{ $likedProduct->name }}">
                     @else
@@ -62,21 +67,17 @@
     document.addEventListener('DOMContentLoaded', () => {
         const recommendationBtn = document.getElementById('recommendation-btn');
         const mylistBtn = document.getElementById('mylist-btn');
-        const productList = document.getElementById('product-list');
-        const mylist = document.getElementById('mylist');
 
-        if (recommendationBtn && mylistBtn && productList && mylist) {
+        if (recommendationBtn && mylistBtn) {
             recommendationBtn.addEventListener('click', () => {
-                productList.style.display = 'flex';
-                mylist.style.display = 'none';
+                window.location.href = '/?page=recommendation'; // 「おすすめ」ページへ遷移
             });
 
             mylistBtn.addEventListener('click', () => {
-                productList.style.display = 'none';
-                mylist.style.display = 'flex';
+                window.location.href = '/?page=mylist'; // 「マイリスト」ページへ遷移
             });
         } else {
-            console.error('ボタンまたは表示要素が見つかりません');
+            console.error('ボタンが見つかりません');
         }
     });
 </script>

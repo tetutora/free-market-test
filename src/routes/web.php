@@ -8,7 +8,7 @@ use App\Http\Controllers\{
     ProfileController,
     ProductController,
     PurchaseController,
-    VerificationsController
+    VerificationController
 };
 
 // トップページ関連
