@@ -49,13 +49,10 @@ class ProfileController extends Controller
         $user = Auth::user();
         $user->name = $request->name;
 
-        // プロフィール画像の保存処理
         if ($request->hasFile('profile_picture')) {
-            // 古い画像があれば削除
             if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
                 Storage::delete('public/' . $user->profile_picture);
             }
-            // 新しい画像を保存
             $path = $request->file('profile_picture')->store('profiles', 'public');
             $user->profile_picture = $path;
         }
@@ -94,18 +91,16 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        // プロフィールが存在しない場合、新しいプロフィールを作成
         $profile = $user->profile;
         if (!$profile) {
             $profile = new Profile();
             $profile->user_id = $user->id;
-            $profile->save();  // プロフィールを保存
+            $profile->save();
         }
 
-        // プロフィール画像のパスを取得
         $profile_picture = $profile->profile_picture 
             ? asset('storage/' . $profile->profile_picture) 
-            : asset('images/default-profile.png');  // デフォルト画像を設定
+            : asset('images/default-profile.png');
 
         return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
@@ -116,7 +111,6 @@ class ProfileController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
 
-        // プロフィールが存在しない場合、新しいプロフィールを作成
         if (!$profile) {
             $profile = new Profile();
             $profile->user_id = $user->id;
@@ -127,13 +121,11 @@ class ProfileController extends Controller
             $profile->save();
         }
 
-        // プロフィール画像がアップロードされていれば保存
         if ($request->hasFile('profile_picture')) {
             $filePath = $request->file('profile_picture')->store('profiles', 'public');
             $profile->profile_picture = $filePath;
         }
 
-        // 他のフィールドを更新
         $profile->name = $request->input('name');
         $profile->zipcode = $request->input('zipcode');
         $profile->address = $request->input('address');
