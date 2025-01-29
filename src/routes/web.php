@@ -2,22 +2,19 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\{
     RegisterController,
     LoginController,
     ProfileController,
     ProductController,
     PurchaseController,
-    AddressController,
-    VerificationController
+    VerificationsController
 };
 
 // トップページ関連
 Route::get('/', [ProductController::class, 'index'])->name('home');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/mylist', [ProductController::class, 'index'])->name('home.mylist');
-
 
 // 会員登録関連
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -38,18 +35,24 @@ Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product
 // 商品コメント関連
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
 
-
-
 // 商品購入関連 (ログイン必須)
-Route::middleware(['auth'])->group(function ()
-{
+Route::middleware(['auth'])->group(function () {
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
     Route::post('/purchase/complete/{item_id}', [PurchaseController::class, 'complete'])->name('purchase.complete');
 
     // 住所関連
-    Route::get('/profile/address/{item_id}', [ProfileController::class, 'edit'])->name('profile.address.edit');
-    Route::post('/profile/address/{item_id}', [ProfileController::class, 'update'])->name('profile.address.update');
+    Route::get('/profile/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
+    Route::post('/profile/address/{item_id}', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
 });
+
+// 商品購入画面のルート
+Route::get('/products/{item_id}/purchase', [PurchaseController::class, 'show'])->name('products.purchase');
+
+
+// 住所編集画面
+Route::get('/profile/address/edit', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
+Route::post('/profile/address/update', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
+
 
 // 商品出品関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
@@ -62,7 +65,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');
+});
+
+// マイページ関連 (ログイン必須)
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');  // 追加
 });
 
 // 商品いいね関連 (ログイン必須)
