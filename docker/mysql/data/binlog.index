@@ -1,5 +1,6 @@
 ./binlog.000001
 ./binlog.000002
+<<<<<<< HEAD
 ./binlog.000003
 ./binlog.000004
 ./binlog.000005
@@ -22,3 +23,5 @@
 ./binlog.000022
 ./binlog.000023
 ./binlog.000024
+=======
+>>>>>>> feature/mailverification

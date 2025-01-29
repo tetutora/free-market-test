@@ -84,6 +84,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 // メール認証関連
+<<<<<<< HEAD
 Route::get('/email/verify', [VerificationsController::class, 'show'])->name('verification.notice');
 Route::get('/email/verify/{id}/{hash}', [VerificationsController::class, 'verify'])
     ->middleware(['signed'])
@@ -91,3 +92,17 @@ Route::get('/email/verify/{id}/{hash}', [VerificationsController::class, 'verify
 Route::post('/email/verification-notification', [VerificationsController::class, 'resend'])
     ->middleware(['auth'])
     ->name('verification.resend');
+=======
+Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed'])
+    ->name('verification.verify');
+Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
+    ->middleware(['auth'])
+    ->name('verification.resend');
+
+// Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
+// Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+//     ->middleware(['auth', 'signed'])
+//     ->name('verification.verify');
+>>>>>>> feature/mailverification

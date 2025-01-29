@@ -5,6 +5,11 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+<<<<<<< HEAD
+=======
+use App\Models\User;
+use Illuminate\Support\Facades\URL;
+>>>>>>> feature/mailverification
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class VerifyEmail extends Mailable implements ShouldQueue
