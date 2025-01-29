@@ -18,11 +18,7 @@ services:
 
     mysql:
         container_name: mysql
-<<<<<<< HEAD
         image: mysql:8.0
-=======
-        image: mysql:8.0.40
->>>>>>> feature/mailverification
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: laravel_db
@@ -36,7 +32,6 @@ services:
             - ./docker/mysql/logs:/var/log/mysql
 
     phpmyadmin:
-        # image: arm64v8/phpmyadmin
         image: phpmyadmin/phpmyadmin
         environment:
             - PMA_ARBITRARY=1
@@ -52,8 +47,4 @@ services:
         image: mailhog/mailhog
         ports:
             - "1025:1025"
-<<<<<<< HEAD
             - "8025:8025"
-=======
-            - "8025:8025"
->>>>>>> feature/mailverification

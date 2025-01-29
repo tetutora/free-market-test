@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 FROM php:8.3-fpm
 
-=======
-FROM php:8.2-fpm
->>>>>>> feature/mailverification
 
 COPY php.ini /usr/local/etc/php/
 

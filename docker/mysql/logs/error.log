@@ -242,3 +242,180 @@
 2025-01-27T08:00:34.788726Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
 2025-01-27T08:00:34.788760Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.40'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
 2025-01-27T08:00:39.810503Z 8 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'
+2025-01-29T03:51:52.378582Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:51:52.379680Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:51:52.379699Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:51:52.380716Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:51:52.386892Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:51:52.441229Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:51:52.441293Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:51:52.909879Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:51:52.910491Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:51:52.910787Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:51:52.911906Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:53:52.754172Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:53:52.755254Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:53:52.755267Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:53:52.756426Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:53:52.760537Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:53:52.813854Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:53:52.813921Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:53:53.294454Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:53:53.296019Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:53:53.296453Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:53:53.298164Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:54:18.587333Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:54:18.588028Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:54:18.588037Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:54:18.589104Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:54:18.592098Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:54:18.622728Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:54:18.622777Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:54:19.111955Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:54:19.112669Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:54:19.112914Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:54:19.114176Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:54:42.024144Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:54:42.025306Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:54:42.025322Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:54:42.026698Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:54:42.032923Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:54:42.086340Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:54:42.086404Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:54:42.561635Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:54:42.562297Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:54:42.562583Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:54:42.564024Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:54:53.307780Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:54:53.308486Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:54:53.308493Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:54:53.309445Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:54:53.312454Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:54:53.340690Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:54:53.340750Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:54:53.829771Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:54:53.830375Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:54:53.830597Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:54:53.831884Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:54:56.856599Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:54:56.857325Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:54:56.857338Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:54:56.858500Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:54:56.862053Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:54:56.895921Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:54:56.895988Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:54:57.383672Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:54:57.384452Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:54:57.384773Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:54:57.386245Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:54:59.845723Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:54:59.846495Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:54:59.846502Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:54:59.847498Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:54:59.850475Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:54:59.875851Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:54:59.875913Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:55:00.372627Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:55:00.373221Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:55:00.373455Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:55:00.374755Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:55:34.913500Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:55:34.914234Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:55:34.914241Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:55:34.915210Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:55:34.918198Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:55:34.954951Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:55:34.955023Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:55:35.437736Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:55:35.438482Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:55:35.438804Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:55:35.441257Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:55:39.346030Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:55:39.346893Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:55:39.346902Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:55:39.347847Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:55:39.350691Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:55:39.377171Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:55:39.377231Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:55:39.870657Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:55:39.871340Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:55:39.871606Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:55:39.873049Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:56:24.748856Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:56:24.749614Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:56:24.749628Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:56:24.750593Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:56:24.753717Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:56:24.797510Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:56:24.797598Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:56:25.276283Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:56:25.276995Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:56:25.277253Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:56:25.278482Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:57:25.443937Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:57:25.445092Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:57:25.445105Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:57:25.446470Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:57:25.450696Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:57:25.505848Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:57:25.505911Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:57:25.978702Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:57:25.979225Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:57:25.979393Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:57:25.980300Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:57:51.031056Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:57:51.033499Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:57:51.033509Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:57:51.034487Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:57:51.039603Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:57:51.109654Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:57:51.109710Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:57:51.572036Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:57:51.572707Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:57:51.572939Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:57:51.574257Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:58:59.608366Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:58:59.610019Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:58:59.610058Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:58:59.611735Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:58:59.616027Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:58:59.670232Z 1 [ERROR] [MY-013879] [InnoDB] The redo log file ./#innodb_redo/#ib_redo14 comes from other data directory than redo log file ./#innodb_redo/#ib_redo10.
+2025-01-29T03:58:59.670292Z 1 [ERROR] [MY-012930] [InnoDB] Plugin initialization aborted with error Generic error.
+2025-01-29T03:59:00.143979Z 1 [ERROR] [MY-010334] [Server] Failed to initialize DD Storage Engine
+2025-01-29T03:59:00.144720Z 0 [ERROR] [MY-010020] [Server] Data Dictionary initialization failed.
+2025-01-29T03:59:00.144911Z 0 [ERROR] [MY-010119] [Server] Aborting
+2025-01-29T03:59:00.146195Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:59:46.610607Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:59:46.610639Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:59:46.610650Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.40) initializing of server in progress as process 80
+2025-01-29T03:59:46.612076Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:59:46.614871Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:59:46.831008Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2025-01-29T03:59:47.346377Z 6 [Warning] [MY-010453] [Server] root@localhost is created with an empty password ! Please consider switching off the --initialize-insecure option.
+2025-01-29T03:59:47.395560Z 6 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'
+2025-01-29T03:59:49.002408Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:59:49.003790Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:59:49.003804Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 124
+2025-01-29T03:59:49.005280Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:59:49.011357Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:59:49.121112Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2025-01-29T03:59:49.200991Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2025-01-29T03:59:49.201044Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2025-01-29T03:59:49.202709Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2025-01-29T03:59:49.208992Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Socket: /var/run/mysqld/mysqlx.sock
+2025-01-29T03:59:49.209042Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.40'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.
+2025-01-29T03:59:49.223555Z 8 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'
+2025-01-29T03:59:49.899004Z 13 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.40).
+2025-01-29T03:59:50.800569Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.40)  MySQL Community Server - GPL.
+2025-01-29T03:59:51.054299Z 0 [Warning] [MY-011068] [Server] The syntax '--skip-host-cache' is deprecated and will be removed in a future release. Please use SET GLOBAL host_cache_size=0 instead.
+2025-01-29T03:59:51.055011Z 0 [Warning] [MY-010918] [Server] 'default_authentication_plugin' is deprecated and will be removed in a future release. Please use authentication_policy instead.
+2025-01-29T03:59:51.055019Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.40) starting as process 1
+2025-01-29T03:59:51.055979Z 0 [Warning] [MY-010159] [Server] Setting lower_case_table_names=2 because file system for /var/lib/mysql/ is case insensitive
+2025-01-29T03:59:51.058773Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2025-01-29T03:59:51.129839Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2025-01-29T03:59:51.186934Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2025-01-29T03:59:51.186989Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2025-01-29T03:59:51.188378Z 0 [Warning] [MY-011810] [Server] Insecure configuration for --pid-file: Location '/var/run/mysqld' in the path is accessible to all OS users. Consider choosing a different directory.
+2025-01-29T03:59:51.195630Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060, socket: /var/run/mysqld/mysqlx.sock
+2025-01-29T03:59:51.195655Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.40'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.
+2025-01-29T04:02:49.384399Z 8 [Warning] [MY-013360] [Server] Plugin mysql_native_password reported: ''mysql_native_password' is deprecated and will be removed in a future release. Please use caching_sha2_password instead'
