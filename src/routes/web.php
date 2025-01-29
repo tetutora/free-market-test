@@ -29,8 +29,7 @@ Route::post('/logout', function () {
 })->name('logout');
 
 // 商品詳細関連
-Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('product.show');
-
+Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('products.show');
 
 // 商品コメント関連
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
