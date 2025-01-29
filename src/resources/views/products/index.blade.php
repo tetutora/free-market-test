@@ -16,7 +16,7 @@
 <div id="product-list" class="product-list">
     @foreach($products as $product)
         <div class="product-item">
-            <a href="{{ route('product.show', $product->id) }}">
+            <a href="{{ route('products.show', $product->id) }}">
                 @if(str_starts_with($product->image, 'http'))
                     <img src="{{ $product->image }}" alt="{{ $product->name }}"> <!-- 外部リンク画像 -->
                 @else
