@@ -74,10 +74,12 @@ class ProfileController extends Controller
         $user = auth()->user();
         $profile = $user->profile;
 
-        if (!$profile) {
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->save();
+        if ($request->hasFile('profile_picture')) {
+            if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
+                Storage::delete('public/' . $user->profile_picture);
+            }
+            $path = $request->file('profile_picture')->store('profiles', 'public');
+            $user->profile_picture = $path;
         }
 
         $profile_picture = $profile->profile_picture

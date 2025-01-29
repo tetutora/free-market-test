@@ -60,35 +60,6 @@ class VerificationController extends Controller
         return back()->withErrors(['error' => '認証リンクの再送ができませんでした。']);
     }
 
-
-    // public function verify(Request $request, $id, $hash)
-    // {
-    //     Log::info("Verification process started for user ID: {$id}");
-
-    //     $user = User::find($id);
-
-    //     if ($user && hash_equals($hash, sha1($user->email))) {
-    //         Log::info("Verification successful for user ID: {$id}");
-    //         $user->markEmailAsVerified();
-    //         return redirect()->intended('/')->with('status', 'Email successfully verified!');
-    //     }
-
-    //     Log::warning("Verification failed for user ID: {$id}");
-    //     return redirect()->route('verification.notice')->with('error', 'Invalid signature');
-    // }
-
-    // public function resend(Request $request)
-    // {
-    //     $user = $request->user();
-
-    //     if ($user && !$user->hasVerifiedEmail()) {
-    //         $user->sendEmailVerificationNotification();
-    //         return back()->with('status', '認証リンクを再送しました!');
-    //     }
-
-    //     return back()->withErrors(['error' => '認証リンクの再送ができませんでした。']);
-    // }
-
     public function show()
     {
         return view('auth.verify-email');

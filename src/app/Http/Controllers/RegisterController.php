@@ -42,9 +42,6 @@ class RegisterController extends Controller
 
         return redirect()->route('verification.notice')->with('status', '登録完了しました。認証メールを確認してください。');
     }
-<<<<<<< HEAD
-}
-=======
 
     // public function register(RegisterRequest $request)
     // {
@@ -97,4 +94,3 @@ class RegisterController extends Controller
     //     return redirect()->route('verification.notice')->with('status', '登録が完了しました。認証メールをご確認ください。');
     // }
 }
->>>>>>> feature/mailverification

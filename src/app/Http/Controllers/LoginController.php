@@ -10,6 +10,8 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 
 class LoginController extends Controller
 {
@@ -18,7 +20,6 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    // ログイン後マイページに移行
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
@@ -26,7 +27,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            if ($user->mustBeVerified()) {
+            if (!$user->hasVerifiedEmail()) {
                 Auth::logout();
                 return redirect()->route('verification.notice')->withErrors(['email' => 'メール認証が完了していません。認証リンクを確認してください。']);
             }
@@ -36,52 +37,4 @@ class LoginController extends Controller
 
         return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません。']);
     }
-<<<<<<< HEAD
-=======
-
-    // public function login(LoginRequest $request)
-    // {
-    //     $credentials = $request->only('email', 'password');
-
-    //     if(Auth::attempt($credentials))
-    //     {
-    //         $user = Auth::user();
-
-    //         if(!$user->hasVerifiedEmail())
-    //         {
-    //             Auth::logout();
-    //             return redirect()->route('verification.notice')->withErrors(['email' => 'メール認証が完了していません。認証リンクを確認してください。']);
-    //         }
-
-    //         return redirect()->route('products.index');
-    //     }
-
-    //     return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません。']);
-    // }
-
-    // public function login(LoginRequest $request)
-    // {
-    //     $login = $request->input('email');
-    //     $password = $request->input('password');
-
-    //     $credentials = ['password' => $password];
-
-    //     if (filter_var($login, FILTER_VALIDATE_EMAIL)) {
-    //         $credentials['email'] = $login;
-    //     } else {
-    //         $credentials['name'] = $login;
-    //     }
-
-    //     // 認証を試行
-    //     if (Auth::attempt($credentials)) {
-    //         if (!Auth::user()->hasVerifiedEmail()) {
-    //             return redirect()->route('verification.notice');
-    //         }
-    //         return redirect()->route('products.index');
-    //     }
-
-    //     // 認証失敗時
-    //     return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません']);
-    // }
->>>>>>> feature/mailverification
 }

@@ -53,7 +53,6 @@ class ProductController extends Controller
     public function addComment(Request $request, Product $product)
     {
         if (!Auth::check()) {
-            // ログインしていない場合、商品詳細ページに戻す
             return redirect()->route('products.show', $product->id)->with('error', 'ログインが必要です');
         }
 
@@ -81,14 +80,12 @@ class ProductController extends Controller
     // 商品保存処理
     public function store(Request $request)
     {
-        // 画像の保存
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public'); // ストレージに保存
+            $imagePath = $request->file('image')->store('products', 'public');
         } else {
-            $imagePath = null; // 画像がない場合は null
+            $imagePath = null;
         }
 
-        // 商品データを保存
         $product = Product::create([
             'name' => $request->name,
             'brand_name' => $request->brand_name,
@@ -96,10 +93,9 @@ class ProductController extends Controller
             'price' => $request->price,
             'status' => $request->status,
             'user_id' => Auth::id(),
-            'image' => $imagePath, // 保存した画像のパスを設定
+            'image' => $imagePath,
         ]);
 
-        // カテゴリの関連付け
         $categoryIds = explode(',', $request->category_id);
         $product->categories()->attach($categoryIds, ['user_id' => Auth::id()]);
 
