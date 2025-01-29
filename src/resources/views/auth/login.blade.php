@@ -13,7 +13,7 @@
         @csrf
         <div class="form__group">
         <div class="form__group-title">
-            <span class="form__label--item">ユーザー名/メールアドレス</span>
+            <span class="form__label--item">メールアドレス</span>
         </div>
         <div class="form__group-content">
             <div class="form__input--text">
