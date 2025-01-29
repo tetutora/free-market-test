@@ -7,30 +7,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\User;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class VerifyEmail extends Mailable
+class VerifyEmail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $user;
-    public $signedUrl;
+    private $signedUrl;
 
     /**
      * Create a new message instance.
      *
-     * @param User $user
-     * @return void
+     * @param string $signedUrl
      */
-    public function __construct(User $user)
+    public function __construct($signedUrl)
     {
-        $this->user = $user;
-
-        // 署名付きURLの生成
-        $this->signedUrl = URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $user->id, 'hash' => sha1($user->email)]
-        );
+        $this->signedUrl = $signedUrl;
     }
 
     /**
@@ -40,11 +32,8 @@ class VerifyEmail extends Mailable
      */
     public function build()
     {
-        return $this->subject('メールアドレスを確認してください')
+        return $this->subject('メールアドレスの認証')
                     ->view('emails.verify')
-                    ->with([
-                        'user' => $this->user,
-                        'signedUrl' => $this->signedUrl,
-                    ]);
+                    ->with(['url' => $this->signedUrl]);
     }
 }

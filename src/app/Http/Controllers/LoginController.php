@@ -21,21 +21,39 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            if(!$user->hasVerifiedEmail())
-            {
+            if ($user->mustBeVerified()) {
                 Auth::logout();
                 return redirect()->route('verification.notice')->withErrors(['email' => 'メール認証が完了していません。認証リンクを確認してください。']);
             }
 
-            return redirect()->route('products.index');
+            return redirect()->route('profile.mypage');
         }
 
         return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません。']);
     }
+
+    // public function login(LoginRequest $request)
+    // {
+    //     $credentials = $request->only('email', 'password');
+
+    //     if(Auth::attempt($credentials))
+    //     {
+    //         $user = Auth::user();
+
+    //         if(!$user->hasVerifiedEmail())
+    //         {
+    //             Auth::logout();
+    //             return redirect()->route('verification.notice')->withErrors(['email' => 'メール認証が完了していません。認証リンクを確認してください。']);
+    //         }
+
+    //         return redirect()->route('products.index');
+    //     }
+
+    //     return redirect()->back()->withErrors(['email' => 'ログイン情報が登録されていません。']);
+    // }
 
     // public function login(LoginRequest $request)
     // {

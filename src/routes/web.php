@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
 
 // プロフィール関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');
@@ -76,7 +76,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/my-purchases', [PurchaseController::class, 'myPurchases'])->name('my-purchases');
 });
 
-Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
-Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-    ->middleware(['auth', 'signed'])
+// メール認証関連
+Route::get('/email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed'])
     ->name('verification.verify');
+Route::post('/email/verification-notification', [VerificationController::class, 'resend'])
+    ->middleware(['auth'])
+    ->name('verification.resend');
+
+// Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
+// Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+//     ->middleware(['auth', 'signed'])
+//     ->name('verification.verify');

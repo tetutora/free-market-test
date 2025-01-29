@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -18,20 +19,21 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-    public function verify(Request $request, $id, $hash)
+    public function verify(EmailVerificationRequest $request)
     {
-        Log::info("Verification process started for user ID: {$id}");
+        if($request->hasValidSignature()){
+            $user = $request->user();
 
-        $user = User::find($id);
+            if(!$user->hasVerifiedEmail()){
+                $user->markEmailAsVerified();
+            }
 
-        if ($user && hash_equals($hash, sha1($user->email))) {
-            Log::info("Verification successful for user ID: {$id}");
-            $user->markEmailAsVerified();
-            return redirect()->intended('/')->with('status', 'Email successfully verified!');
-        }
+            Auth::login($user);
 
-        Log::warning("Verification failed for user ID: {$id}");
-        return redirect()->route('verification.notice')->with('error', 'Invalid signature');
+            return redirect()->route('profile.show');
+            } else {
+                return redirect()->route('verification.notice')->withErrors(['error' => '認証リンクが無効です。']);
+            }
     }
 
     public function resend(Request $request)
@@ -39,12 +41,53 @@ class VerificationController extends Controller
         $user = $request->user();
 
         if ($user && !$user->hasVerifiedEmail()) {
-            $user->sendEmailVerificationNotification();
+
+            $request->validate([
+                '_token' => 'required|csrf',
+            ]);
+
+            $signedUrl = URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addMinutes(60),
+                ['id' => $user->id, 'hash' => sha1($user->email)]
+            );
+
+            Mail::to($user->email)->send(new VerifyEmail($signedUrl));
+
             return back()->with('status', '認証リンクを再送しました!');
         }
 
         return back()->withErrors(['error' => '認証リンクの再送ができませんでした。']);
     }
+
+
+    // public function verify(Request $request, $id, $hash)
+    // {
+    //     Log::info("Verification process started for user ID: {$id}");
+
+    //     $user = User::find($id);
+
+    //     if ($user && hash_equals($hash, sha1($user->email))) {
+    //         Log::info("Verification successful for user ID: {$id}");
+    //         $user->markEmailAsVerified();
+    //         return redirect()->intended('/')->with('status', 'Email successfully verified!');
+    //     }
+
+    //     Log::warning("Verification failed for user ID: {$id}");
+    //     return redirect()->route('verification.notice')->with('error', 'Invalid signature');
+    // }
+
+    // public function resend(Request $request)
+    // {
+    //     $user = $request->user();
+
+    //     if ($user && !$user->hasVerifiedEmail()) {
+    //         $user->sendEmailVerificationNotification();
+    //         return back()->with('status', '認証リンクを再送しました!');
+    //     }
+
+    //     return back()->withErrors(['error' => '認証リンクの再送ができませんでした。']);
+    // }
 
     public function show()
     {
