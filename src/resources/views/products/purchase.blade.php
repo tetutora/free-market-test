@@ -28,6 +28,7 @@
             <div class="payment-method">
                 <label for="payment-method"><strong>お支払い方法</strong></label>
                 <select name="payment-method" id="payment-method" onchange="updatePaymentMethod()">
+                    <option value="credit_card">選択してください</option>
                     <option value="credit_card">カード払い</option>
                     <option value="bank_transfer">コンビニ払い</option>
                 </select>
@@ -39,6 +40,14 @@
                 <h3>配送先 <a href="{{ route('profile.address.edit', ['item_id' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
                 <p><strong>〒 {{$zipcode }}</strong></p>
                 <p><strong>{{ $address }} {{ $building }}</strong> </p>
+            </div>
+
+            <!-- Stripeのカード入力フォーム -->
+            <div id="stripe-payment" style="display:none;">
+                <label for="card-element">クレジットカード情報</label>
+                <div id="card-element">
+                    <!-- Stripe Card Element will go here -->
+                </div>
             </div>
         </div>
 
@@ -55,46 +64,56 @@
 </div>
 
 @section('js')
+<script src="https://js.stripe.com/v3/"></script>
 <script>
+    // Stripeの公開鍵を設定
+    var stripe = Stripe('your-publishable-key'); // ここに自分の公開鍵を挿入
+    var elements = stripe.elements();
+
+    // カード情報の入力エリアを作成
+    var cardElement = elements.create('card'); // 'card'を指定してカード情報を入力させる
+
+    // カードエレメントを#card-elementにマウント
+    cardElement.mount('#card-element');
+
+    // 支払い情報を処理するフォーム送信時の処理
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        stripe.createToken(cardElement).then(function(result) {
+            if (result.error) {
+                // エラーがあれば、エラーメッセージを表示
+                alert(result.error.message);
+            } else {
+                // トークンを作成した後、そのトークンをフォームに追加して送信
+                var tokenInput = document.createElement('input');
+                tokenInput.setAttribute('type', 'hidden');
+                tokenInput.setAttribute('name', 'stripe_token');
+                tokenInput.setAttribute('value', result.token.id);
+                document.querySelector('form').appendChild(tokenInput);
+
+                // フォームを送信
+                document.querySelector('form').submit();
+            }
+        });
+    });
+
+    // 支払い方法の選択肢に応じてStripeのカード入力フォームを表示・非表示
     function updatePaymentMethod() {
         var paymentMethod = document.getElementById('payment-method').value;
-        var methodText = '';
 
         if (paymentMethod === 'credit_card') {
-            methodText = 'カード払い';
-        } else if (paymentMethod === 'bank_transfer') {
-            methodText = 'コンビニ払い';
+            document.getElementById('stripe-payment').style.display = 'block'; // カード情報入力フォームを表示
+        } else {
+            document.getElementById('stripe-payment').style.display = 'none'; // 非表示
         }
 
+        var methodText = paymentMethod === 'credit_card' ? 'カード払い' : 'コンビニ払い';
         document.getElementById('selected-payment-method').textContent = methodText;
     }
 
     document.addEventListener('DOMContentLoaded', function() {
         updatePaymentMethod();
-    });
-
-    // 購入処理後の処理
-    document.querySelector('form').addEventListener('submit', function(e) {
-        e.preventDefault(); // デフォルトのフォーム送信をキャンセル
-        
-        const productId = {{ $product->id }};
-        
-        fetch(`/purchase/complete/${productId}`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-        })
-        .then(response => {
-            if (response.ok) {
-                // 商品情報を更新してSoldout表示に変更
-                alert('購入が完了しました。商品はSoldoutに表示されます');
-                window.location.href = '/my-purchases'; // マイページにリダイレクト
-            } else {
-                throw new Error('Error in purchase');
-            }
-        })
-        .catch(error => console.error('Error:', error));
     });
 </script>
 @endsection

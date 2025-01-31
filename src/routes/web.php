@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\{
     RegisterController,
     LoginController,
@@ -101,3 +102,6 @@ Route::post('/email/verification-notification', [VerificationController::class, 
     ->middleware(['auth'])
     ->name('verification.resend');
 
+// stripe決済関連
+Route::get('/payment', [PaymentController::class, 'showPaymentForm']);
+Route::post('/process-payment', [PaymentController::class, 'processPayment']);
