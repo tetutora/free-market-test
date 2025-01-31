@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\{
     RegisterController,
     LoginController,
@@ -37,9 +37,6 @@ Route::post('/products/{product}/add-comment', [ProductController::class, 'addCo
 Route::middleware(['auth'])->group(function () {
     // 商品購入画面
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
-
-    // 商品購入処理
-    Route::post('/purchase/complete/{item_id}', [PurchaseController::class, 'complete'])->name('purchase.complete');
 
     // 購入時住所変更画面
     Route::get('/profile/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
@@ -103,5 +100,10 @@ Route::post('/email/verification-notification', [VerificationController::class, 
     ->name('verification.resend');
 
 // stripe決済関連
-Route::get('/payment', [PaymentController::class, 'showPaymentForm']);
-Route::post('/process-payment', [PaymentController::class, 'processPayment']);
+Route::post('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('stripe.checkout');
+
+// 商品購入完了後の処理
+Route::get('/purchase/success', [PurchaseController::class, 'success'])->name('purchase.success');
+
+Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
+
