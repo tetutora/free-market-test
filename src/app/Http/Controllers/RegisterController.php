@@ -15,11 +15,13 @@ use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
+    // 会員登録画面
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
+    // 会員登録処理
     public function register(RegisterRequest $request)
     {
         $validated = $request->validated();

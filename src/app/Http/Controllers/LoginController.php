@@ -14,11 +14,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class LoginController extends Controller
 {
+    // ログイン画面
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
+    // ログイン処理
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');

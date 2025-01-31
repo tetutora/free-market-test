@@ -9,7 +9,7 @@ use App\Models\Favorite;
 use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\CommentRequest;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -52,7 +52,7 @@ class ProductController extends Controller
     }
 
     // コメント投稿
-    public function addComment(StoreCommentRequest $request, Product $product)
+    public function addComment(CommentRequest $request, Product $product)
     {
         if (!Auth::check()) {
             return redirect()->route('products.show', $product->id)->with('error', 'ログインが必要です');
@@ -80,7 +80,7 @@ class ProductController extends Controller
     }
 
     // 出品商品保存処理
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');

@@ -19,6 +19,7 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
+    // メール認証処理
     public function verify(EmailVerificationRequest $request)
     {
         if($request->hasValidSignature()){

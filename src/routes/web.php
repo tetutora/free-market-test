@@ -58,6 +58,8 @@ Route::middleware(['auth'])->group(function () {
 
     // 商品出品処理
     Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
+
+
 });
 
 // プロフィール関連 (ログイン必須)

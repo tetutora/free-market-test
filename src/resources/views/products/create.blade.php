@@ -13,14 +13,13 @@
     <!-- 商品画像 -->
     <div class="form-group">
         <label for="image"><strong>商品画像</strong></label>
-
-        <!-- 画像プレビュー枠 -->
         <div id="image-preview" class="image-preview">画像を選択してください</div>
-
-        <!-- 画像選択ボタン -->
         <label for="image" class="custom-file-label">画像を選択</label>
         <input type="file" id="image" name="image" accept="image/*" required class="image-upload">
     </div>
+    @error('image')
+        {{ $message }}
+    @enderror
 
     <!-- 商品カテゴリ -->
     <div class="form-group">
@@ -32,6 +31,10 @@
         </div>
         <input type="hidden" id="category_id" name="category_id" value="">
     </div>
+    @error('category_id')
+        {{ $message }}
+    @enderror
+
 
     <!-- 商品状態 -->
     <div class="form-group">
@@ -44,28 +47,45 @@
             <option value="状態が悪い">状態が悪い</option>
         </select>
     </div>
+    @error('status')
+        {{ $message }}
+    @enderror
+
 
     <!-- 商品名とブランド名と商品説明 -->
     <div class="form-group">
         <label for="name"><strong>商品名</strong></label>
         <input type="text" id="name" name="name" required>
     </div>
+    @error('name')
+        {{ $message }}
+    @enderror
 
     <div class="form-group">
         <label for="brand_name"><strong>ブランド名</strong></label>
         <input type="text" id="brand_name" name="brand_name">
     </div>
+    @error('brand_name')
+        {{ $message }}
+    @enderror
 
     <div class="form-group">
         <label for="description"><strong>商品説明</strong></label>
         <textarea id="description" name="description" required></textarea>
     </div>
+    @error('description')
+        {{ $message }}
+    @enderror
 
     <!-- 販売価格 -->
     <div class="form-group">
         <label for="price"><strong>価格</strong></label>
         <input type="number" id="price" name="price" required>
     </div>
+    @error('price')
+        {{ $message }}
+    @enderror
+
 
     <!-- 出品ボタン -->
     <div class="form-group">
