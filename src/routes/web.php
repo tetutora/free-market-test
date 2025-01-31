@@ -11,10 +11,11 @@ use App\Http\Controllers\{
     VerificationController
 };
 
-// トップページ関連
+// トップページ
 Route::get('/', [ProductController::class, 'index'])->name('home');
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/mylist', [ProductController::class, 'index'])->name('home.mylist');
+
+// 商品詳細画面
+Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('products.show');
 
 // 会員登録関連
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
@@ -28,52 +29,59 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
-// 商品詳細関連
-Route::get('/item/{item_id}', [ProductController::class, 'show'])->name('products.show');
-
-// 商品コメント関連
+// 商品コメント投稿
 Route::post('/products/{product}/add-comment', [ProductController::class, 'addComment'])->name('product.addComment');
 
 // 商品購入関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
+    // 商品購入画面
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
+
+    // 商品購入処理
     Route::post('/purchase/complete/{item_id}', [PurchaseController::class, 'complete'])->name('purchase.complete');
 
-    // 住所関連
+    // 購入時住所変更画面
     Route::get('/profile/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
-    Route::post('/profile/address/{item_id}', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
+
+    // 購入次住所変更処理
+    Route::post('/profile/address/update/{item_id}', [ProfileController::class, 'updateAddress'])
+    ->name('profile.address.update');
+
+    // 住所変更後商品購入画面
+    Route::get('/products/{item_id}/purchase', [PurchaseController::class, 'show'])->name('products.purchase');
 });
-
-// 商品購入画面のルート
-Route::get('/products/{item_id}/purchase', [PurchaseController::class, 'show'])->name('products.purchase');
-
-
-// 住所編集画面
-Route::get('/profile/address/edit', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
-Route::post('/profile/address/update', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
-
 
 // 商品出品関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
+    // 商品出品画面
     Route::get('/sell', [ProductController::class, 'create'])->name('sell');
+
+    // 商品出品処理
     Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
 });
 
 // プロフィール関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+
+    // プロフィール設定画面
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // プロフィール設定処理
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-// マイページ関連 (ログイン必須)
+// マイページ表示 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
-    Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');  // 追加
+    Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');
 });
 
-// 商品いいね関連 (ログイン必須)
+// 商品いいね (ログイン必須)
 Route::middleware(['auth'])->group(function () {
+    // いいねした商品をマイリストで表示
     Route::get('/products/liked', [ProductController::class, 'likedProducts'])->name('products.liked');
+
+    // 商品へのいいね
     Route::post('/products/{product}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.toggleFavorite');
 });
 
@@ -91,7 +99,3 @@ Route::post('/email/verification-notification', [VerificationController::class, 
     ->middleware(['auth'])
     ->name('verification.resend');
 
-// Route::get('/email/verify', [VerificationController::class, 'show'])->middleware('auth')->name('verification.notice');
-// Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
-//     ->middleware(['auth', 'signed'])
-//     ->name('verification.verify');

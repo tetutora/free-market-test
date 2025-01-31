@@ -63,17 +63,15 @@ class ProfileController extends Controller
     }
 
     // 住所編集画面
-    public function editAddress(Request $request)
+    public function editAddress(Request $request, $item_id)
     {
         $profile = auth()->user()->profile;
 
-        $productId = $request->query('productId');
-
-        return view('profile.address.edit', compact('profile', 'productId'));
+        return view('profile.address.edit', compact('profile', 'item_id'));
     }
 
     // 住所更新処理
-    public function updateAddress(Request $request)
+    public function updateAddress(Request $request, $item_id)
     {
         $profile = auth()->user()->profile;
 
@@ -83,7 +81,7 @@ class ProfileController extends Controller
 
         $profile->save();
 
-        return redirect()->route('purchase.show', ['productId' => $request->productId]); 
+        return redirect()->route('products.purchase', ['item_id' => $item_id]);
     }
 
     // プロフィール編集画面

@@ -19,11 +19,11 @@
                 <ul class="header-nav">
                     <li class="header-nav__item header-nav__search-container">
                         <form class="header-nav__search" action="{{ url()->current() }}" method="GET">
-                            <input 
-                                type="text" 
-                                name="search" 
-                                placeholder="なにをお探しですか？" 
-                                class="header-nav__search-input" 
+                            <input
+                                type="text"
+                                name="search"
+                                placeholder="なにをお探しですか？"
+                                class="header-nav__search-input"
                                 value="{{ request('search') }}">
                         </form>
                     </li>
@@ -59,6 +59,12 @@
         let debounceTimeout;
 
         if (searchInput && searchForm) {
+            if (searchInput.value) {
+                const urlParams = new URLSearchParams(window.location.search);
+                urlParams.set('search', searchInput.value);  // 'search'パラメータをセット
+                window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+            }
+
             searchInput.addEventListener('input', () => {
                 clearTimeout(debounceTimeout);
                 debounceTimeout = setTimeout(() => {

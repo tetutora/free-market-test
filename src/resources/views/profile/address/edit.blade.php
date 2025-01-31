@@ -9,9 +9,9 @@
     <div class="profile-form__heading">
         <h2>住所の変更</h2>
     </div>
-    <form class="form" action="{{ route('profile.address.update') }}" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{ route('profile.address.update', ['item_id' => $item_id]) }}" method="POST">
         @csrf
-        <input type="hidden" name="productId" value="{{ $productId }}">
+        <input type="hidden" name="item_id" value="{{ $item_id }}">
 
         <!-- 郵便番号 -->
         <div class="form__group">

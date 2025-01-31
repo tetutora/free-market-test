@@ -6,7 +6,7 @@
 
 
 ## Laravel環境構築
-- docker-compose exec php bash　でコンテナに入る
+- docker-compose exec php bash でコンテナに入る
 - composer install
 - cp .env.example を .env にコピーし、環境変数を適宜変更
 - php artisan key:generate

@@ -7,7 +7,7 @@
 @section('content')
 
 @php
-    $currentPage = request()->query('page', 'sell'); // デフォルトは出品一覧
+    $currentPage = request()->query('page', 'sell');
 @endphp
 
 <div class="mypage">

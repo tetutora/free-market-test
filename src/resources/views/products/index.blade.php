@@ -7,7 +7,7 @@
 @section('content')
 
 @php
-    $currentPage = request()->query('page', 'recommendation'); // デフォルトは "recommendation"
+    $currentPage = request()->query('page', 'recommendation');
 @endphp
 
 <!-- ボタンを配置 -->
@@ -70,11 +70,11 @@
 
         if (recommendationBtn && mylistBtn) {
             recommendationBtn.addEventListener('click', () => {
-                window.location.href = '/?page=recommendation'; // 「おすすめ」ページへ遷移
+                window.location.href = '/?page=recommendation&search={{ request('search') }}'; // 「おすすめ」ページへ遷移
             });
 
             mylistBtn.addEventListener('click', () => {
-                window.location.href = '/?page=mylist'; // 「マイリスト」ページへ遷移
+                window.location.href = '/?page=mylist&search={{ request('search') }}'; // 「マイリスト」ページへ遷移
             });
         } else {
             console.error('ボタンが見つかりません');

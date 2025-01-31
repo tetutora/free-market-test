@@ -9,6 +9,7 @@ use App\Models\Favorite;
 use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreCommentRequest;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
@@ -30,7 +31,7 @@ class ProductController extends Controller
 
         $likedProducts = Auth::check() ? Auth::user()->favorites : collect([]);
 
-        return view('products.index', compact('products', 'likedProducts'));
+        return view('products.index', compact('products', 'likedProducts', 'search'));
     }
 
     // 商品詳細表示
@@ -45,12 +46,13 @@ class ProductController extends Controller
         $user = Auth::user();
         $isFavorited = $user ? $user->favorites()->where('product_id', $id)->exists() : false;
         $favoriteCount = $product->favorites()->count();
+        $commentCount = $product->comments()->count();
 
-        return view('products.show', compact('product', 'isFavorited', 'favoriteCount'));
+        return view('products.show', compact('product', 'isFavorited', 'favoriteCount', 'commentCount'));
     }
 
     // コメント投稿
-    public function addComment(Request $request, Product $product)
+    public function addComment(StoreCommentRequest $request, Product $product)
     {
         if (!Auth::check()) {
             return redirect()->route('products.show', $product->id)->with('error', 'ログインが必要です');
@@ -77,7 +79,7 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
-    // 商品保存処理
+    // 出品商品保存処理
     public function store(Request $request)
     {
         if ($request->hasFile('image')) {
@@ -112,7 +114,6 @@ class ProductController extends Controller
             return response()->json(['message' => 'ログインが必要です'], 401);
         }
 
-        // いいねのトグル
         $user->favorites()->toggle($product->id);
 
         return response()->json([
@@ -122,16 +123,24 @@ class ProductController extends Controller
     }
 
     // いいねした商品一覧
-    public function likedProducts()
+    public function likedProducts(Request $request)
     {
+        $search = $request->get('search');
         $user = Auth::user();
 
-        if (!$user) {
+        if(!$user) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $likedProducts = $user->favorites()->with('product')->get()->pluck('product');
+        $likedProducts = $user->favorites()->with('product')
+            ->when($search, function ($query) use ($search) {
+                return $query->whereHas('product', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
+            })
+            ->get()
+            ->pluck('product');
 
-        return view('products.mylist', compact('likedProducts'));
+        return view('products.mylist', compact('likedProducts', 'search'));
     }
 }
