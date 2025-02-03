@@ -32,58 +32,6 @@ class PurchaseController extends Controller
         return view('products.purchase', compact('product', 'zipcode', 'address', 'building', 'item_id'));
     }
 
-    // public function success(Request $request)
-    // {
-    //     \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-
-    //     // クエリパラメータからセッションIDを取得
-    //     $sessionId = $request->query('session_id');
-
-    //     // セッションIDが無い場合
-    //     if (!$sessionId) {
-    //         return redirect()->route('profile.mypage')->with('error', '無効なセッションID');
-    //     }
-
-    //     // Stripeでセッションを検証
-    //     try {
-    //         $session = \Stripe\Checkout\Session::retrieve($sessionId);
-
-    //         // セッション情報をログに出力（デバッグ用）
-    //         Log::info('Stripe Session: ', (array) $session);  // セッション全体をログに出力
-
-    //         // メタデータからitem_idを取得
-    //         $item_id = $session->metadata->item_id;
-    //         Log::info('Item ID from Stripe session: ' . $item_id);  // item_idをログに出力
-
-    //         // 商品を取得
-    //         $product = Product::find($item_id);
-    //         if (!$product) {
-    //             Log::error('商品が見つかりません: ' . $item_id);
-    //             return redirect()->route('profile.mypage')->with('error', '商品が見つかりませんでした');
-    //         }
-
-    //         // 商品の販売状態を更新
-    //         $product->is_sold = true;
-    //         $product->save();
-
-    //         // ユーザーに購入した商品を関連付け
-    //         $user = Auth::user();
-    //         $user->purchasedProducts()->attach($item_id);
-
-    //         // 購入情報をpurchasesテーブルに保存
-    //         \App\Models\Purchase::create([
-    //             'user_id' => $user->id,
-    //             'product_id' => $item_id,
-    //         ]);
-    //         Log::info('Purchase saved: user_id=' . $user->id . ', product_id=' . $item_id);
-
-    //         return redirect()->route('profile.mypage')->with('success', '購入が完了しました');
-    //     } catch (\Exception $e) {
-    //         Log::error('Purchase save error: ' . $e->getMessage());
-    //         return redirect()->route('profile.mypage')->with('error', '購入情報の保存に失敗しました');
-    //     }
-    // }
-
     public function success(Request $request)
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));

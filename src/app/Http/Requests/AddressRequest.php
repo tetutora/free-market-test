@@ -25,7 +25,7 @@ class AddressRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'zipcode' => 'required',
+            'zipcode' => 'required|regex:/^\d{3}-\d{4}$/',
             'address' => 'required',
             'building' => 'required',
             'profile_picture' => 'nullable|mimes:jpeg,png|max:2048',
@@ -38,6 +38,7 @@ class AddressRequest extends FormRequest
         return [
             'name.required' => 'ユーザー名を入力してください',
             'zipcode.required' => '郵便番号を入力してください',
+            'zipcode.regex' => '郵便番号はハイフンありの形式で入力してください（例: 123-4567）',
             'address.required' => '住所を入力してください',
             'building.required' => '建物名を入力してください',
             'profile_picture.mimes:jpeg,png|max:2048' => '拡張子が.jpegもしくは.pngで入力してください'

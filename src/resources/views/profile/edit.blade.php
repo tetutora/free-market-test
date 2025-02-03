@@ -53,7 +53,7 @@
             </div>
             <div class="form__group-content">
                 <div class="form__input">
-                    <input class="form__input-text" type="text" id="zipcode" name="zipcode" value="{{ old('zipcode', $profile->zipcode) }}" pattern="\d{3}-\d{4}|\d{7}" maxlength="8" placeholder="123-4567 または 1234567" />
+                    <input class="form__input-text" type="text" id="zipcode" name="zipcode" value="{{ old('zipcode', $profile->zipcode) }}" pattern="\d{3}-\d{4}" maxlength="8" placeholder="123-4567" />
                 </div>
                 <div class="form__error">
                     @error('zipcode')
@@ -88,6 +88,11 @@
             <div class="form__group-content">
                 <div class="form__input">
                     <input class="form__input-text" type="text" name="building" value="{{ old('building', $profile->building) }}" />
+                </div>
+                <div class="form__error">
+                    @error('building')
+                        {{ $message }}
+                    @enderror
                 </div>
             </div>
         </div>

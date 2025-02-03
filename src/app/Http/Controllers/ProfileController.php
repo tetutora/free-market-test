@@ -9,13 +9,45 @@ use App\Models\Profile;
 use App\Models\Purchase;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ProfileRequest;
 
 class ProfileController extends Controller
 {
-    // プロフィール表示
+    // プロフィール設定画面表示
     public function show()
     {
         return view('profile.show');
+    }
+
+    // プロフィール更新処理
+    public function update(AddressRequest $request)
+    {
+        $user = auth()->user();
+        $profile = $user->profile;
+
+        if (!$profile) {
+            $profile = new Profile();
+            $profile->user_id = $user->id;
+            $profile->name = $user->name;
+            $profile->zipcode = $request->input('zipcode');
+            $profile->address = $request->input('address');
+            $profile->building = $request->input('building');
+            $profile->save();
+        }
+
+        if ($request->hasFile('profile_picture')) {
+            $filePath = $request->file('profile_picture')->store('profiles', 'public');
+            $profile->profile_picture = $filePath;
+        }
+
+        $profile->name = $request->input('name');
+        $profile->zipcode = $request->input('zipcode');
+        $profile->address = $request->input('address');
+        $profile->building = $request->input('building');
+
+        $profile->save();
+
+        return redirect()->route('profile.mypage');
     }
 
     // マイページ表示
@@ -105,34 +137,5 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
 
-    // プロフィール更新処理
-    public function update(AddressRequest $request)
-    {
-        $user = auth()->user();
-        $profile = $user->profile;
-
-        if (!$profile) {
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->name = $user->name;
-            $profile->zipcode = $request->input('zipcode');
-            $profile->address = $request->input('address');
-            $profile->building = $request->input('building');
-            $profile->save();
-        }
-
-        if ($request->hasFile('profile_picture')) {
-            $filePath = $request->file('profile_picture')->store('profiles', 'public');
-            $profile->profile_picture = $filePath;
-        }
-
-        $profile->name = $request->input('name');
-        $profile->zipcode = $request->input('zipcode');
-        $profile->address = $request->input('address');
-        $profile->building = $request->input('building');
-
-        $profile->save();
-
-        return redirect()->route('profile.mypage');
-    }
+    
 }
