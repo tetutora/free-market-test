@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Profile;
 use App\Models\Purchase;
@@ -38,7 +39,8 @@ class ProfileController extends Controller
             ? asset('storage/' . $profile->profile_picture)
             : asset('images/default-profile.jpg');
 
-        $purchasedProducts = $user->purchasedProducts()->with('categories')->get();
+        // 購入した商品を取得
+        $purchasedProducts = $user->purchases()->with('product')->get();
 
         return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts'));
     }

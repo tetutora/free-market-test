@@ -7,7 +7,7 @@
 @section('content')
 
 @php
-    $currentPage = request()->query('page', 'recommendation');
+    $currentPage = request()->query('page', 'recommendation'); // デフォルトは "recommendation"
 @endphp
 
 <!-- ボタンを配置 -->
@@ -29,7 +29,7 @@
             </a>
             <p>{{ $product->name }}
                 @if($product->is_sold)
-                    <span class="sold-label">Sold</span>
+                    <span class="sold-label">Sold Out</span>
                 @endif
             </p>
         </div>

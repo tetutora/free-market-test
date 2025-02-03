@@ -46,17 +46,23 @@
 
         <!-- 購入リスト -->
         <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'buy' ? 'grid' : 'none' }};">
-            @forelse ($purchasedProducts as $product)
-                <div class="product-item">
-                    <a href="{{ route('products.show', $product->id) }}">
-                        @if(str_starts_with($product->image, 'http'))
-                            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- 外部リンク画像 -->
-                        @else
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px"> <!-- ローカル画像 -->
-                        @endif
-                        <p class="product-name">{{ $product->name }}</p>
-                    </a>
-                </div>
+            @forelse ($purchasedProducts as $purchase)
+                @if ($purchase->product) <!-- null チェックを追加 -->
+                    <div class="product-item">
+                        <a href="{{ route('products.show', $purchase->product->id) }}">
+                            @if(str_starts_with($purchase->product->image, 'http'))
+                                <img src="{{ $purchase->product->image }}" alt="{{ $purchase->product->name }}" style="max-width:600px">
+                            @else
+                                <img src="{{ asset('storage/' . $purchase->product->image) }}" alt="{{ $purchase->product->name }}" style="max-width:600px">
+                            @endif
+                            <p class="product-name">{{ $purchase->product->name }}
+                                @if($purchase->product->is_sold)
+                                    <span class="sold-label">Sold Out</span>
+                                @endif
+                            </p>
+                        </a>
+                    </div>
+                @endif
             @empty
                 <p>購入した商品はありません。</p>
             @endforelse

@@ -24,9 +24,4 @@ class Purchase extends Model
     {
         return $this->belongsTo(Product::class);
     }
-
-    public function purchases()
-    {
-        return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id');
-    }
 }

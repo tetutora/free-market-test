@@ -56,10 +56,6 @@ class User extends Authenticatable
         return $this->hasMany(Product::class, 'user_id');
     }
 
-    public function purchasedProducts() {
-        return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id');
-    }
-
     public function profile()
     {
         return $this->hasOne(Profile::class);
@@ -80,12 +76,18 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class, 'products_categories', 'user_id', 'product_id');
     }
 
-    public function purchases() {
-        return $this->belongsToMany(Product::class, 'purchases', 'user_id', 'product_id')->withTimestamps();
+    public function purchasedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'purchases');
     }
 
     public function sendEmailVerificationNotification()
     {
         $this->notify(new VerifyEmail());
+    }
+
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
     }
 }

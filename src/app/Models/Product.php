@@ -10,7 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'brand_name', 'description', 'price', 'status', 'image','user_id',
+        'name', 'brand_name', 'description', 'price', 'status', 'image', 'user_id',
     ];
 
     public function categories()
@@ -27,7 +27,6 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
     }
-
 
     public function user()
     {
@@ -46,10 +45,18 @@ class Product extends Model
     }
 
     public function buyers()
-{
-    return $this->belongsToMany(User::class, 'purchases', 'product_id', 'user_id')
-                ->withTimestamps();
-}
+    {
+        return $this->belongsToMany(User::class, 'purchases', 'product_id', 'user_id')
+                    ->withTimestamps();
+    }
 
+    public function purchases()
+    {
+        return $this->hasMany(Purchase::class);
+    }
 
+    public function isSold()
+    {
+        return $this->purchases()->exists();
+    }
 }

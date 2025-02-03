@@ -35,15 +35,17 @@ Route::post('/products/{product}/add-comment', [ProductController::class, 'addCo
 
 // 商品購入関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
+    // 商品購入完了後の処理
+    Route::get('/purchase/success', [PurchaseController::class, 'success'])->name('purchase.success');
+
     // 商品購入画面
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
 
     // 購入時住所変更画面
     Route::get('/profile/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
 
-    // 購入次住所変更処理
-    Route::post('/profile/address/update/{item_id}', [ProfileController::class, 'updateAddress'])
-    ->name('profile.address.update');
+    // 購入時住所変更処理
+    Route::post('/profile/address/update/{item_id}', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
 
     // 住所変更後商品購入画面
     Route::get('/products/{item_id}/purchase', [PurchaseController::class, 'show'])->name('products.purchase');
@@ -56,8 +58,6 @@ Route::middleware(['auth'])->group(function () {
 
     // 商品出品処理
     Route::post('/sell', [ProductController::class, 'store'])->name('products.store');
-
-
 });
 
 // プロフィール関連 (ログイン必須)
@@ -71,7 +71,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-// マイページ表示 (ログイン必須)
+// マイページ関連 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'myPage'])->name('profile.mypage');
 });
@@ -85,7 +85,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/products/{product}/toggle-favorite', [ProductController::class, 'toggleFavorite'])->name('product.toggleFavorite');
 });
 
-// マイページ関連 (ログイン必須)
+// マイページ購入履歴 (ログイン必須)
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-purchases', [PurchaseController::class, 'myPurchases'])->name('my-purchases');
 });
@@ -102,8 +102,11 @@ Route::post('/email/verification-notification', [VerificationController::class, 
 // stripe決済関連
 Route::post('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('stripe.checkout');
 
-// 商品購入完了後の処理
-Route::get('/purchase/success', [PurchaseController::class, 'success'])->name('purchase.success');
-
+// 商品購入キャンセル
 Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
 
+// 商品購入処理
+Route::post('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('products.purchase');
+
+// 商品一覧ページ
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
