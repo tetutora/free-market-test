@@ -38,7 +38,7 @@
 
 <!-- マイリスト表示 -->
 <div id="mylist" class="product-list" style="display: {{ $currentPage === 'mylist' ? 'flex' : 'none' }};">
-    @if($likedProducts->isNotEmpty())
+    @if($likedProducts && $likedProducts->isNotEmpty())
         @foreach($likedProducts as $likedProduct)
             <div class="product-item">
                 <a href="{{ route('products.show', $likedProduct->id) }}">

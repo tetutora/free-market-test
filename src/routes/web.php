@@ -113,3 +113,8 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
+// routes/web.php
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage/mylist', [ProductController::class, 'likedProducts'])->name('profile.mylist');
+});
