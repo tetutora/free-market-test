@@ -17,6 +17,7 @@ class LogoutTest extends TestCase
 
     use RefreshDatabase;
 
+    // ログアウトできるか
     public function testUserCanLogout()
     {
         $user = User::factory()->create([

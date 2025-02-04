@@ -110,3 +110,6 @@ Route::post('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->nam
 
 // 商品一覧ページ
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+

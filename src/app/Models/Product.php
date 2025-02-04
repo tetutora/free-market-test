@@ -59,4 +59,9 @@ class Product extends Model
     {
         return $this->purchases()->exists();
     }
+
+    public function getIsSoldAttribute()
+    {
+        return $this->purchases()->exists();
+    }
 }
