@@ -71,6 +71,7 @@ class PurchaseController extends Controller
                 'product_id' => $item_id,
             ]);
 
+            Log::info("Purchase saved: User ID - {$user->id}, Product ID - {$item_id}");
             return redirect()->route('profile.mypage')->with('success', '購入が完了しました');
         } catch (\Exception $e) {
             Log::error('Purchase save error: ' . $e->getMessage());
