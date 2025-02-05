@@ -13,7 +13,7 @@ class MylistTest extends TestCase
     use RefreshDatabase;
 
     // ユーザーにログイン後、マイリストページでいいねした商品が表示されるか
-    public function test_favorite_products_are_shown_on_mylist_page()
+    public function test_favorite_products()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -27,7 +27,7 @@ class MylistTest extends TestCase
     }
 
     // ログイン後、購入済み商品に「Sold」のラベルが表示されるか
-    public function test_sold_label_is_shown_on_purchased_products()
+    public function test_sold_label()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -45,7 +45,7 @@ class MylistTest extends TestCase
     }
 
     // ユーザーにログイン後、自分が出品した商品がマイリストに表示されないか
-    public function test_selling_products_are_not_shown_in_mylist()
+    public function test_selling_products()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -58,7 +58,7 @@ class MylistTest extends TestCase
     }
 
     // 未認証の場合、マイリストページで何も表示されないか
-    public function test_no_products_are_shown_when_not_authenticated()
+    public function test_not_authenticated()
     {
         $response = $this->get('/?page=mylist&search=');
 

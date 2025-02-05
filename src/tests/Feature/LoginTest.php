@@ -19,7 +19,7 @@ class LoginTest extends TestCase
     use RefreshDatabase;
 
     // メールアドレスが入力されていない場合、バリデーションメッセージが表示されるか
-    public function testEmailIsRequired()
+    public function test_email_required()
     {
         $response = $this->post('/login', [
             'password' => 'password123',
@@ -28,7 +28,7 @@ class LoginTest extends TestCase
     }
 
     // パスワードが入力されていない場合、バリデーションメッセージが表示されるか
-    public function testPasswordIsRequired()
+    public function test_password_required()
     {
         $response = $this->post('/login', [
             'email' => 'test@example.com',
@@ -37,7 +37,7 @@ class LoginTest extends TestCase
     }
 
     // 入力情報が間違っている場合、バリデーションメッセージが表示されるか
-    public function testIncorrectCredential()
+    public function test_incorrect_credential()
     {
         $response = $this->post('/login', [
             'email' => 'test@example.com',
@@ -47,7 +47,7 @@ class LoginTest extends TestCase
     }
 
     // 正しい情報が入力された場合、ログイン処理が実行されるか
-    public function testSuccessfulLogin(){
+    public function test_successful_login(){
         $user = User::factory()->create([
             'email' => 'test@example',
             'password' => Hash::make('password123'),

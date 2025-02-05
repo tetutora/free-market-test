@@ -20,7 +20,7 @@ class ProductTest extends TestCase
     use RefreshDatabase;
 
     // 全商品を取得できるか
-    public function testAllProductsAreDisplayed()
+    public function test_all_products_show()
     {
         $product1 = Product::factory()->create();
         $product2 = Product::factory()->create();
@@ -33,7 +33,7 @@ class ProductTest extends TestCase
     }
 
     // 購入済み商品は「Sold Out」と表示されるか
-    public function testSoldLabelForPurchasedProducts()
+    public function test_sold_label_products()
     {
         $user = User::factory()->create();
 
@@ -55,7 +55,7 @@ class ProductTest extends TestCase
     }
 
     // 自分が出品した商品は商品一覧に表示されないか
-    public function testUserCannotSeeTheirOwnProductInProductList()
+    public function test_cannot_see_own_product()
     {
         $user = User::factory()->create();
         $this->actingAs($user);

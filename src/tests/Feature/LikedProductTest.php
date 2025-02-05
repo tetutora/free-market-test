@@ -12,7 +12,7 @@ class LikedProductTest extends TestCase
     use RefreshDatabase;
 
     // いいねアイコンを押下しいいねした商品として登録できるか
-    public function test_user_can_like_product()
+    public function test_like_product()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -33,7 +33,7 @@ class LikedProductTest extends TestCase
     }
 
     // いいね追加済みのアイコンは色が変化するか
-    public function test_like_icon_changes_color_when_liked()
+    public function test_changes_color()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -50,7 +50,7 @@ class LikedProductTest extends TestCase
     }
 
     // 再度いいねアイコンを押下することにより、いいねを解除できるか
-    public function test_user_can_unlike_product()
+    public function test_unlike_product()
     {
         $user = User::factory()->create();
         $this->actingAs($user);

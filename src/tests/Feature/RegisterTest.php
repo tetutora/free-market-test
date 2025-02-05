@@ -17,7 +17,7 @@ class RegisterTest extends TestCase
     use RefreshDatabase;
 
     // 名前が入力されていない場合、バリデーションメッセージが表示されるか
-    public function testNameIsRequired()
+    public function test_name_required()
     {
         $response = $this->post('/register', [
             'email' => 'test@example.com',
@@ -28,7 +28,7 @@ class RegisterTest extends TestCase
     }
 
     // メールアドレスが入力されていない場合、バリデーションメッセージが表示されるか
-    public function testEmailIsRequired()
+    public function test_email_required()
     {
         $response = $this->post('/register', [
             'name' => 'Test Taro',
@@ -39,7 +39,7 @@ class RegisterTest extends TestCase
     }
 
     // パスワードが7文字以内の場合、バリデーションメッセージが表示されるか
-    public function testPasswordIsAtLeastSevenCharacters()
+    public function test_password_sevenCharacters()
     {
         $response = $this->post('/register', [
             'name' => 'Test Taro',
@@ -51,7 +51,7 @@ class RegisterTest extends TestCase
     }
 
     // パスワードが確認用パスワードと一致しない場合、バリデーションメッセージが表示されるか
-    public function testPasswordConfirmationMatches()
+    public function test_password_confirmation()
     {
         $response = $this->post('/register', [
             'name' => 'Test Taro',
@@ -63,7 +63,7 @@ class RegisterTest extends TestCase
     }
 
     // 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移されるか
-    public function testSuccessfulRegistration()
+    public function test_successful_registration()
     {
         $this->withoutMiddleware(\Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
 
@@ -75,11 +75,5 @@ class RegisterTest extends TestCase
         ]);
 
         $response->assertRedirect('/email/verify');
-
-        // $response->assertRedirect('/login');
-
-        // $this->assertDatabaseHas('users', [
-        //     'email' => 'test@example.com'
-        // ]);
     }
 }

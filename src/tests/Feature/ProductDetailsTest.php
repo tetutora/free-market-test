@@ -56,7 +56,7 @@ class ProductDetailsTest extends TestCase
         $response->assertSee($category2->name);
     }
 
-    public function test_multiple_categories_on_product_detail_page()
+    public function test_multiple_categories_on_product()
     {
         $user = User::factory()->create();
 

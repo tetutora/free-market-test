@@ -34,7 +34,7 @@ class ProductSearchTest extends TestCase
     }
 
     // 検索状態がマイリストでも保持されているか
-    public function test_product_name_search_with_mylist_page()
+    public function test_product_name_search_with_mylist()
     {
         $user = User::factory()->create();
 
