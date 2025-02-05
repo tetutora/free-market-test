@@ -58,10 +58,6 @@ class ProductController extends Controller
             return redirect()->route('products.show', $product->id)->with('error', 'ログインが必要です');
         }
 
-        $request->validate([
-            'content' => 'required|string|max:255',
-        ]);
-
         Comment::create([
             'product_id' => $product->id,
             'user_id' => Auth::id(),
