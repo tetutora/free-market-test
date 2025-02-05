@@ -52,7 +52,7 @@ class CommentTest extends TestCase
                         'content' => 'This is a test comment.'
                     ]);
 
-        $response->assertRedirect("/products/{$product->id}");
+        $response->assertRedirect("/item/{$product->id}");
 
         $this->assertDatabaseMissing('comments', [
             'content' => 'This is a test comment.'

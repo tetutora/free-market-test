@@ -39,7 +39,7 @@ class ProductDetailsTest extends TestCase
             $category2->id => ['user_id' => $user->id],
         ]);
 
-        $response = $this->get("/products/{$product->id}");
+        $response = $this->get("/item/{$product->id}");
 
         $response->assertStatus(200);
         $response->assertSee($product->name);

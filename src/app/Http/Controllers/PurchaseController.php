@@ -30,7 +30,7 @@ class PurchaseController extends Controller
         return view('products.purchase', compact('product', 'zipcode', 'address', 'building', 'item_id'));
     }
 
-    public function success(Request $request)
+    public function purchase(Request $request)
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $sessionId = $request->query('session_id');

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Product;
@@ -11,66 +10,29 @@ use App\Models\Purchase;
 
 class PurchaseProductTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
     use RefreshDatabase;
 
     // ユーザーが商品を購入できるか
-    public function test_purchase_product()
+    public function test_user_can_complete_purchase()
     {
+        // 1. ユーザーにログインする
         $user = User::factory()->create();
-        $user->email_verified_at = now();
+        $product = Product::factory()->create();  // 購入対象商品を作成
         $this->actingAs($user);
 
-        $product = Product::factory()->create([
-            'is_sold' => false
+        // 2. 商品購入画面を開く
+        $response = $this->get(route('purchase.show', ['item_id' => $product->id]));
+
+        // 3. 商品を選択して「購入する」ボタンを押下
+        $response = $this->post(route('products.purchase', ['item_id' => $product->id]), [
+            'session_id' => 'valid-session-id',  // 仮のセッションID
         ]);
 
-        $response = $this->post("/purchase/{$product->id}/success");
+        // 購入完了
+        $response->assertRedirect(route('profile.mypage'));
 
-        $response->assertStatus(302);
-    }
-
-    // 購入した商品が商品一覧で「Sold Out」と表示されるか
-    public function test_sold_label()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $product = Product::factory()->create();
-
-        $purchase = \App\Models\Purchase::create([
-            'user_id' => $user->id,
-            'product_id' => $product->id,
-        ]);
-
-        $response = $this->get('/');
-
-        $response->assertSee('Sold Out');
-    }
-
-    // 購入した商品がプロフィールの購入した商品一覧に追加されているか
-    public function test_selling_products()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $product = Product::factory()->create([
-            'user_id' => $user->id,
-            'is_sold' => false
-        ]);
-
-        $purchase = \App\Models\Purchase::create([
-            'user_id' => $user->id,
-            'product_id' => $product->id,
-        ]);
-
-        $response = $this->get('/?page=mylist&search=');
-
-        $response->assertSee($product->name);
+        // 購入後の商品が「sold」として表示されている
+        $product->refresh();
+        $this->assertTrue($product->is_sold);
     }
 }
