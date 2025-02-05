@@ -13,10 +13,8 @@ class PurchaseController extends Controller
 {
     public function show($item_id)
     {
-        // 商品情報を取得
         $product = Product::find($item_id);
 
-        // 商品が見つからない場合
         if (!$product) {
             return abort(404, 'Product not found');
         }

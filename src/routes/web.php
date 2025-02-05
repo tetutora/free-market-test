@@ -37,6 +37,9 @@ Route::post('/products/{product}/add-comment', [ProductController::class, 'addCo
 Route::middleware(['auth'])->group(function () {
     // 商品購入完了後の処理
     Route::get('/purchase/success', [PurchaseController::class, 'success'])->name('purchase.success');
+    // 商品購入完了後の処理
+Route::post('/purchase/{item_id}/success', [PurchaseController::class, 'success'])->name('purchase.success');
+
 
     // 商品購入画面
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
