@@ -34,9 +34,8 @@ class PurchaseController extends Controller
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         $sessionId = $request->query('session_id');
-
         if (!$sessionId) {
-            return redirect()->route('profile.mypage')->with('error', '無効なセッションID');
+            return redirect()->route('home')->with('error', '無効なセッションID');
         }
 
         try {
@@ -72,10 +71,10 @@ class PurchaseController extends Controller
             ]);
 
             Log::info("Purchase saved: User ID - {$user->id}, Product ID - {$item_id}");
-            return redirect()->route('profile.mypage')->with('success', '購入が完了しました');
+            return redirect()->route('home')->with('success', '購入が完了しました');
         } catch (\Exception $e) {
             Log::error('Purchase save error: ' . $e->getMessage());
-            return redirect()->route('profile.mypage')->with('error', '購入情報の保存に失敗しました');
+            return redirect()->route('home')->with('error', '購入情報の保存に失敗しました');
         }
     }
 

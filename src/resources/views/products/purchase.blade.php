@@ -68,8 +68,7 @@
     e.preventDefault();
         var paymentMethod = document.getElementById('payment-method').value;
 
-        // ここで商品IDを送信する
-        var itemId = "{{ $product->id }}"; // 商品IDをBladeテンプレートから埋め込む
+        var itemId = "{{ $product->id }}";
 
         fetch('/create-checkout-session', {
             method: 'POST',
@@ -79,12 +78,12 @@
             },
             body: JSON.stringify({ 
                 payment_method: paymentMethod,
-                item_id: itemId // item_idを送信
+                item_id: itemId
             })
         })
         .then(response => response.json())
         .then(session => {
-            console.log("Checkout Session:", session); // ← ここでデバッグ
+            console.log("Checkout Session:", session);
             if (session.id) {
                 return stripe.redirectToCheckout({ sessionId: session.id });
             } else {

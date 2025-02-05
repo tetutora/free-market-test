@@ -4,7 +4,11 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
+use App\Models\User;
 
 class RegisterTest extends TestCase
 {
@@ -62,7 +66,7 @@ class RegisterTest extends TestCase
         $response->assertSessionHasErrors('password');
     }
 
-    // 全ての項目が入力されている場合、会員情報が登録され、ログイン画面に遷移されるか
+    // 全ての項目が入力されている場合、会員情報が登録され、メール認証画面に遷移されるか
     public function test_successful_registration()
     {
         $this->withoutMiddleware(\Illuminate\Auth\Middleware\EnsureEmailIsVerified::class);
@@ -77,3 +81,4 @@ class RegisterTest extends TestCase
         $response->assertRedirect('/email/verify');
     }
 }
+
