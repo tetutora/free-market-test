@@ -70,6 +70,8 @@ class PurchaseController extends Controller
                 'product_id' => $item_id,
             ]);
 
+            session()->put('payment_method', $request->payment_method);
+
             Log::info("Purchase saved: User ID - {$user->id}, Product ID - {$item_id}");
             return redirect()->route('home')->with('success', '購入が完了しました');
         } catch (\Exception $e) {
