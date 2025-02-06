@@ -1,192 +1,525 @@
-<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="701px" height="347px" viewBox="-0.5 -0.5 701 347" content="&lt;mxfile&gt;&lt;diagram id=&quot;NHy-Jo94cIzQTEXTfDci&quot; name=&quot;ページ1&quot;&gt;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&lt;/diagram&gt;&lt;/mxfile&gt;">
+<svg host="65bd71144e" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1086px" height="692px" viewBox="-0.5 -0.5 1086 692" content="&lt;mxfile&gt;&lt;diagram id=&quot;NHy-Jo94cIzQTEXTfDci&quot; name=&quot;ページ1&quot;&gt;7V1dk6I4F/41Xk4XHwp6ufbOzn7MvO9sz1bt7lVXRtJKFRIKYnc7v36DBMUkSEBAJJnqqpEIEc55ck7ynBPOxH7cvn+KQbT5gjwYTCzDe5/YP08syzKnBvkvbdnTFmM+z1rWse9lbeap4Zv/A9JGeuF653swOTsRIxRgPzpvXKEwhCt81gbiGL2dn/aCgvNfjcAacg3fViDgW//2PbzJWueWe2r/FfrrTf7LprPIvtmC/GT6JMkGeOit0GR/nNiPMUI4+7R9f4RBKr1cLtl1v5R8e7yxGIZY5gIru+AVBDv6bLsExsnkoz2Zkz+Hflg+0g+LvOWnJX0AvM+lQp4lSj9i8D1tWiYYxJgqzzZIA1EHBn4IY9JgHo6DAESJfzg9a9n4gfcZ7NEO5x3lR8sX/x16T5nu0nOJGj+TztLDtPMX0vk3ejPp1yDw1yH5vCKSSH9xGcOE3MtnkGB6Bi8rKr5XGGP4XmiisvsE0RbieE9Ood9+sB2qSArlD6aZq/bthAxzTts2RVTkJwKKxvWx+5PCyAeqM7H+bE5/l9XylIJtuUGx/yNVRkCFV1TV4fjN3wYgJCgGHtO0RIdhexC5HwSPKECpPkMUQk6l6UlejKK/QLyGmDZEyA/x4ZFnS/JHhPBoPMwmM3Kvj+TYPB2Tv/T0GD+iMMExgU7aByQafIOpFpcYRbTTAL7k/cdUxOnn7whjtC3VtyWtb6peW1K3dguqnXKq/fpHqXLJU2EfBE/E2oFwHWSqOBg/cFKFQF9CCR6lxoqTHWOISO4lONivje95MBRK2ZaWckGsdk2p0s5OAqjdGwiInQgBJgjfhV7Cqep4n1Lam3HaI9/cVnu5RczOXSYRWPnh+nN2pcOod9aBet/LB9GsVXVLddeuvhfaEEsZYqMdQ+xIGuI2fGw+65TRbT8jGXp+3p+8GV5Iy7jCcF6SaX0zzPbW7rA0TU53IdjCoVvitjVa0/I217BUd+2q+FPwuwkWuz/9t6fXv/+3/81IfvM+LFxtj2vaYw5GgrXRhYXQjF0IGbMebbQYBPO7NdwVyriA+VGbc+Fzm0YNB60HewuDfW4xg31x87FuGrynH/Ngp6BXb7Qv+JUW3AI/uN8p3ZWO1+Yc71SZaZ5p8AR2BJLkDcWDZ1t6BISIkh4rIHjalAMCDL2f0ijQSbUbvA0mRZYYelwEqFIBBXGIpJG3xTAA2H897/6CxL+mM4XL+jUYQSdoF68gvfAkZKm+Fkxf+DBr4fpqT2E8U7oiEFn7sQ9VikNdN+jdOaPImWwYat7djMyRn5EpPS2XBsGlETSImFXJDfJkzB2FsprpxKn0Efce4Sp5cJ5zGVPgq1UwjDkeViIJHSZrmalp5BL6jJ6Jb/COY2rNFLJo5A/unq0xRxeAa1X9ysXlTJMnbLQH6JKrd11mZTi9PVdv1khbHIP1z0CvovXnV35RjLzdCmtqR5rPZVOMHenpW4cjuEZoXWkzfiW3Y5bE9AfD7Zj8im7s3E6GfQW5HYtftCnP7ZSBQT1ux6qRgKG0S7iS26lwCbfndnK9qzK7VyCNuuTB+WWcgtyOzrk+SkIi90J7gDoeoG7S9Wxxe+vP53OM2/pPVbX+fHrH9xiE3vOofUDd5LvZXCH7z7N9HkxWsR9hH4UaEjkkRFP0sUJCgiccWTrmdMrIWT4b01o8LIr/zjt22FV916mZgk3NUeyvtHE/jmSFMu3zZy+Sf9v0PTkaDBQMCmXZ2zzXRxZteJdoNORoMBRCA0/4pW+Reh5+cKA3OEwVWgbYPC3oJ89J+pI1DQcKB4WWADZPCEVkQrwBid7f03x/T433zLG7w9rj+my9w6eXLBB76Dt8bPV2+Niq7vCx9Q4faTColwVi6x0+vWSBVLiE22eB5NSYKnFAW9UdPlOeCxr76r8eAtRLBJnyhJB2Ar1u8hnA2/fMqWK7fDLUq+gB+LwvustnzE6gakjyL8RUKFo4lWCG7jvuL9AvK2jpwL87vRj47/+lTI6As40RGYyaspU1AO6MUaI8YdvdK5kcTdj2Qtg6QydsHfUIW0dVwtbRhK00GNQjbB1N2PZC2Fa4hNsTtjmFoMpy3VGVsHU1YXsZAeoRtq4mbHslbOfs4nAAdK2rGF3rqkrXukK6NiV3niN/hXexqjn9x3eRK0nZujznp/BOTgEWFNrf4Y6dvufUu2i6a08AlL7Zepcn83740Qp5evAedaLQdhyX5/uA58UwUXV3Fj/YFdqN4/L83vedH3hE8hoOFA7q7MaxBEVZ8jeyPh/q7iBdd6fWvhwGS3ORoxFGeTtbyVuCeiuXlaUqm3NdlNcqq+sxlCivJSjGMvIoL8W+elFey+D9/PAJ/W6jvKVgUC7Ka9Wpt6K0S7guylvlEm4e5bUE9VhubCQ6Zfkp8NVj+S1BoRUFkrLrgUC5QK9Vp/KK9gNtLBDZPGBXdlnQoQ+o8Z7eUfgAW1UfUFJbGcX7MTuByp057JBUJ7JnmTz/N/bkr9pwUCdWZAkKdHE4uOtAL69eh91eI79Ni0OKy3TVcaTXEpTdWqHtFoa6npr0vixm257wbcw9E/aCIlqXVaXqrPxKwr6sWNNgCHtBha2xE/ZmszT8+yfsBfWyhj8J65iwLwODeoR97gG0S+iWsK9wCbcn7AVFtm5sJLola7LHU5CsEVTPSmffkC4lBuwUekKAemx9nVpa2glcvzZkX7I8vXk5NUtQZWvc5r9km/T4zT/PxCkQr63K1GUHpDqJ25agdJbaTD2PBoXytgW1uDgY3DVRz2u3+Y4sluLtuXDa0acUlPUCXsmsDOvU+qY8/dyUnIt1V+/CEpS9uqwqVefjV/L0dkm+1mB4ekHFq7Hz9HazKvf3z9OLylkNfgrWMU9fBgb1eHpb17zvhaevcAm35+kFZc5ubCS6JWpsReveW4KiZ2Nfl9dDgHo8vaD8mXYCPfL0rug1TT2bf4lC96My/8322Y7A/PNEnObpWcZNuMllpMZfUP+Kg8G4mFnXZMTcmJl12VzsrplZQakaXllEE/namWjAx/ungwBR+PH0TbbCzly1aZ0rtKDtj09bEHr/D4+kregL+O7jf/Jryed/0+H8MKNHP7/nBj09yJ0+ubF4/0/xoHBVeni67HCUXycLNiKRg1Kp8c2acD6BKJOvzEv2jyAQkrbXpvtzcwPHaQhWruKy0Xe2/1RiWikLQ2J1/kJfQLg/w86DOZ8V8fPBeDAMpwJCh6OvMPbJAx4CDvVwVQ0is3pu0S2IuHrtp/fH1d40YlssIHuHkcTUtF2bJwbbuaFy27NUlYgqzfLsDVEml1rEokAaUFxXLmvhOgeURCy6hnvcC33jvmWjYlTvM+jYqDgsBGb3C4H81nudR5UDpelsqMnMSx6UxRlUiaeby1owCbr1XiZWQ4CvxJqtkbOjeDIKeErnVKZ5EVLpQfMJVRFmNzdyfCHaxjBx2NUi31fnOLH6NnMyU6c+Z04SYf+eZ06nl/Lfo+GR2M0zbkBJ7Pfs2JFNOUA1XdyxM7r2Eg3JYYwQLp4eg2jzBXkwPeM/&lt;/diagram&gt;&lt;diagram id=&quot;PytXxqrXk5hLxWR-_p3F&quot; name=&quot;ページ2&quot;&gt;dZFNE4IgEIZ/DXeFmbKzWV08eejMyCbMoOsgjdSvTwfMyDqxPPvuN2F5686G97JEAZrQRDjCjoTSNM3o9Mzk4UlG9x40RokgWkGlnhBgEuhdCRgioUXUVvUxrLHroLYR48bgGMtuqOOqPW9gA6qa6y29KmHl1xQzv4Bq5FI53R28p+WLOEwySC5w/ECsICw3iNZbrctBz8tb9uLjTn+878YMdPZHwGSsuadPdCFWvAA=&lt;/diagram&gt;&lt;/mxfile&gt;">
     <defs>
-        <clipPath id="mx-clip-0-30-30-30-0">
-            <rect x="0" y="30" width="30" height="30"/>
+        <clipPath id="mx-clip-460-30-30-30-0">
+            <rect x="460" y="30" width="30" height="30"/>
         </clipPath>
-        <clipPath id="mx-clip-36-30-144-30-0">
-            <rect x="36" y="30" width="144" height="30"/>
+        <clipPath id="mx-clip-496-30-144-30-0">
+            <rect x="496" y="30" width="144" height="30"/>
         </clipPath>
-        <clipPath id="mx-clip-36-60-144-30-0">
-            <rect x="36" y="60" width="144" height="30"/>
+        <clipPath id="mx-clip-496-60-144-20-0">
+            <rect x="496" y="60" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-36-90-144-30-0">
-            <rect x="36" y="90" width="144" height="30"/>
+        <clipPath id="mx-clip-496-80-144-20-0">
+            <rect x="496" y="80" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-36-120-144-30-0">
-            <rect x="36" y="120" width="144" height="30"/>
+        <clipPath id="mx-clip-496-100-144-20-0">
+            <rect x="496" y="100" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-250-255-30-30-0">
-            <rect x="250" y="255" width="30" height="30"/>
+        <clipPath id="mx-clip-40-630-30-30-0">
+            <rect x="40" y="630" width="30" height="30"/>
         </clipPath>
-        <clipPath id="mx-clip-286-255-174-30-0">
-            <rect x="286" y="255" width="174" height="30"/>
+        <clipPath id="mx-clip-76-630-144-30-0">
+            <rect x="76" y="630" width="144" height="30"/>
         </clipPath>
-        <clipPath id="mx-clip-286-285-174-30-0">
-            <rect x="286" y="285" width="174" height="30"/>
+        <clipPath id="mx-clip-76-660-144-20-0">
+            <rect x="76" y="660" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-520-30-30-30-0">
-            <rect x="520" y="30" width="30" height="30"/>
+        <clipPath id="mx-clip-460-490-30-30-0">
+            <rect x="460" y="490" width="30" height="30"/>
         </clipPath>
-        <clipPath id="mx-clip-556-30-144-30-0">
-            <rect x="556" y="30" width="144" height="30"/>
+        <clipPath id="mx-clip-496-490-144-30-0">
+            <rect x="496" y="490" width="144" height="30"/>
         </clipPath>
-        <clipPath id="mx-clip-556-60-144-30-0">
-            <rect x="556" y="60" width="144" height="30"/>
+        <clipPath id="mx-clip-496-520-144-20-0">
+            <rect x="496" y="520" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-556-90-144-30-0">
-            <rect x="556" y="90" width="144" height="30"/>
+        <clipPath id="mx-clip-496-540-144-20-0">
+            <rect x="496" y="540" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-556-120-144-30-0">
-            <rect x="556" y="120" width="144" height="30"/>
+        <clipPath id="mx-clip-496-560-144-20-0">
+            <rect x="496" y="560" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-556-150-144-30-0">
-            <rect x="556" y="150" width="144" height="30"/>
+        <clipPath id="mx-clip-496-580-144-20-0">
+            <rect x="496" y="580" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-556-180-144-30-0">
-            <rect x="556" y="180" width="144" height="30"/>
+        <clipPath id="mx-clip-496-600-144-20-0">
+            <rect x="496" y="600" width="144" height="20"/>
         </clipPath>
-        <clipPath id="mx-clip-296-315-144-30-0">
-            <rect x="296" y="315" width="144" height="30"/>
+        <clipPath id="mx-clip-496-620-144-20-0">
+            <rect x="496" y="620" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-496-640-144-20-0">
+            <rect x="496" y="640" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-496-660-144-20-0">
+            <rect x="496" y="660" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-40-30-30-30-0">
+            <rect x="40" y="30" width="30" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-76-30-144-30-0">
+            <rect x="76" y="30" width="144" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-76-60-144-20-0">
+            <rect x="76" y="60" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-76-80-144-20-0">
+            <rect x="76" y="80" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-895-30-30-30-0">
+            <rect x="895" y="30" width="30" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-30-144-30-0">
+            <rect x="931" y="30" width="144" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-60-144-20-0">
+            <rect x="931" y="60" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-80-144-20-0">
+            <rect x="931" y="80" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-100-144-20-0">
+            <rect x="931" y="100" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-120-144-20-0">
+            <rect x="931" y="120" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-140-144-20-0">
+            <rect x="931" y="140" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-931-160-144-20-0">
+            <rect x="931" y="160" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-35-350-30-30-0">
+            <rect x="35" y="350" width="30" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-71-350-144-30-0">
+            <rect x="71" y="350" width="144" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-71-380-144-20-0">
+            <rect x="71" y="380" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-71-400-144-20-0">
+            <rect x="71" y="400" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-71-420-144-20-0">
+            <rect x="71" y="420" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-890-590-30-30-0">
+            <rect x="890" y="590" width="30" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-590-144-30-0">
+            <rect x="926" y="590" width="144" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-620-144-20-0">
+            <rect x="926" y="620" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-640-144-20-0">
+            <rect x="926" y="640" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-660-144-20-0">
+            <rect x="926" y="660" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-890-340-30-30-0">
+            <rect x="890" y="340" width="30" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-340-144-30-0">
+            <rect x="926" y="340" width="144" height="30"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-370-144-20-0">
+            <rect x="926" y="370" width="144" height="20"/>
+        </clipPath>
+        <clipPath id="mx-clip-926-390-144-20-0">
+            <rect x="926" y="390" width="144" height="20"/>
         </clipPath>
     </defs>
     <g>
-        <path d="M 0 30 L 0 0 L 180 0 L 180 30" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
-        <path d="M 0 30 L 0 150 L 180 150 L 180 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 0 30 L 180 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 30 30 L 30 60 L 30 90 L 30 120" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 30 L 460 0 L 640 0 L 640 30" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="all"/>
+        <path d="M 460 30 L 460 120 L 640 120 L 640 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 30 L 640 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 30 L 490 60 L 490 80" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
         <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
-            <text x="89.5" y="19.5">
-                商品一覧テーブル
+            <text x="549.5" y="19.5">
+                usersテーブル
             </text>
         </g>
-        <path d="M 0 30 M 180 30 M 180 60 L 0 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 0 30 M 30 30 M 30 60 M 0 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-0-30-30-30-0)" text-anchor="middle" font-size="12px">
-            <text x="14.5" y="49.5">
+        <path d="M 460 30 M 640 30 M 640 60 L 460 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 30 M 490 30 M 490 60 M 460 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-460-30-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="474.5" y="49.5">
                 PK
             </text>
         </g>
-        <path d="M 30 30 M 180 30 M 180 60 M 30 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-36-30-144-30-0)" font-size="12px">
-            <text x="37.5" y="49.5">
-                ID
+        <path d="M 490 30 M 640 30 M 640 60 M 490 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-496-30-144-30-0)" font-size="12px">
+            <text x="497.5" y="49.5">
+                id
             </text>
         </g>
-        <path d="M 0 60 M 30 60 M 30 90 M 0 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 30 60 M 180 60 M 180 90 M 30 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-36-60-144-30-0)" font-size="12px">
-            <text x="37.5" y="79.5">
-                商品名
+        <path d="M 460 60 M 490 60 M 490 80 M 460 80" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 60 M 640 60 M 640 80 M 490 80" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-60-144-20-0)" font-size="12px">
+            <text x="497.5" y="74.5">
+                name
             </text>
         </g>
-        <path d="M 0 90 M 30 90 M 30 120 M 0 120" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 30 90 M 180 90 M 180 120 M 30 120" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-36-90-144-30-0)" font-size="12px">
-            <text x="37.5" y="109.5">
-                値段
+        <path d="M 470 70 M 500 70 M 500 90 M 470 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 0 170 M 30 170 M 30 190 M 0 190" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 80 M 640 80 M 640 100 M 490 100" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-80-144-20-0)" font-size="12px">
+            <text x="497.5" y="94.5">
+                email
             </text>
         </g>
-        <path d="M 30 120 M 180 120 M 180 150 M 30 150" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-36-120-144-30-0)" font-size="12px">
-            <text x="37.5" y="139.5">
-                商品画像
+        <path d="M 490 100 M 640 100 M 640 120 M 490 120" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-100-144-20-0)" font-size="12px">
+            <text x="497.5" y="114.5">
+                password
             </text>
         </g>
-        <path d="M 30 60 L 30 150" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 250 255 L 250 225 L 460 225 L 460 255" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 250 255 L 250 345 L 460 345 L 460 255" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 250 255 L 460 255" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 280 255 L 280 285 L 280 315" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 120 L 490 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 630 L 40 600 L 220 600 L 220 630" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 630 L 40 680 L 220 680 L 220 630" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 630 L 220 630" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 70 630 L 70 660 L 70 680" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
         <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
-            <text x="354.5" y="244.5">
-                中間テーブル
+            <text x="129.5" y="619.5">
+                categiriesテーブル
             </text>
         </g>
-        <path d="M 250 255 M 460 255 M 460 285 L 250 285" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 250 255 M 280 255 M 280 285 M 250 285" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-250-255-30-30-0)" text-anchor="middle" font-size="12px">
-            <text x="264.5" y="274.5">
+        <path d="M 40 630 M 220 630 M 220 660 L 40 660" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 630 M 70 630 M 70 660 M 40 660" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-40-630-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="54.5" y="649.5">
                 PK
             </text>
         </g>
-        <path d="M 280 255 M 460 255 M 460 285 M 280 285" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-286-255-174-30-0)" font-size="12px">
-            <text x="287.5" y="274.5">
-                ID
+        <path d="M 70 630 M 220 630 M 220 660 M 70 660" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-76-630-144-30-0)" font-size="12px">
+            <text x="77.5" y="649.5">
+                id
             </text>
         </g>
-        <path d="M 250 285 M 280 285 M 280 315 M 250 315" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 280 285 M 460 285 M 460 315 M 280 315" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-286-285-174-30-0)" font-size="12px">
-            <text x="287.5" y="304.5">
-                商品ID
+        <path d="M 40 660 M 70 660 M 70 680 M 40 680" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 70 660 M 220 660 M 220 680 M 70 680" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-76-660-144-20-0)" font-size="12px">
+            <text x="77.5" y="674.5">
+                name
             </text>
         </g>
-        <path d="M 520 30 L 520 0 L 700 0 L 700 30" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 520 30 L 520 210 L 700 210 L 700 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 520 30 L 700 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 550 30 L 550 60 L 550 90 L 550 120" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 50 670 M 80 670 M 80 690 M 50 690" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 490 L 460 460 L 640 460 L 640 490" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 490 L 460 680 L 640 680 L 640 490" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 490 L 640 490" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 490 L 490 520 L 490 540" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
         <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
-            <text x="609.5" y="19.5">
-                商品登録テーブル
+            <text x="549.5" y="479.5">
+                productsテーブル
             </text>
         </g>
-        <path d="M 520 30 M 700 30 M 700 60 L 520 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 520 30 M 550 30 M 550 60 M 520 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-520-30-30-30-0)" text-anchor="middle" font-size="12px">
-            <text x="534.5" y="49.5">
+        <path d="M 460 490 M 640 490 M 640 520 L 460 520" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 490 M 490 490 M 490 520 M 460 520" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-460-490-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="474.5" y="509.5">
                 PK
             </text>
         </g>
-        <path d="M 550 30 M 700 30 M 700 60 M 550 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-556-30-144-30-0)" font-size="12px">
-            <text x="557.5" y="49.5">
-                ID
+        <path d="M 490 490 M 640 490 M 640 520 M 490 520" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-496-490-144-30-0)" font-size="12px">
+            <text x="497.5" y="509.5">
+                id
             </text>
         </g>
-        <path d="M 520 60 M 550 60 M 550 90 M 520 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 550 60 M 700 60 M 700 90 M 550 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-556-60-144-30-0)" font-size="12px">
-            <text x="557.5" y="79.5">
-                商品名
+        <path d="M 460 520 M 490 520 M 490 540 M 460 540" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 520 M 640 520 M 640 540 M 490 540" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-520-144-20-0)" font-size="12px">
+            <text x="497.5" y="534.5">
+                name
             </text>
         </g>
-        <path d="M 520 90 M 550 90 M 550 120 M 520 120" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 550 90 M 700 90 M 700 120 M 550 120" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-556-90-144-30-0)" font-size="12px">
-            <text x="557.5" y="109.5">
-                値段
+        <path d="M 470 530 M 500 530 M 500 550 M 470 550" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 540 M 640 540 M 640 560 M 490 560" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-540-144-20-0)" font-size="12px">
+            <text x="497.5" y="554.5">
+                brand_name
             </text>
         </g>
-        <path d="M 550 120 M 700 120 M 700 150 M 550 150" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-556-120-144-30-0)" font-size="12px">
-            <text x="557.5" y="139.5">
-                商品画像
+        <path d="M 490 560 M 640 560 M 640 580 M 490 580" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-560-144-20-0)" font-size="12px">
+            <text x="497.5" y="574.5">
+                description
             </text>
         </g>
-        <path d="M 550 150 M 700 150 M 700 180 M 550 180" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-556-150-144-30-0)" font-size="12px">
-            <text x="557.5" y="169.5">
-                季節
+        <path d="M 490 680 L 490 490" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 580 M 640 580 M 640 600 M 490 600" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-580-144-20-0)" font-size="12px">
+            <text x="497.5" y="594.5">
+                price
             </text>
         </g>
-        <path d="M 550 180 M 700 180 M 700 210 M 550 210" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-556-180-144-30-0)" font-size="12px">
-            <text x="557.5" y="199.5">
-                商品説明
+        <path d="M 490 600 M 640 600 M 640 620 M 490 620" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-600-144-20-0)" font-size="12px">
+            <text x="497.5" y="614.5">
+                image
             </text>
         </g>
-        <path d="M 550 210 L 550.06 30.99" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 290 315 M 440 315 M 440 345 M 290 345" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
-        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-296-315-144-30-0)" font-size="12px">
-            <text x="297.5" y="334.5">
-                季節ID
+        <path d="M 490 620 M 640 620 M 640 640 M 490 640" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-620-144-20-0)" font-size="12px">
+            <text x="497.5" y="634.5">
+                status
             </text>
         </g>
-        <path d="M 280 305 L 280 345" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 460 310 L 480 310 Q 490 310 490 300 L 490 217.5 Q 490 207.5 490 197.5 L 490 115 Q 490 105 500 105 L 520 105" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 512 109 L 512 101 M 520 101 L 512 105 L 520 109" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 249.16 308.55 L 229.16 308.55 Q 219.16 308.55 218.8 298.56 L 211.8 106.98 Q 211.44 96.99 201.44 96.99 L 181.44 96.99" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
-        <path d="M 189.44 92.99 L 189.44 100.99 M 181.44 100.99 L 189.44 96.99 L 181.44 92.99" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 640 M 640 640 M 640 660 M 490 660" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-640-144-20-0)" font-size="12px">
+            <text x="497.5" y="654.5">
+                user_id
+            </text>
+        </g>
+        <path d="M 490 660 M 640 660 M 640 680 M 490 680" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-496-660-144-20-0)" font-size="12px">
+            <text x="497.5" y="674.5">
+                is_sold
+            </text>
+        </g>
+        <path d="M 40 30 L 40 0 L 220 0 L 220 30" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 30 L 40 100 L 220 100 L 220 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 30 L 220 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 70 30 L 70 60 L 70 80" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="129.5" y="19.5">
+                purchasesテーブル
+            </text>
+        </g>
+        <path d="M 40 30 M 220 30 M 220 60 L 40 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 40 30 M 70 30 M 70 60 M 40 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-40-30-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="54.5" y="49.5">
+                PK
+            </text>
+        </g>
+        <path d="M 70 30 M 220 30 M 220 60 M 70 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-76-30-144-30-0)" font-size="12px">
+            <text x="77.5" y="49.5">
+                id
+            </text>
+        </g>
+        <path d="M 40 60 M 70 60 M 70 80 M 40 80" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 70 60 M 220 60 M 220 80 M 70 80" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-76-60-144-20-0)" font-size="12px">
+            <text x="77.5" y="74.5">
+                user_id
+            </text>
+        </g>
+        <path d="M 50 70 M 80 70 M 80 90 M 50 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 70 80 M 220 80 M 220 100 M 70 100" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-76-80-144-20-0)" font-size="12px">
+            <text x="77.5" y="94.5">
+                product_id
+            </text>
+        </g>
+        <path d="M 70 100 L 70 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 895 30 L 895 0 L 1075 0 L 1075 30" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 895 30 L 895 180 L 1075 180 L 1075 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 895 30 L 1075 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 925 30 L 925 60 L 925 80" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="984.5" y="19.5">
+                profilesテーブル
+            </text>
+        </g>
+        <path d="M 895 30 M 1075 30 M 1075 60 L 895 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 895 30 M 925 30 M 925 60 M 895 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-895-30-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="909.5" y="49.5">
+                PK
+            </text>
+        </g>
+        <path d="M 925 30 M 1075 30 M 1075 60 M 925 60" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-931-30-144-30-0)" font-size="12px">
+            <text x="932.5" y="49.5">
+                id
+            </text>
+        </g>
+        <path d="M 895 60 M 925 60 M 925 80 M 895 80" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 925 60 M 1075 60 M 1075 80 M 925 80" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-931-60-144-20-0)" font-size="12px">
+            <text x="932.5" y="74.5">
+                user_id
+            </text>
+        </g>
+        <path d="M 905 70 M 935 70 M 935 90 M 905 90" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 925 80 M 1075 80 M 1075 100 M 925 100" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-931-80-144-20-0)" font-size="12px">
+            <text x="932.5" y="94.5">
+                profile_picture
+            </text>
+        </g>
+        <path d="M 925 100 M 1075 100 M 1075 120 M 925 120" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-931-100-144-20-0)" font-size="12px">
+            <text x="932.5" y="114.5">
+                name
+            </text>
+        </g>
+        <path d="M 925 180 L 925 30" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 925 120 M 1075 120 M 1075 140 M 925 140" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-931-120-144-20-0)" font-size="12px">
+            <text x="932.5" y="134.5">
+                zipcode
+            </text>
+        </g>
+        <path d="M 925 140 M 1075 140 M 1075 160 M 925 160" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-931-140-144-20-0)" font-size="12px">
+            <text x="932.5" y="154.5">
+                address
+            </text>
+        </g>
+        <path d="M 925 160 M 1075 160 M 1075 180 M 925 180" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-931-160-144-20-0)" font-size="12px">
+            <text x="932.5" y="174.5">
+                building
+            </text>
+        </g>
+        <path d="M 35 350 L 35 320 L 215 320 L 215 350" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 35 350 L 35 440 L 215 440 L 215 350" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 35 350 L 215 350" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 65 350 L 65 380 L 65 400" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="124.5" y="339.5">
+                products_categoriesテーブル
+            </text>
+        </g>
+        <path d="M 35 350 M 215 350 M 215 380 L 35 380" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 35 350 M 65 350 M 65 380 M 35 380" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-35-350-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="49.5" y="369.5">
+                PK
+            </text>
+        </g>
+        <path d="M 65 350 M 215 350 M 215 380 M 65 380" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-71-350-144-30-0)" font-size="12px">
+            <text x="72.5" y="369.5">
+                id
+            </text>
+        </g>
+        <path d="M 35 380 M 65 380 M 65 400 M 35 400" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 65 380 M 215 380 M 215 400 M 65 400" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-71-380-144-20-0)" font-size="12px">
+            <text x="72.5" y="394.5">
+                product_id
+            </text>
+        </g>
+        <path d="M 45 390 M 75 390 M 75 410 M 45 410" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 65 400 M 215 400 M 215 420 M 65 420" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-71-400-144-20-0)" font-size="12px">
+            <text x="72.5" y="414.5">
+                category_id
+            </text>
+        </g>
+        <path d="M 65 420 M 215 420 M 215 440 M 65 440" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-71-420-144-20-0)" font-size="12px">
+            <text x="72.5" y="434.5">
+                user_id
+            </text>
+        </g>
+        <path d="M 65 440 L 65 350" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 590 L 890 560 L 1070 560 L 1070 590" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 590 L 890 680 L 1070 680 L 1070 590" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 590 L 1070 590" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 920 590 L 920 620 L 920 640" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="979.5" y="579.5">
+                commentsテーブル
+            </text>
+        </g>
+        <path d="M 890 590 M 1070 590 M 1070 620 L 890 620" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 590 M 920 590 M 920 620 M 890 620" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-890-590-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="904.5" y="609.5">
+                PK
+            </text>
+        </g>
+        <path d="M 920 590 M 1070 590 M 1070 620 M 920 620" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-926-590-144-30-0)" font-size="12px">
+            <text x="927.5" y="609.5">
+                id
+            </text>
+        </g>
+        <path d="M 890 620 M 920 620 M 920 640 M 890 640" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 920 620 M 1070 620 M 1070 640 M 920 640" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-926-620-144-20-0)" font-size="12px">
+            <text x="927.5" y="634.5">
+                content
+            </text>
+        </g>
+        <path d="M 900 630 M 930 630 M 930 650 M 900 650" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 920 640 M 1070 640 M 1070 660 M 920 660" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-926-640-144-20-0)" font-size="12px">
+            <text x="927.5" y="654.5">
+                product_id
+            </text>
+        </g>
+        <path d="M 920 660 M 1070 660 M 1070 680 M 920 680" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-926-660-144-20-0)" font-size="12px">
+            <text x="927.5" y="674.5">
+                user_id
+            </text>
+        </g>
+        <path d="M 920 680 L 920 590" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 340 L 890 310 L 1070 310 L 1070 340" fill="rgb(255, 255, 255)" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 340 L 890 410 L 1070 410 L 1070 340" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 340 L 1070 340" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 920 340 L 920 370 L 920 390" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" text-anchor="middle" font-size="12px">
+            <text x="979.5" y="329.5">
+                favoritesテーブル
+            </text>
+        </g>
+        <path d="M 890 340 M 1070 340 M 1070 370 L 890 370" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 340 M 920 340 M 920 370 M 890 370" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" pointer-events="none" clip-path="url(#mx-clip-890-340-30-30-0)" text-anchor="middle" font-size="12px">
+            <text x="904.5" y="359.5">
+                PK
+            </text>
+        </g>
+        <path d="M 920 340 M 1070 340 M 1070 370 M 920 370" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" font-weight="bold" text-decoration="underline" pointer-events="none" clip-path="url(#mx-clip-926-340-144-30-0)" font-size="12px">
+            <text x="927.5" y="359.5">
+                id
+            </text>
+        </g>
+        <path d="M 890 370 M 920 370 M 920 390 M 890 390" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 920 370 M 1070 370 M 1070 390 M 920 390" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-926-370-144-20-0)" font-size="12px">
+            <text x="927.5" y="384.5">
+                user_id
+            </text>
+        </g>
+        <path d="M 900 380 M 930 380 M 930 400 M 900 400" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 920 390 M 1070 390 M 1070 410 M 920 410" fill="none" stroke="rgb(0, 0, 0)" stroke-linecap="square" stroke-miterlimit="10" pointer-events="none"/>
+        <g fill="rgb(0, 0, 0)" font-family="Helvetica" pointer-events="none" clip-path="url(#mx-clip-926-390-144-20-0)" font-size="12px">
+            <text x="927.5" y="404.5">
+                product_id
+            </text>
+        </g>
+        <path d="M 920 410 L 920 340" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 45 L 660 45 Q 670 45 680 45 L 855 45 Q 865 45 875 45 L 895 45" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 644 41 L 644 49 M 648 41 L 648 49" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 891 49 L 891 41 M 887 49 L 887 41" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 490 120 L 493.3 458.68" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 489.22 450.72 L 497.22 450.64 M 497.3 458.64 L 493.22 450.68 L 489.3 458.72" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 650 L 660 650 Q 670 650 680 650 L 850 650 Q 860 650 870 650 L 890 650" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 882 654 L 882 646 M 890 646 L 882 650 L 890 654" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 670 L 220 670" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 666 L 452 670 L 460 674" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 220 674 L 228 670 L 220 666" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 505 L 660 505 Q 670 505 678.35 499.5 L 851.65 385.5 Q 860 380 870 380 L 890 380" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 509 L 648 505 L 640 501" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 890 376 L 882 380 L 890 384" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 460 59.78 L 220 60" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 228 55.99 L 228 63.99 M 220 64 L 228 59.99 L 220 56" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 640 80 L 660 80 Q 670 80 675.68 88.23 L 854.32 346.77 Q 860 355 870 355 L 890 355" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 882 359 L 882 351 M 890 351 L 882 355 L 890 359" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 580 120 L 600 120 Q 610 120 614.58 128.89 L 855.42 596.11 Q 860 605 870 605 L 890 605" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
+        <path d="M 882 609 L 882 601 M 890 601 L 882 605 L 890 609" fill="none" stroke="rgb(0, 0, 0)" stroke-miterlimit="10" pointer-events="none"/>
     </g>
 </svg>
