@@ -52,7 +52,7 @@ class LoginTest extends TestCase
             'email' => 'test@example',
             'password' => Hash::make('password123'),
         ]);
-        
+
         $this->actingAs($user);
 
         $response = $this->post('/login', [

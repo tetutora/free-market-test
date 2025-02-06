@@ -9,11 +9,12 @@ use App\Models\Product;
 class PurchaseProductTest extends TestCase
 {
     /**
-     * 商品購入のテスト（Stripeの画面表示確認）
+     *
      *
      * @return void
      */
 
+    
     // 購入ボタンクリック後、stripe画面へ遷移するか
     public function test_stripe_page()
     {

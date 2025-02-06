@@ -16,6 +16,9 @@ class ProductDetailsTest extends TestCase
      *
      * @return void
      */
+    use RefreshDatabase;
+
+    // 商品詳細ページで必要な情報が表示されるか
     public function test_product_detail_required_information()
     {
         $user = User::factory()->create();
@@ -56,6 +59,7 @@ class ProductDetailsTest extends TestCase
         $response->assertSee($category2->name);
     }
 
+    // 商品詳細ページで複数選択されたカテゴリが表示されるか
     public function test_multiple_categories_on_product()
     {
         $user = User::factory()->create();

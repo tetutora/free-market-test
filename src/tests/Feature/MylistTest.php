@@ -45,7 +45,7 @@ class MylistTest extends TestCase
     }
 
     // ユーザーにログイン後、自分が出品した商品がマイリストに表示されないか
-    public function test_selling_products()
+    public function test_sell_products()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
