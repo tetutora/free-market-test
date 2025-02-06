@@ -18,7 +18,7 @@
             </a>
             <nav class="header__nav">
                 <ul class="header-nav">
-                    <li class="header-nav__item header-nav__search-container">
+                    <li class="header-nav__item __header-nav__search-container">
                         <form class="header-nav__search" action="{{ url()->current() }}" method="GET">
                             <input
                                 type="text"
