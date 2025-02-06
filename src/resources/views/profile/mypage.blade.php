@@ -49,17 +49,19 @@
             @forelse ($purchasedProducts as $purchase)
                 @if ($purchase->product) <!-- null チェックを追加 -->
                     <div class="product-item">
-                        <a href="{{ route('products.show', $purchase->product->id) }}">
-                            @if(str_starts_with($purchase->product->image, 'http'))
-                                <img src="{{ $purchase->product->image }}" alt="{{ $purchase->product->name }}" style="max-width:600px">
-                            @else
-                                <img src="{{ asset('storage/' . $purchase->product->image) }}" alt="{{ $purchase->product->name }}" style="max-width:600px">
-                            @endif
-                            <p class="product-name">{{ $purchase->product->name }}
+                        <a href="{{ route('products.show', $purchase->product->id) }}" class="product-link">
+                            <div class="image-container">
+                                @if(str_starts_with($purchase->product->image, 'http'))
+                                    <img src="{{ $purchase->product->image }}" alt="{{ $purchase->product->name }}" class="product-img">
+                                @else
+                                    <img src="{{ asset('storage/' . $purchase->product->image) }}" alt="{{ $purchase->product->name }}" class="product-img">
+                                @endif
+
                                 @if($purchase->product->is_sold)
                                     <span class="sold-label">Sold Out</span>
                                 @endif
-                            </p>
+                            </div>
+                            <p class="product-name">{{ $purchase->product->name }}</p>
                         </a>
                     </div>
                 @endif
