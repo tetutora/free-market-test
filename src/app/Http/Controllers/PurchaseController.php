@@ -54,7 +54,6 @@ class PurchaseController extends Controller
                 return redirect()->route('profile.mypage')->with('error', '商品が見つかりませんでした');
             }
 
-            // 二重購入の防止
             if ($product->is_sold) {
                 return redirect()->route('profile.mypage')->with('error', 'この商品はすでに購入済みです。');
             }
@@ -65,10 +64,23 @@ class PurchaseController extends Controller
             $user = Auth::user();
             $user->purchasedProducts()->syncWithoutDetaching([$item_id]);
 
-            \App\Models\Purchase::firstOrCreate([
-                'user_id' => $user->id,
-                'product_id' => $item_id,
-            ]);
+            $profile = $user->profile;
+            $zipcode  = $profile->zipcode ?? '未登録';
+            $address  = $profile->address ?? '未登録';
+            $building = $profile->building ?? '未登録';
+
+
+            \App\Models\Purchase::updateOrCreate(
+                [
+                    'user_id'    => $user->id,
+                    'product_id' => $item_id,
+                ],
+                [
+                    'zipcode'  => $zipcode,
+                    'address'  => $address,
+                    'building' => $building,
+                ]
+            );
 
             session()->put('payment_method', $request->payment_method);
 
