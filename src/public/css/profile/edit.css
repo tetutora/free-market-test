@@ -58,16 +58,13 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    /* 縦並びに配置 */
     gap: 20px;
-    /* 画像とファイル選択ボタンの間隔 */
 }
 
 #image-preview img {
     max-width: 150px;
     max-height: 150px;
     border-radius: 50%;
-    /* 画像を丸くする */
 }
 
 @media screen and (max-width: 480px) {
@@ -77,16 +74,12 @@
     }
 }
 
-/* カスタムファイル選択ボタン */
 .custom-file-label {
     display: inline-block;
     padding: 10px 20px;
     background-color: white;
-    /* 背景色を白 */
     color: red;
-    /* 文字色を赤 */
     border: 2px solid red;
-    /* 枠を赤 */
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
@@ -94,22 +87,16 @@
 
 .custom-file-label:hover {
     background-color: #f2f2f2;
-    /* ホバー時の背景色（薄いグレー） */
 }
 
-/* ファイル選択ボタン自体は非表示にする */
 input[type="file"] {
     opacity: 0;
-    /* 完全に非表示 */
     position: absolute;
-    /* レイアウトから除外 */
     z-index: -1;
 }
 
-/* 画像のプレビュー */
 #image-preview img {
     max-width: 150px;
     max-height: 150px;
     border-radius: 50%;
-    /* 丸い形 */
 }

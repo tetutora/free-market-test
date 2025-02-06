@@ -7,7 +7,6 @@
     padding: 20px;
 }
 
-/* ボタン行のスタイル */
 .button-row {
     display: flex;
     gap: 30px;
@@ -24,10 +23,8 @@
     cursor: pointer;
     gap: 5px;
     height: 80px;
-    /* 高さを揃えるために設定 */
 }
 
-/* アイコンスタイル */
 .favorite-icon,
 .comment-icon {
     font-size: 24px;
@@ -41,15 +38,12 @@
     text-align: center;
     margin: 0;
     line-height: 1;
-    /* カウントテキストの行間を揃える */
     height: 20px;
-    /* カウント部分の高さを明示的に設定 */
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* 購入手続きボタン・コメント送信ボタン */
 .purchase-button,
 .comment-submit-button {
     background-color: red;
@@ -68,13 +62,11 @@
     background-color: darkred;
 }
 
-/* 商品画像エリア */
 .product-image {
     flex: 1;
     text-align: center;
 }
 
-/* 商品情報エリア */
 .product-details {
     flex: 2;
 }
@@ -98,7 +90,6 @@
     margin-bottom: 20px;
 }
 
-/* 商品情報のスタイル */
 h2 {
     margin: 20px 0;
     font-size: 1.5rem;
@@ -162,7 +153,6 @@ textarea {
     margin-bottom: 40px;
 }
 
-/* いいねボタンのスタイル */
 .favorite-button {
     background: none;
     border: none;
