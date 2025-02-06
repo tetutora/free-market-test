@@ -11,6 +11,7 @@ use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
+    // 商品購入ページ
     public function show($item_id)
     {
         $product = Product::find($item_id);
@@ -19,7 +20,6 @@ class PurchaseController extends Controller
             return abort(404, 'Product not found');
         }
 
-        // ユーザー情報を取得
         $user = Auth::user();
         $profile = $user->profile;
 
@@ -30,6 +30,7 @@ class PurchaseController extends Controller
         return view('products.purchase', compact('product', 'zipcode', 'address', 'building', 'item_id'));
     }
 
+    // 商品購入処理
     public function purchase(Request $request)
     {
         \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));

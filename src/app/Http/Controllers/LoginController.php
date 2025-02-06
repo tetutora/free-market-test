@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 
 class LoginController extends Controller
 {
-    // ログイン画面
+    // ログイン画面表示
     public function showLoginForm()
     {
         return view('auth.login');

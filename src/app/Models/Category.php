@@ -11,7 +11,6 @@ class Category extends Model
 
     protected $fillable = ['name'];
 
-    // 商品とのリレーション
     public function products()
     {
         return $this->belongsToMany(Product::class, 'products_categories', 'category_id', 'product_id');

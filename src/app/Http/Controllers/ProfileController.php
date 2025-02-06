@@ -130,12 +130,10 @@ class ProfileController extends Controller
             $profile->save();
         }
 
-        $profile_picture = $profile->profile_picture 
-            ? asset('storage/' . $profile->profile_picture) 
+        $profile_picture = $profile->profile_picture
+            ? asset('storage/' . $profile->profile_picture)
             : asset('images/default-profile.png');
 
         return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
-
-    
 }

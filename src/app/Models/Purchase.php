@@ -13,13 +13,11 @@ class Purchase extends Model
         'user_id', 'product_id',
     ];
 
-    // ユーザーとのリレーション
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // 商品とのリレーション
     public function product()
     {
         return $this->belongsTo(Product::class);
