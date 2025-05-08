@@ -30,23 +30,25 @@ class ProfileController extends Controller
 
         $purchasedProducts = $user->purchases()->with('product')->get();
 
-        $tradingProducts = $user->purchases()->where('status', 'trading')->with('product')->get();
+        $tradingAsBuyer = \App\Models\Purchase::where('user_id', $user->id)
+                                ->where('status', 'trading')
+                                ->with('product')
+                                ->get();
 
-        $sellProducts = $user->sales()->where('status', 'trading')->with('product')->get();
+        $tradingAsSeller = \App\Models\Purchase::where('seller_id', $user->id)
+                                ->where('status', 'trading')
+                                ->with('product')
+                                ->get();
 
-        $tradingProducts = $user->purchases()
-                            ->where('status', 'trading')
-                            ->with('product')
-                            ->get();
+        $allTradingProducts = $tradingAsBuyer->merge($tradingAsSeller);
 
-        $sellProducts = $user->sales()
-                            ->where('status', 'trading')
-                            ->with('product')
-                            ->get();
-
-        $allTradingProducts = $tradingProducts->merge($sellProducts);
-
-        return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts', 'allTradingProducts'));
+        return view('profile.mypage', compact(
+            'user',
+            'profile',
+            'profile_picture',
+            'purchasedProducts',
+            'allTradingProducts'
+        ));
     }
 
     // マイページからプロフィール編集画面表示

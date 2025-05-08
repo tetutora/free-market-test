@@ -6,7 +6,6 @@
 
 @section('content')
 <div class="product-container">
-    <!-- 左側：商品画像 -->
     <div class="product-image">
         @if(str_starts_with($product->image, 'http'))
             <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width: 300px;">
@@ -15,18 +14,11 @@
         @endif
     </div>
     <div class="product-details">
-
-        <!-- 商品名 -->
         <h1>{{ $product->name }}</h1>
-
-        <!-- ブランド名 -->
         <p class="product-brand">{{ $product->brand_name ?? 'ブランド情報なし' }}</p>
-
-        <!-- 価格 -->
         <p>¥<span class="product-price">{{ number_format(round($product->price)) }}</span>(税込)</p>
 
         <div class="button-row">
-            <!-- いいねボタン -->
             <div class="favorite-section">
                 <button id="favorite-button"
                         class="favorite-button {{ $isFavorited ? 'favorited' : '' }}"
@@ -35,21 +27,22 @@
                 </button>
                 <p id="favorite-count" class="favorite-count">{{ $favoriteCount }}</p>
             </div>
-            <!-- コメントボタン -->
             <div class="icon-button">
                 <span class="comment-icon">💬</span>
                 <p class="comment-count">{{ $product->comments->count() }}</p>
             </div>
         </div>
 
-        <!-- 購入手続きボタン -->
         <div class="button-column">
-            <form action="{{ route('purchase.show', $product->id) }}" method="GET">
-                <button type="submit" class="purchase-button">購入手続き</button>
-            </form>
+            @if($product->is_sold)
+                <div class="sold-out-label">SOLD OUT</div>
+            @else
+                <form action="{{ route('purchase.show', $product->id) }}" method="GET">
+                    <button type="submit" class="purchase-button">購入手続き</button>
+                </form>
+            @endif
         </div>
 
-        <!-- 商品説明 -->
         <h2>商品説明</h2>
         <p>{{ $product->description }}</p>
 

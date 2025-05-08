@@ -10,12 +10,12 @@ class Purchase extends Model
     use HasFactory;
 
     protected $fillable = [
-        'seller_id', 'buyer_id', 'product_id', 'status',
+        'user_id', 'seller_id', 'product_id', 'status',
     ];
 
-    public function buyer()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'buyer_id');
+        return $this->belongsTo(User::class);
     }
 
     public function seller()
@@ -33,24 +33,13 @@ class Purchase extends Model
         return $this->hasMany(Message::class);
     }
 
-    public static function handlePurchase(User $user, string $sessionId, string $paymentMethod): array
+    public static function record(User $user, Product $product): void
     {
-        $result = (new Product)->handlePurchaseSession($sessionId, $paymentMethod);
-
-        if ($result['success']) {
-            $product = Product::where('session_id', $sessionId)->first();
-
-            $purchase = new self([
-                'buyer_id' => $user->id,
-                'seller_id' => $product->user_id,
-                'product_id' => $product->id,
-                'status' => 'trading',
-            ]);
-            $purchase->save();
-
-            return ['success' => true, 'message' => '購入が完了しました。'];
-        }
-
-        return ['success' => false, 'message' => '購入に失敗しました。'];
+        self::create([
+            'user_id' => $user->id,
+            'seller_id' => $product->user_id,
+            'product_id' => $product->id,
+            'status' => 'trading',
+        ]);
     }
 }

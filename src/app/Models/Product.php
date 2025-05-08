@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
-
 class Product extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'brand_name', 'description', 'price', 'status', 'image', 'user_id',
+        'name', 'brand_name', 'description', 'price', 'status', 'image', 'user_id', 'is_sold',
     ];
 
     public function categories()
@@ -33,17 +32,6 @@ class Product extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function purchasedBy()
-    {
-        return $this->belongsToMany(User::class, 'purchases', 'product_id', 'user_id')
-            ->withTimestamps();
     }
 
     public function buyers()
@@ -129,8 +117,8 @@ class Product extends Model
             $product->markAsSold();
 
             $user = auth()->user();
-            $user->attachPurchasedProduct($product);
 
+            // ✅ 購入レコードを保存
             \App\Models\Purchase::record($user, $product);
 
             session()->put('payment_method', $paymentMethod);
@@ -144,10 +132,8 @@ class Product extends Model
         }
     }
 
-    // 商品を売却済みにする
     public function markAsSold()
     {
         $this->update(['is_sold' => true]);
     }
-
 }
