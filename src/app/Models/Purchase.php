@@ -10,12 +10,17 @@ class Purchase extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'product_id',
+        'seller_id', 'buyer_id', 'product_id', 'status',
     ];
 
-    public function user()
+    public function buyer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'buyer_id');
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(User::class, 'seller_id');
     }
 
     public function product()
@@ -23,17 +28,29 @@ class Purchase extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public static function record(User $user, Product $product): void
+    public function messages()
     {
-        $profile = $user->profile;
+        return $this->hasMany(Message::class);
+    }
 
-        self::updateOrCreate(
-            ['user_id' => $user->id, 'product_id' => $product->id],
-            [
-                'zipcode'  => $profile->zipcode ?? '未登録',
-                'address'  => $profile->address ?? '未登録',
-                'building' => $profile->building ?? '未登録',
-            ]
-        );
+    public static function handlePurchase(User $user, string $sessionId, string $paymentMethod): array
+    {
+        $result = (new Product)->handlePurchaseSession($sessionId, $paymentMethod);
+
+        if ($result['success']) {
+            $product = Product::where('session_id', $sessionId)->first();
+
+            $purchase = new self([
+                'buyer_id' => $user->id,
+                'seller_id' => $product->user_id,
+                'product_id' => $product->id,
+                'status' => 'trading',
+            ]);
+            $purchase->save();
+
+            return ['success' => true, 'message' => '購入が完了しました。'];
+        }
+
+        return ['success' => false, 'message' => '購入に失敗しました。'];
     }
 }

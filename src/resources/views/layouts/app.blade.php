@@ -8,6 +8,7 @@
     <title>COACHTECH</title>
     <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layouts/common.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     @yield('css')
 </head>
 <body>
@@ -48,8 +49,6 @@
         @yield('content')
         @yield('js')
     </main>
-
-    <script src="{{ asset('js/main.js') }}"></script>
 </body>
 </html>
 

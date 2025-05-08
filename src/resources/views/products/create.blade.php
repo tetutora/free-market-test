@@ -28,7 +28,7 @@
                     <div class="category-tag" data-id="{{ $category->id }}">{{ $category->name }}</div>
                 @endforeach
             </div>
-            <input type="hidden" id="category_id" name="category_id" value="">
+            <input type="hidden" id="category_id" name="category_id" value="{{ old('category_id') }}">
         </div>
         @error('category_id')
             {{ $message }}
@@ -40,10 +40,10 @@
             <label for="status"><strong>商品状態</strong></label>
             <select id="status" name="status" >
                 <option value="">-- 選択してください --</option>
-                <option value="良好">良好</option>
-                <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
-                <option value="やや傷や汚れあり">やや傷や汚れあり</option>
-                <option value="状態が悪い">状態が悪い</option>
+                <option value="良好" {{ old('status') == '良好' ? 'selected' : '' }}>良好</option>
+                <option value="目立った傷や汚れなし" {{ old('status') == '目立った傷や汚れなし' ? 'selected' : '' }}>目立った傷や汚れなし</option>
+                <option value="やや傷や汚れあり" {{ old('status') == 'やや傷や汚れあり' ? 'selected' : '' }}>やや傷や汚れあり</option>
+                <option value="状態が悪い" {{ old('status') == '状態が悪い' ? 'selected' : '' }}>状態が悪い</option>
             </select>
         </div>
         @error('status')
@@ -54,7 +54,7 @@
         <!-- 商品名とブランド名と商品説明 -->
         <div class="form-group">
             <label for="name"><strong>商品名</strong></label>
-            <input type="text" id="name" name="name" >
+            <input type="text" id="name" name="name" value="{{ old('name') }}">
         </div>
         @error('name')
             {{ $message }}
@@ -62,7 +62,7 @@
 
         <div class="form-group">
             <label for="brand_name"><strong>ブランド名</strong></label>
-            <input type="text" id="brand_name" name="brand_name">
+            <input type="text" id="brand_name" name="brand_name" value="{{ old('brand_name') }}">
         </div>
         @error('brand_name')
             {{ $message }}
@@ -70,7 +70,7 @@
 
         <div class="form-group">
             <label for="description"><strong>商品説明</strong></label>
-            <textarea id="description" name="description"></textarea>
+            <textarea id="description" name="description">{{ old('description') }}</textarea>
         </div>
         @error('description')
             {{ $message }}
@@ -79,7 +79,7 @@
         <!-- 販売価格 -->
         <div class="form-group">
             <label for="price"><strong>価格</strong></label>
-            <input type="number" id="price" name="price">
+            <input type="number" id="price" name="price" value="{{ old('price') }}">
         </div>
         @error('price')
             {{ $message }}

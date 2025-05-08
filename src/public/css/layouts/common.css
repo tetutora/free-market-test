@@ -1,21 +1,8 @@
-/* Reset */
-body,
-h1,
-h2,
-h3,
-p,
-ul,
-li {
-    margin: 0;
-    padding: 0;
-}
-
 /* Header */
 .header {
     width: 100%;
     padding: 10px;
     background-color: #000;
-    width: 100%;
     box-sizing: border-box;
 }
 
@@ -29,7 +16,7 @@ li {
 }
 
 .header__logo-icon {
-    width: 80%;
+    width: 100%;
 }
 
 .header__nav {
@@ -37,19 +24,19 @@ li {
     display: flex;
     align-items: center;
     list-style: none;
-    width: 70%;
-    justify-content: space-between;
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .header-nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     list-style: none;
-    width: 100%;
+    width: 80%;
 }
 
 .header-nav__search-container {
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -63,7 +50,7 @@ li {
     box-sizing: border-box;
 }
 
-.header-nav__item{
+.header-nav__item {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -82,7 +69,7 @@ li {
     border: none;
 }
 
-.header-nav__link{
+.header-nav__link {
     width: 50%;
     text-decoration: none;
     color: white;
@@ -109,7 +96,8 @@ li {
 /* Responsive */
 @media screen and (min-width: 850px) {
     .header__inner {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        /* アイコンとナビゲーションを常に横並びに */
     }
 
     .header-nav {
@@ -128,7 +116,8 @@ li {
 
 @media screen and (min-width: 768px) {
     .header__inner {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
+        /* アイコンとナビゲーションを常に横並びに */
     }
 
     .header-nav {
@@ -145,4 +134,10 @@ li {
         font-size: 14px;
         padding: 10px;
     }
+}
+
+/* Prevent horizontal scroll */
+body,
+html {
+    overflow-x: hidden;
 }

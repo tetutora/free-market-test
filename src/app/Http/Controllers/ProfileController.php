@@ -26,11 +26,27 @@ class ProfileController extends Controller
         }
 
         $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
-        $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
+        $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('storage/default-profile.jpg');
 
         $purchasedProducts = $user->purchases()->with('product')->get();
 
-        return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts'));
+        $tradingProducts = $user->purchases()->where('status', 'trading')->with('product')->get();
+
+        $sellProducts = $user->sales()->where('status', 'trading')->with('product')->get();
+
+        $tradingProducts = $user->purchases()
+                            ->where('status', 'trading')
+                            ->with('product')
+                            ->get();
+
+        $sellProducts = $user->sales()
+                            ->where('status', 'trading')
+                            ->with('product')
+                            ->get();
+
+        $allTradingProducts = $tradingProducts->merge($sellProducts);
+
+        return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts', 'allTradingProducts'));
     }
 
     // マイページからプロフィール編集画面表示

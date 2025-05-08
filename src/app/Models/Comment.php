@@ -22,9 +22,9 @@ class Comment extends Model
     }
 
     public static function postFromRequest(Product $product, int $userId, string $content): self{
-        return self::crerate([
+        return self::create([
             'product_id' => $product->id,
-            'user_id => $userId',
+            'user_id' => $userId,
             'content' => $content,
         ]);
     }

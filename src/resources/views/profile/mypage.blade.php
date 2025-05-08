@@ -40,7 +40,7 @@
             @endforeach
         </div>
 
-        <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'buy' ? 'grid' : 'none' }};">
+        <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'complate' ? 'grid' : 'none' }};">
             @forelse ($purchasedProducts as $purchase)
                 @if ($purchase->product)
                     <div class="product-item">
@@ -64,16 +64,20 @@
                 <p>購入した商品はありません。</p>
             @endforelse
         </div>
-        <div class="producct-container" id="trading-products" style="display: {{ $currentPage === 'trading' ? 'grid' : 'none' }};">
-            @forelse ($user->transaction ?? [] as $transaction)
-                @if ($transaction->status === 'trading')
+        <div class="product-container" id="trading-products" style="display: {{ $currentPage === 'trading' ? 'grid' : 'none' }};">
+            @forelse ($allTradingProducts as $purchase)
                 <div class="product-item">
-                    <a href="{{ route('transaction.show', $transaction->id)}}">
-                        <img src="{{ asset('storage/' . $transaction->product->image) }}" alt="{{ $transaction->product->name }}" style="max-width:600px">
-                        <p class="product-name">{{ $transaction->product->name }}</p>
+                    <a href="{{ route('transaction.show', $purchase->id) }}">
+                        <div class="image-container">
+                            @if(str_starts_with($purchase->product->image, 'http'))
+                                <img src="{{ $purchase->product->image }}" alt="{{ $purchase->product->name }}" class="product-img">
+                            @else
+                                <img src="{{ asset('storage/' . $purchase->product->image) }}" alt="{{ $purchase->product->name }}" class="product-img">
+                            @endif
+                        </div>
+                        <p class="product-name">{{ $purchase->product->name }}</p>
                     </a>
                 </div>
-                @endif
             @empty
                 <p>取引中の商品はありません。</p>
             @endforelse

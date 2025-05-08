@@ -19,7 +19,13 @@ class UserSeeder extends Seeder
             'email' => 'default@example.com',
             'password' => bcrypt('password'),
             'email_verified_at' => now(),
-            'email_verification_hash' => bcrypt('default@example.com'),
+        ]);
+
+        User::create([
+            'name' => 'テスト',
+            'email' => 'test1@example.com',
+            'password' => bcrypt('password'),
+            'email_verified_at' => now(),
         ]);
     }
 }

@@ -15,8 +15,10 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('buyer_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('seller_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->enum('status', ['trading', 'completed']);
             $table->timestamps();
         });
     }

@@ -9,7 +9,8 @@ use App\Http\Controllers\{
     ProductController,
     PurchaseController,
     VerificationController,
-    StripeController
+    StripeController,
+    TransactionController,
 };
 
 // トップページ（商品一覧画面）
@@ -83,3 +84,8 @@ Route::post('/email/verification-notification', [VerificationController::class, 
 
 // Stripe決済関連
 Route::post('/create-checkout-session', [StripeController::class, 'createCheckoutSession'])->name('stripe.checkout');
+
+// 取引詳細画面（取引IDを基に詳細を表示）
+Route::get('/transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
+Route::post('/transaction/{id}/send-message', [TransactionController::class, 'sendMessage'])->name('transaction.sendMessage');
+
