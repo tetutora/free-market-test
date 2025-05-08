@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Favorite;
-use App\Http\Requests\ExhibitionRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
+use App\Models\Product;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ExhibitionRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {

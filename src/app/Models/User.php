@@ -90,4 +90,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Purchase::class);
     }
+
+    public function attachPurchasedProduct(Product $product)
+    {
+        $this->purchasedProducts()->syncWithoutDetaching([$product->id]);
+    }
 }

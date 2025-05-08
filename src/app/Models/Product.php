@@ -103,4 +103,51 @@ class Product extends Model
             'favoriteCount' => $this->favorites()->count(),
         ];
     }
+
+    public static function handlePurchaseSession($sessionId, $paymentMethod = null): array
+    {
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        try {
+            $session = \Stripe\Checkout\Session::retrieve($sessionId);
+            $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
+
+            if ($paymentIntent->status !== 'succeeded') {
+                return ['success' => false, 'message' => '支払いが完了していません。'];
+            }
+
+            $item_id = $session->metadata->item_id;
+            $product = self::find($item_id);
+            if (!$product) {
+                return ['success' => false, 'message' => '商品が見つかりませんでした'];
+            }
+
+            if ($product->is_sold) {
+                return ['success' => false, 'message' => 'この商品はすでに購入済みです。'];
+            }
+
+            $product->markAsSold();
+
+            $user = auth()->user();
+            $user->attachPurchasedProduct($product);
+
+            \App\Models\Purchase::record($user, $product);
+
+            session()->put('payment_method', $paymentMethod);
+
+            \Log::info("Purchase saved: User ID - {$user->id}, Product ID - {$product->id}");
+
+            return ['success' => true, 'message' => '購入が完了しました'];
+        } catch (\Exception $e) {
+            \Log::error('Purchase error: ' . $e->getMessage());
+            return ['success' => false, 'message' => '購入処理中にエラーが発生しました'];
+        }
+    }
+
+    // 商品を売却済みにする
+    public function markAsSold()
+    {
+        $this->update(['is_sold' => true]);
+    }
+
 }
