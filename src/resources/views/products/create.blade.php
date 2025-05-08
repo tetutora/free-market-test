@@ -14,7 +14,7 @@
             <label for="image"><strong>商品画像</strong></label>
             <div id="image-preview" class="image-preview">画像を選択してください</div>
             <label for="image" class="custom-file-label">画像を選択</label>
-            <input type="file" id="image" name="image" accept="image/*" required class="image-upload">
+            <input type="file" id="image" name="image" accept="image/*" class="image-upload">
         </div>
         @error('image')
             {{ $message }}
@@ -38,7 +38,7 @@
         <!-- 商品状態 -->
         <div class="form-group">
             <label for="status"><strong>商品状態</strong></label>
-            <select id="status" name="status" required>
+            <select id="status" name="status" >
                 <option value="">-- 選択してください --</option>
                 <option value="良好">良好</option>
                 <option value="目立った傷や汚れなし">目立った傷や汚れなし</option>
@@ -54,7 +54,7 @@
         <!-- 商品名とブランド名と商品説明 -->
         <div class="form-group">
             <label for="name"><strong>商品名</strong></label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" >
         </div>
         @error('name')
             {{ $message }}
@@ -70,7 +70,7 @@
 
         <div class="form-group">
             <label for="description"><strong>商品説明</strong></label>
-            <textarea id="description" name="description" required></textarea>
+            <textarea id="description" name="description"></textarea>
         </div>
         @error('description')
             {{ $message }}
@@ -79,7 +79,7 @@
         <!-- 販売価格 -->
         <div class="form-group">
             <label for="price"><strong>価格</strong></label>
-            <input type="number" id="price" name="price" required>
+            <input type="number" id="price" name="price">
         </div>
         @error('price')
             {{ $message }}

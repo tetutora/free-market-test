@@ -20,4 +20,17 @@ class favorite extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    public static function getLikedProducts($user, $search = null)
+    {
+        return $user->favorites()
+            ->with('product')
+            ->when($search, function ($query) use ($search) {
+                $query->whereHas('product', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' .$search . '%');
+                });
+            })
+            ->get()
+            ->pluck('product');
+    }
 }

@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/purchase/success', [PurchaseController::class, 'purchase'])->name('purchase.success');
     Route::get('/purchase/cancel', [PurchaseController::class, 'cancel'])->name('purchase.cancel');
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])->name('purchase.show');
-    Route::post('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('products.purchase'); // 修正箇所
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('products.purchase');
 
     // 送付先住所変更
     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');

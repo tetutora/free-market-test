@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Profile;
-use App\Models\Purchase;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AddressRequest;
-use App\Http\Requests\ProfileRequest;
+use App\Models\Profile;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -17,37 +14,6 @@ class ProfileController extends Controller
     public function show()
     {
         return view('profile.show');
-    }
-
-    // プロフィール更新処理
-    public function update(AddressRequest $request)
-    {
-        $user = auth()->user();
-        $profile = $user->profile;
-
-        if (!$profile) {
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->name = $user->name;
-            $profile->zipcode = $request->input('zipcode');
-            $profile->address = $request->input('address');
-            $profile->building = $request->input('building');
-            $profile->save();
-        }
-
-        if ($request->hasFile('profile_picture')) {
-            $filePath = $request->file('profile_picture')->store('profiles', 'public');
-            $profile->profile_picture = $filePath;
-        }
-
-        $profile->name = $request->input('name');
-        $profile->zipcode = $request->input('zipcode');
-        $profile->address = $request->input('address');
-        $profile->building = $request->input('building');
-
-        $profile->save();
-
-        return redirect()->route('profile.mypage');
     }
 
     // マイページ表示
@@ -59,44 +25,39 @@ class ProfileController extends Controller
             return redirect()->route('login');
         }
 
-        $profile = $user->profile;
+        $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
+        $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
 
-        if (!$profile) {
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->save();
-        }
-
-        $profile_picture = $profile->profile_picture
-            ? asset('storage/' . $profile->profile_picture)
-            : asset('images/default-profile.jpg');
-
-        // 購入した商品を取得
         $purchasedProducts = $user->purchases()->with('product')->get();
 
         return view('profile.mypage', compact('user', 'profile', 'profile_picture', 'purchasedProducts'));
     }
 
-    // プロフィール更新処理
-    public function updateProfile(Request $request)
+    // マイページからプロフィール編集画面表示
+    public function edit()
     {
-        $user = Auth::user();
-        $user->name = $request->name;
+        $user = auth()->user();
 
-        if ($request->hasFile('profile_picture')) {
-            if ($user->profile_picture && Storage::exists('public/' . $user->profile_picture)) {
-                Storage::delete('public/' . $user->profile_picture);
-            }
-            $path = $request->file('profile_picture')->store('profiles', 'public');
-            $user->profile_picture = $path;
-        }
+        $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
 
-        $user->save();
+        $profile_picture = $profile->profile_picture
+            ? asset('storage/' . $profile->profile_picture)
+            : asset('images/default-profile.png');
+
+        return view('profile.edit', compact('user', 'profile', 'profile_picture'));
+    }
+
+    // マイページからプロフィール更新処理
+    public function update(AddressRequest $request)
+    {
+        $user = auth()->user();
+
+        Profile::updateOrCreateForUser($user, $request->only(['name', 'zipcode', 'address', 'building']), $request->file('profile_picture'));
 
         return redirect()->route('profile.mypage');
     }
 
-    // 住所編集画面
+    // 購入画面からの住所編集画面表示
     public function editAddress(Request $request, $item_id)
     {
         $profile = auth()->user()->profile;
@@ -104,36 +65,13 @@ class ProfileController extends Controller
         return view('profile.address.edit', compact('profile', 'item_id'));
     }
 
-    // 住所更新処理
+    // 購入画面からの住所更新処理
     public function updateAddress(Request $request, $item_id)
     {
         $profile = auth()->user()->profile;
 
-        $profile->zipcode = $request->zipcode;
-        $profile->address = $request->address;
-        $profile->building = $request->building;
-
-        $profile->save();
+        $profile->updateAddress($request->only(['zipcode', 'address', 'building']));
 
         return redirect()->route('products.purchase', ['item_id' => $item_id]);
-    }
-
-    // プロフィール編集画面
-    public function edit()
-    {
-        $user = auth()->user();
-
-        $profile = $user->profile;
-        if (!$profile) {
-            $profile = new Profile();
-            $profile->user_id = $user->id;
-            $profile->save();
-        }
-
-        $profile_picture = $profile->profile_picture
-            ? asset('storage/' . $profile->profile_picture)
-            : asset('images/default-profile.png');
-
-        return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
 }

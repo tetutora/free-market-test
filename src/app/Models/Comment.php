@@ -20,4 +20,12 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function postFromRequest(Product $product, int $userId, string $content): self{
+        return self::crerate([
+            'product_id' => $product->id,
+            'user_id => $userId',
+            'content' => $content,
+        ]);
+    }
 }

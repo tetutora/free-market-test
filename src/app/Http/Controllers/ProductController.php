@@ -19,14 +19,7 @@ class ProductController extends Controller
         $search = $request->get('search');
         $userId = Auth::id();
 
-        $products = Product::query()
-            ->when($search, function ($query) use ($search) {
-                return $query->where('name', 'like', '%' . $search . '%');
-            })
-            ->when($userId, function ($query) use ($userId) {
-                return $query->where('user_id', '!=', $userId);
-            })
-            ->get();
+        $products = Product::searchExcludingUser($search, $userId);
 
         $likedProducts = Auth::check() ? Auth::user()->favorites : collect([]);
 
@@ -57,11 +50,7 @@ class ProductController extends Controller
             return redirect()->route('products.show', $product->id)->with('error', 'ログインが必要です');
         }
 
-        Comment::create([
-            'product_id' => $product->id,
-            'user_id' => Auth::id(),
-            'content' => $request->content,
-        ]);
+        Comment::postFromRequest($product, Auth::id(), $request->content);
 
         return redirect()->route('products.show', $product->id);
     }
@@ -77,24 +66,7 @@ class ProductController extends Controller
     // 出品商品保存処理
     public function store(ExhibitionRequest $request)
     {
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-        } else {
-            $imagePath = null;
-        }
-
-        $product = Product::create([
-            'name' => $request->name,
-            'brand_name' => $request->brand_name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'status' => $request->status,
-            'user_id' => Auth::id(),
-            'image' => $imagePath,
-        ]);
-
-        $categoryIds = explode(',', $request->category_id);
-        $product->categories()->attach($categoryIds, ['user_id' => Auth::id()]);
+        Product::createFromRequest($request);
 
         return redirect()->route('products.index');
     }
@@ -102,19 +74,14 @@ class ProductController extends Controller
     // いいね機能
     public function toggleFavorite(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
         $user = Auth::user();
+        $product = Product::findOrFail($id);
 
         if (!$user) {
             return response()->json(['message' => 'ログインが必要です'], 401);
         }
 
-        $user->favorites()->toggle($product->id);
-
-        return response()->json([
-            'favorited' => $user->favorites()->where('product_id', $id)->exists(),
-            'favoriteCount' => $product->favorites()->count(),
-        ]);
+        return response()->json($product->toggleFavoriteByUser($user));
     }
 
     // いいねした商品一覧
@@ -127,14 +94,7 @@ class ProductController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $likedProducts = $user->favorites()->with('product')
-            ->when($search, function ($query) use ($search) {
-                return $query->whereHas('product', function ($query) use ($search) {
-                    $query->where('name', 'like', '%' . $search . '%');
-                });
-            })
-            ->get()
-            ->pluck('product');
+        $likedProducts = Favorite::getLikedProducts($user, $search);
 
         return view('products.mylist', compact('likedProducts', 'search'));
     }
