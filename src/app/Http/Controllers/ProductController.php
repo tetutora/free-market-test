@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\ExhibitionRequest;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Favorite;
 use App\Models\Product;
-use App\Http\Requests\CommentRequest;
-use App\Http\Requests\ExhibitionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    // 商品一覧表示
+    /**
+     * 商品一覧画面表示
+     */
     public function index(Request $request)
     {
         $search = $request->get('search');
@@ -26,7 +28,9 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'likedProducts', 'search'));
     }
 
-    // 商品詳細表示
+    /**
+     * 商品詳細画面表示
+     */
     public function show($id)
     {
         $product = Product::find($id);
@@ -43,7 +47,9 @@ class ProductController extends Controller
         return view('products.show', compact('product', 'isFavorited', 'favoriteCount', 'commentCount'));
     }
 
-    // コメント投稿
+    /**
+     * 商品へのコメント送信処理
+     */
     public function addComment(CommentRequest $request, Product $product)
     {
         if (!Auth::check()) {
@@ -55,7 +61,9 @@ class ProductController extends Controller
         return redirect()->route('products.show', $product->id);
     }
 
-    // 商品出品ページ表示
+    /**
+     * 商品出品画面表示
+     */
     public function create()
     {
         $categories = Category::all();
@@ -63,7 +71,9 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
-    // 出品商品保存処理
+    /**
+     * 出品商品保存処理
+     */
     public function store(ExhibitionRequest $request)
     {
         Product::createFromRequest($request);
@@ -71,7 +81,9 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    // いいね機能
+    /**
+     * いいね機能
+     */
     public function toggleFavorite(Request $request, $id)
     {
         $user = Auth::user();
@@ -84,7 +96,9 @@ class ProductController extends Controller
         return response()->json($product->toggleFavoriteByUser($user));
     }
 
-    // いいねした商品一覧
+    /**
+     * いいねした商品一覧
+     */
     public function likedProducts(Request $request)
     {
         $search = $request->get('search');

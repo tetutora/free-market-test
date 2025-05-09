@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\URL;
-use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\VerifyEmail;
 use App\Http\Requests\RegisterRequest;
-use Illuminate\Support\Facades\Log;
-
+use App\Mail\VerifyEmail;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class RegisterController extends Controller
 {
-    // 会員登録画面
+    /**
+     * 会員登録画面表示
+     */
     public function showRegistrationForm()
     {
         return view('auth.register');
     }
 
-    // 会員登録処理
+    /**
+     * 会員登録処理
+     */
     public function register(RegisterRequest $request)
     {
         $validated = $request->validated();
@@ -42,6 +43,6 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('verification.notice')->with('status', '登録完了しました。認証メールを確認してください。');
+        return redirect()->route('verification.notice');
     }
 }

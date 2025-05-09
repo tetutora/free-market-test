@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Stripe\Stripe;
-use Stripe\Checkout\Session;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class StripeController extends Controller
 {
+    /**
+     * stripe処理
+     */
     public function createCheckoutSession(Request $request)
     {
         $paymentMethod = $request->input('payment_method');

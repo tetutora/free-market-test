@@ -13,26 +13,41 @@ class Purchase extends Model
         'user_id', 'seller_id', 'product_id', 'status',
     ];
 
+    /**
+     * ユーザーとのリレーションを取得
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * 売り手とのリレーションを取得
+     */
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
     }
 
+    /**
+     * 商品とのリレーションを取得
+     */
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
 
+    /**
+     * メッセージとのリレーションを取得
+     */
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
+    /**
+     * 新しい取引を記録
+     */
     public static function record(User $user, Product $product): void
     {
         self::create([
@@ -41,5 +56,34 @@ class Purchase extends Model
             'product_id' => $product->id,
             'status' => 'trading',
         ]);
+    }
+
+    /**
+     * 未読メッセージをユーザーに対してマークする
+     */
+    public function markMessagesAsReadForUser(int $userId)
+    {
+        $this->messages()
+            ->where('is_read', false)
+            ->where('sender_id', '!=', $userId)
+            ->each(function ($message) {
+                $message->is_read = true;
+                $message->save();
+            });
+    }
+
+    /**
+     * 他の取引を取得
+     */
+    public function getOtherTransactions(User $user)
+    {
+        return Purchase::where('status', 'trading')
+            ->where(function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                    ->orWhere('seller_id', $user->id);
+            })
+            ->where('id', '!=', $this->id)
+            ->with('product')
+            ->get();
     }
 }

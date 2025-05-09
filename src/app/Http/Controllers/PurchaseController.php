@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
-use App\Models\Purchase;
-use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Stripe\Stripe;
 
 class PurchaseController extends Controller
 {
-    // 商品購入ページ
+    /**
+     * 商品購入画面表示
+     */
     public function show($item_id)
     {
         $product = Product::find($item_id);
@@ -29,7 +27,9 @@ class PurchaseController extends Controller
         ]);
     }
 
-    // 商品購入処理
+    /**
+     * 商品購入処理
+     */
     public function purchase(Request $request)
     {
         $sessionId = $request->query('session_id');
@@ -43,6 +43,9 @@ class PurchaseController extends Controller
         return redirect()->route($route)->with($result['success'] ? ['success' => $result['message']] : ['error' => $result['message']]);
     }
 
+    /**
+     * 購入キャンセル処理
+     */
     public function cancel()
     {
         return view('purchase.cancel');
