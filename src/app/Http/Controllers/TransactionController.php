@@ -26,10 +26,14 @@ class TransactionController extends Controller
 
         $otherTransactions = $transaction->getOtherTransactions($otherUser);
 
+        $isSeller = auth()->id() === $transaction->product->user_id;
+        $showRatingModalForSeller = $isSeller && $transaction->isBuyerRated() && !$transaction->isSellerRated();
+
         return view('transaction.show', [
             'transaction' => $transaction,
             'otherUser' => $otherUser,
             'otherTransactions' => $otherTransactions,
+            'showRatingModalForSeller' => $showRatingModalForSeller,
         ]);
     }
 
@@ -38,7 +42,8 @@ class TransactionController extends Controller
      */
     public function sendMessage(ChatMessageRequest $request, $transactionId)
     {
-        $message = Message::sendMessage(
+        $message = new Message();
+        $message = $message->sendMessage(
             $transactionId,
             auth()->id(),
             $request->input('body'),
@@ -46,5 +51,32 @@ class TransactionController extends Controller
         );
 
         return redirect()->route('transaction.show', $transactionId);
+    }
+
+    /**
+     * 取引評価処理
+     */
+    public function rate(Request $request, $transactionId)
+    {
+        $transaction = Purchase::findOrFail($transactionId);
+
+        $rating = $request->input('rating');
+        $userId = auth()->id();
+
+        if ($transaction->ratings()->where('user_id', $userId)->exists()) {
+            return response()->json(['success' => false, 'message' => '既に評価済みです'], 400);
+        }
+
+        $transaction->ratings()->create([
+            'user_id' => $userId,
+            'rating' => $rating,
+        ]);
+
+        if ($transaction->isBuyerRated() && $transaction->isSellerRated()) {
+            $transaction->status = 'completed';
+            $transaction->save();
+        }
+
+        return response()->json(['success' => true, 'message' => '評価が送信されました']);
     }
 }

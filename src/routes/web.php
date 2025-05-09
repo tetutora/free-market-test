@@ -88,4 +88,4 @@ Route::post('/create-checkout-session', [StripeController::class, 'createCheckou
 // 取引詳細画面（取引IDを基に詳細を表示）
 Route::get('/transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
 Route::post('/transaction/{id}/send-message', [TransactionController::class, 'sendMessage'])->name('transaction.sendMessage');
-
+Route::post('/transactions/{transaction}/rate', [TransactionController::class, 'rate'])->name('transaction.rate');

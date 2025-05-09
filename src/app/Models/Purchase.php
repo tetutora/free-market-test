@@ -34,7 +34,7 @@ class Purchase extends Model
      */
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->with('user');
     }
 
     /**
@@ -44,6 +44,25 @@ class Purchase extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    /**
+     * レーティングとのリレーションを取得
+     */
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    public function isBuyerRated(): bool
+    {
+        return $this->ratings()->where('user_id', $this->user_id)->exists();
+    }
+
+    public function isSellerRated(): bool
+    {
+        return $this->ratings()->where('user_id', $this->product->user_id)->exists();
+    }
+
 
     /**
      * 新しい取引を記録

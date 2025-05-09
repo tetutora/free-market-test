@@ -1,7 +1,7 @@
 
 .mypage {
     width: 100%;
-    margin: auto;
+    margin: 10px;
     margin-top: 70px;
 }
 
@@ -143,4 +143,9 @@ h2 {
     padding: 2px 6px;
     font-size: 12px;
     margin-left: 5px;
+}
+
+.rating {
+    font-size: 1.5em;
+    color: #FFD700;
 }

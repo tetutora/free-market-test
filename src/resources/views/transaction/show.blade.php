@@ -27,9 +27,11 @@
                 <img src="{{ $transaction->product->user->profile_picture ?? asset('images/default-profile.jpg') }}" alt="プロフィール画像" class="profile-image">
                 <h2>{{ $transaction->product->user->name }}さんとの取引画面</h2>
             </div>
-            <div class="complete-button">
-                <button class="btn-complete">取引を完了する</button>
-            </div>
+            @if (auth()->id() === $transaction->user_id)
+                <div class="complete-button">
+                    <button class="btn-complete">取引を完了する</button>
+                </div>
+            @endif
         </div>
 
         <div class="product-info">
@@ -105,33 +107,47 @@
         </div>
     </div>
 </div>
+<!-- 評価ポップアップ -->
+<div id="ratingPopup" class="rating-popup">
+    <div class="rating-popup-content">
+        <h3>評価を送信してください</h3>
+        <div class="rating-stars">
+            <span class="star" data-value="1">&#9733;</span>
+            <span class="star" data-value="2">&#9733;</span>
+            <span class="star" data-value="3">&#9733;</span>
+            <span class="star" data-value="4">&#9733;</span>
+            <span class="star" data-value="5">&#9733;</span>
+        </div>
+        <div class="rating-actions">
+            <button class="btn-cancel" onclick="closeRatingPopup()">キャンセル</button>
+            <button class="btn-submit" onclick="submitRating()">評価を送信</button>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('js')
 <script>
-    const messageKey = 'unsent_message_{{ $transaction->id }}'; // 取引ごとにキーを分ける
+    const messageKey = 'unsent_message_{{ $transaction->id }}';
 
     document.addEventListener('DOMContentLoaded', () => {
         const textarea = document.getElementById('unsent-message');
         const chatMessages = document.querySelector('.chat-messages');
 
-        // スクロールを一番下に
         if (chatMessages) {
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // localStorageから復元
         const savedMessage = localStorage.getItem(messageKey);
         if (savedMessage) {
             textarea.value = savedMessage;
         }
 
-        // 入力のたびに保存
         textarea.addEventListener('input', () => {
             localStorage.setItem(messageKey, textarea.value);
         });
 
-        // フォーム送信時は削除
         const form = textarea.closest('form');
         form.addEventListener('submit', () => {
             localStorage.removeItem(messageKey);
@@ -155,5 +171,68 @@
             previewContainer.style.display = 'none';
         }
     }
+
+    let selectedRating = null;
+
+    document.querySelectorAll('.rating-stars .star').forEach(star => {
+        star.addEventListener('click', () => {
+            selectedRating = star.dataset.value;
+
+            // 星の選択状態を変更
+            document.querySelectorAll('.rating-stars .star').forEach(s => {
+                s.classList.remove('selected');
+            });
+
+            // 選択した星以下の星に selected クラスを追加
+            document.querySelectorAll('.rating-stars .star').forEach(s => {
+                if (s.dataset.value <= selectedRating) {
+                    s.classList.add('selected');
+                }
+            });
+        });
+    });
+
+    function closeRatingPopup() {
+        document.getElementById('ratingPopup').style.display = 'none';
+    }
+
+    function submitRating() {
+        if (!selectedRating) {
+            alert('評価を選択してください');
+            return;
+        }
+
+        const transactionId = {{ $transaction->id }};
+
+        fetch(`/transactions/${transactionId}/rate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify({ rating: selectedRating })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('評価が送信され、取引が完了しました');
+                closeRatingPopup();
+                window.location.href = '{{ route('home') }}';
+            } else {
+                alert(`評価の送信に失敗しました: ${data.message}`);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('評価の送信中にエラーが発生しました');
+        });
+    }
 </script>
+@if ($showRatingModalForSeller)
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('ratingPopup').style.display = 'flex';
+        });
+    </script>
+@endif
 @endsection

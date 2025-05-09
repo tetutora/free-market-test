@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddressRequest;
 use App\Models\Message;
 use App\Models\Profile;
+use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,7 +32,11 @@ class ProfileController extends Controller
         $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
         $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
 
-        $purchasedProducts = $user->purchases()->with('product')->get();
+        $purchasedProducts = $user->purchases()
+                            ->where('status', 'completed')
+                            ->with('product')
+                            ->get();
+                        // dd($purchasedProducts);
 
         $allTradingProducts = $profile->getAllTradingProductsWithUnreadMessages($user);
 
@@ -42,13 +47,20 @@ class ProfileController extends Controller
         ->where('is_read', false)
         ->count();
 
+        $averageRating = Rating::whereHas('purchase', function ($query) use ($user) {
+            $query->where('seller_id', $user->id);
+        })->avg('rating');
+
+        $averageRatingRounded = $averageRating ? round($averageRating) : null;
+
         return view('profile.mypage', compact(
             'user',
             'profile',
             'profile_picture',
             'unreadMessageCount',
             'purchasedProducts',
-            'allTradingProducts'
+            'allTradingProducts',
+            'averageRatingRounded'
         ));
     }
 

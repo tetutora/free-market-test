@@ -9,13 +9,26 @@
 @php
     $currentPage = request()->query('page', 'sell');
 @endphp
-
+<div class="mypage">
     <div class="mypage-header">
         <div class="profile-info">
-            <img src="{{ $profile_picture ?? asset('images/default-profile.jpg') }}" alt="プロフィール画像" class="profile-image">
+        <img src="{{ $profile_picture ?? asset('images/default-profile.jpg') }}" alt="プロフィール画像" class="profile-image">
+        <div class="name-rating">
             <h2>{{ $profile->name ?? $user->name }}</h2>
-            <a href="{{ route('profile.edit') }}" class="btn-edit-profile">プロフィール編集</a>
+            @if(!is_null($averageRatingRounded))
+                <div class="rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        @if ($i <= $averageRatingRounded)
+                            ★
+                        @else
+                            ☆
+                        @endif
+                    @endfor
+                </div>
+            @endif
         </div>
+        <a href="{{ route('profile.edit') }}" class="btn-edit-profile">プロフィール編集</a>
+    </div>
     </div>
 
     <div class="mypage-buttons">
@@ -46,9 +59,9 @@
             @endforeach
         </div>
 
-        <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'complate' ? 'grid' : 'none' }};">
+        <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'completed' ? 'grid' : 'none' }};">
             @forelse ($purchasedProducts as $purchase)
-                @if ($purchase->product)
+                @if ($purchase->product)  <!-- 商品が存在する場合 -->
                     <div class="product-item">
                         <a href="{{ route('products.show', $purchase->product->id) }}" class="product-link">
                             <div class="image-container">
@@ -70,6 +83,7 @@
                 <p>購入した商品はありません。</p>
             @endforelse
         </div>
+
         <div class="product-container" id="trading-products" style="display: {{ $currentPage === 'trading' ? 'grid' : 'none' }};">
             @forelse ($allTradingProducts as $purchase)
                 <div class="product-item">
@@ -105,7 +119,7 @@
             });
 
             btnPurchase.addEventListener('click', () => {
-                window.location.href = '/mypage?page=buy';
+                window.location.href = '/mypage?page=completed';
             });
 
             btnTrading.addEventListener('click', () => {
