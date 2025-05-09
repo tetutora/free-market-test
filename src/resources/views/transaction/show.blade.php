@@ -21,7 +21,6 @@
         </ul>
     </div>
 
-    <!-- 右側：現在の取引詳細 -->
     <div class="main-content">
         <div class="transaction-header">
             <div class="profile-info">
@@ -61,6 +60,15 @@
                         <div class="message-body">
                             <p>{{ $message->body }}</p>
                             <span class="message-time">{{ $message->created_at->format('H:i') }}</span>
+
+                            <!-- 自分が送ったメッセージだけに既読・未読を表示 -->
+                            @if ($message->sender_id === auth()->id())
+                                @if($message->is_read)
+                                    <span class="read-label">既読</span>
+                                @else
+                                    <span class="unread-label">未読</span>
+                                @endif
+                            @endif
                         </div>
                     </div>
                 @endforeach

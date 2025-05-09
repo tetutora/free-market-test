@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ asset('css/profile/edit.css') }}">
 @endsection
 
+@php
+    $imageSrc = $profile_picture ?? asset('images/default-profile.jpg');
+@endphp
+
 @section('content')
 <div class="profile__content">
     <div class="profile-form__heading">
@@ -16,7 +20,7 @@
         <!-- プロフィール画像 -->
         <div class="form__group-photo">
             <div id="image-preview" style="{{ $profile_picture ? '' : 'display:none;' }}">
-                <img id="image-preview-img" src="{{ $profile_picture }}" alt="プロフィール画像" width="200" height="200" />
+                <img id="image-preview-img" src="{{ $imageSrc }}" alt="プロフィール画像" width="200" height="200" />
             </div>
             <div class="form__input">
                 <label for="profile_picture" class="custom-file-label">画像を選択</label>

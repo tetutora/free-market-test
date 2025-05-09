@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressRequest;
 use App\Models\Profile;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -20,52 +20,53 @@ class ProfileController extends Controller
     public function myPage()
     {
         $user = Auth::user();
-
         if (!$user) {
             return redirect()->route('login');
         }
 
+        // プロフィール画像の設定
         $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
-        $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('storage/default-profile.jpg');
+        $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
 
-        $purchasedProducts = $user->purchases()->with('product')->get();
+        // 購入した商品（$purchasedProducts）を取得
+        $purchasedProducts = $user->purchases()->with('product')->get();  // ←ここで$PurchasedProductsを取得
 
-        $tradingAsBuyer = \App\Models\Purchase::where('user_id', $user->id)
-                                ->where('status', 'trading')
-                                ->with('product')
-                                ->get();
+        // 取引中の商品を取得
+        $allTradingProducts = $profile->getAllTradingProductsWithUnreadMessages($user);
 
-        $tradingAsSeller = \App\Models\Purchase::where('seller_id', $user->id)
-                                ->where('status', 'trading')
-                                ->with('product')
-                                ->get();
+        // 未読メッセージ数をカウント
+        $unreadMessageCount = Message::whereHas('purchase', function ($query) use ($user) {
+            $query->where('user_id', $user->id)
+                ->orWhere('seller_id', $user->id);
+        })->where('sender_id', '!=', $user->id)
+        ->where('is_read', false)
+        ->count();
 
-        $allTradingProducts = $tradingAsBuyer->merge($tradingAsSeller);
-
+        // ビューに渡すデータ
         return view('profile.mypage', compact(
             'user',
             'profile',
             'profile_picture',
-            'purchasedProducts',
+            'unreadMessageCount',
+            'purchasedProducts',  // ← ここでビューに渡す
             'allTradingProducts'
         ));
     }
 
-    // マイページからプロフィール編集画面表示
+    // プロフィール編集画面表示
     public function edit()
     {
         $user = auth()->user();
-
         $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
 
         $profile_picture = $profile->profile_picture
             ? asset('storage/' . $profile->profile_picture)
-            : asset('images/default-profile.png');
+            : asset('images/default-profile.jpg');
 
         return view('profile.edit', compact('user', 'profile', 'profile_picture'));
     }
 
-    // マイページからプロフィール更新処理
+    // プロフィール更新処理
     public function update(AddressRequest $request)
     {
         $user = auth()->user();

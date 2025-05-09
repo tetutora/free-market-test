@@ -21,7 +21,13 @@
     <div class="mypage-buttons">
         <button class="btn-toggle" id="btn-sell">出品した商品</button>
         <button class="btn-toggle" id="btn-purchase">購入した商品</button>
-        <button class="btn-toggle" id="btn-trading">取引中の商品</button>
+
+        <button class="btn-toggle" id="btn-trading">
+            取引中の商品
+            @if($unreadMessageCount > 0)
+                <span class="badge">{{ $unreadMessageCount }}</span>
+            @endif
+        </button>
     </div>
 
     <div id="product-list" class="product-list">
