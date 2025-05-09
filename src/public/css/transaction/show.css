@@ -258,6 +258,27 @@ textarea {
     margin-left: 10px;
 }
 
+#imagePreviewContainer {
+    display: none;
+    margin-top: 10px;
+}
+
+#imagePreview {
+    max-width: 200px;
+    max-height: 200px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.message-image {
+    max-width: 200px;
+    max-height: 200px;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
 @media screen and (min-width: 1400px) and (max-width: 1540px) {
     .transaction-wrapper {
         max-width: 1200px;

@@ -9,7 +9,8 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['purchase_id', 'sender_id', 'body'];
+    protected $fillable = ['purchase_id', 'sender_id', 'body', 'image_path', 'is_read',];
+    protected $casts = ['is_read' => 'boolean',];
 
     public function purchase()
     {

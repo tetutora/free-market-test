@@ -29,15 +29,28 @@
                                 value="{{ request('search') }}">
                         </form>
                     </li>
-                    <li class="header-nav__item">
-                        <a class="header-nav__button" href="/mypage">マイページ</a>
-                    </li>
-                    <li class="header-nav__item">
-                        <form class="form" action="/logout" method="post">
-                            @csrf
-                            <button class="header-nav__button">ログアウト</button>
-                        </form>
-                    </li>
+
+                    @auth
+                        <li class="header-nav__item">
+                            <a class="header-nav__button" href="/mypage">マイページ</a>
+                        </li>
+                        <li class="header-nav__item">
+                            <form class="form" action="/logout" method="POST">
+                                @csrf
+                                <button type="submit" class="header-nav__button">ログアウト</button>
+                            </form>
+                        </li>
+                    @endauth
+
+                    @guest
+                        <li class="header-nav__item">
+                            <a class="header-nav__button" href="{{ route('login') }}">ログイン</a>
+                        </li>
+                        <li class="header-nav__item">
+                            <a class="header-nav__button" href="{{ route('register') }}">会員登録</a>
+                        </li>
+                    @endguest
+
                     <li class="header-nav__item">
                         <a class="header-nav__link header-nav__link--highlight" href="{{ route('sell') }}">出品</a>
                     </li>

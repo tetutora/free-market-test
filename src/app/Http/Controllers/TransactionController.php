@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChatMessageRequest;
 use App\Models\Purchase;
 use App\Models\Message;
 use Illuminate\Http\Request;
@@ -45,20 +46,22 @@ class TransactionController extends Controller
         ]);
     }
 
-    public function sendMessage(Request $request, $id)
+    public function sendMessage(ChatMessageRequest $request, $transactionId)
     {
-        $request->validate([
-            'message' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
-        $transaction = Purchase::findOrFail($id);
         $message = new Message();
-        $message->purchase_id = $transaction->id;
+        $message->purchase_id = $transactionId;
         $message->sender_id = auth()->id();
-        $message->body = $request->message;
-        $message->is_read = false; // メッセージを送る際に必ず未読に設定
+        $message->body = $request->input('body');
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('messages', 'public'); // 保存先: storage/app/public/messages
+            $message->image_path = $path;
+        }
+
         $message->save();
 
-        return redirect()->route('transaction.show', $transaction->id);
+        return redirect()->route('transaction.show', $transactionId);
     }
 }
