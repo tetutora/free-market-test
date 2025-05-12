@@ -63,6 +63,10 @@ class Purchase extends Model
         return $this->ratings()->where('user_id', $this->product->user_id)->exists();
     }
 
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
 
     /**
      * 新しい取引を記録

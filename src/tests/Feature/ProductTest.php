@@ -69,11 +69,19 @@ class ProductTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $product = $this->createProduct($user->id);
+        $product = Product::factory()->create([
+            'name' => '自分の商品',
+            'user_id' => $user->id,
+        ]);
 
-        $response = $this->get('/products');
+        Product::factory()->create([
+            'name' => '他人の商品',
+            'user_id' => User::factory()->create()->id,
+        ]);
 
-        $response->assertStatus(200);
-        $response->assertDontSee($product->name);
+        $response = $this->get(route('products.index'));
+
+        $response->assertDontSee('自分の商品');
+        $response->assertSee('他人の商品');
     }
 }

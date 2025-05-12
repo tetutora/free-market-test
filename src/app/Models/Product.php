@@ -136,4 +136,45 @@ class Product extends Model
     {
         $this->update(['is_sold' => true]);
     }
+
+    public static function createStripeSession($productId)
+    {
+        // Stripe APIキー設定
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        // 商品情報を取得
+        $product = self::find($productId);
+
+        if (!$product) {
+            return ['error' => '指定された商品が見つかりません。'];
+        }
+
+        try {
+            // Stripe Checkoutセッションの作成
+            $session = Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'usd', // 通貨設定（例：usd）
+                            'product_data' => [
+                                'name' => $product->name,
+                                'description' => $product->description,
+                            ],
+                            'unit_amount' => $product->price * 100, // 金額をセント単位で設定
+                        ],
+                        'quantity' => 1,
+                    ],
+                ],
+                'mode' => 'payment',
+                'success_url' => route('purchase.success'), // 成功時のURL
+                'cancel_url' => route('purchase.cancel'), // キャンセル時のURL
+                'metadata' => ['item_id' => $productId], // 商品IDをメタデータに追加
+            ]);
+
+            return $session;
+        } catch (\Exception $e) {
+            return ['error' => 'セッション作成中にエラーが発生しました: ' . $e->getMessage()];
+        }
+    }
 }

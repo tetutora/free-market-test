@@ -5,20 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Stripe\Checkout\Session;
 use Stripe\Stripe;
+use Stripe\Checkout\Session;
 
 class StripeController extends Controller
 {
-    /**
-     * stripe処理
-     */
     public function createCheckoutSession(Request $request)
     {
         $paymentMethod = $request->input('payment_method');
         $item_id = $request->input('item_id');
 
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        $stripeApiKey = env('STRIPE_SECRET');
+        Log::info('Stripe Secret Key: ' . $stripeApiKey);
+        Stripe::setApiKey($stripeApiKey);
 
         $product = Product::find($item_id);
 

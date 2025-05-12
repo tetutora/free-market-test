@@ -53,7 +53,6 @@
 @endsection
 
 @section('js')
-<script src="https://js.stripe.com/v3/"></script>
 <script>
     var stripe = Stripe("{{ config('services.stripe.key') }}");
     var checkoutButton = document.getElementById('submit-payment');
@@ -76,7 +75,7 @@
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 payment_method: paymentMethod,
                 item_id: itemId
             })
