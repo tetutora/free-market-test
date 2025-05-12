@@ -43,84 +43,110 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 | updated_at               | timestamp    |             |            |          |             |
 
 
-### profilesテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| id | bigint | ◯ |  | ◯ |  |
-| user_id | bigint |  |  | ◯ | users(id) |
-| img_url | varchar(255) |  |  |  |  |
-| postcode | varchar(255) |  |  | ◯ |  |
-| address | varchar(255) |  |  | ◯ |  |
-| building | varchar(255) |  |  |  |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
+### categoriesテーブル
+| カラム名        | 型            | primary key | unique key | not null | foreign key |
+| ----------- | ------------ | ----------- | ---------- | -------- | ----------- |
+| id          | bigint       | ◯           |            | ◯        |             |
+| name        | varchar(255) |             |            | ◯        |             |
+| created_at | timestamp    |             |            |          |             |
+| updated_at | timestamp    |             |            |          |             |
 
-### itemsテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| id | bigint | ◯ |  | ◯ |  |
-| user_id | bigint |  |  | ◯ | users(id) |
-| condition_id | bigint |  |  | ◯ | condtions(id) |
-| name | varchar(255) |  |  | ◯ |  |
-| price | int |  |  | ◯ |  |
-| brand | varchar(255) |  |  |  |  |
-| description | varchar(255) |  |  | ◯ |  |
-| img_url | varchar(255) |  |  | ◯ |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
+
+### productssテーブル
+| カラム名        | 型             | primary key | unique key | not null | foreign key |
+| ----------- | ------------- | ----------- | ---------- | -------- | ----------- |
+| id          | bigint        | ◯           |            | ◯        |             |
+| name        | varchar(255)  |             |            | ◯        |             |
+| brand\_name | varchar(255)  |             |            | ◯        |             |
+| description | text          |             |            | ◯        |             |
+| price       | decimal(10,2) |             |            | ◯        |             |
+| image       | varchar(255)  |             |            | ◯        |             |
+| status      | varchar(255)  |             |            | ◯        |             |
+| user\_id    | bigint        |             |            | ◯        | users(id)   |
+| is\_sold    | boolean       |             |            | ◯        |             |
+| created\_at | timestamp     |             |            |          |             |
+| updated\_at | timestamp     |             |            |          |             |
+
+### purchasesテーブル
+| カラム名        | 型                            | primary key | unique key | not null | foreign key  |
+| ----------- | ---------------------------- | ----------- | ---------- | -------- | ------------ |
+| id          | bigint                       | ◯           |            | ◯        |              |
+| user\_id    | bigint                       |             |            | ◯        | users(id)    |
+| seller\_id  | bigint                       |             |            | ◯        | users(id)    |
+| product\_id | bigint                       |             |            | ◯        | products(id) |
+| status      | enum('trading', 'completed') |             |            | ◯        |              |
+| created\_at | timestamp                    |             |            |          |              |
+| updated\_at | timestamp                    |             |            |          |              |
+
+
+### profilesテーブル
+| カラム名             | 型            | primary key | unique key | not null | foreign key |
+| ---------------- | ------------ | ----------- | ---------- | -------- | ----------- |
+| id               | bigint       | ◯           |            | ◯        |             |
+| user\_id         | bigint       |             |            | ◯        | users(id)   |
+| profile\_picture | varchar(255) |             |            |          |             |
+| name             | varchar(255) |             |            | ◯        |             |
+| zipcode          | varchar(255) |             |            | ◯        |             |
+| address          | varchar(255) |             |            | ◯        |             |
+| building         | varchar(255) |             |            |          |             |
+| created\_at      | timestamp    |             |            |          |             |
+| updated\_at      | timestamp    |             |            |          |             |
+
+### products_categoriesテーブル
+| カラム名         | 型         | primary key | unique key | not null | foreign key    |
+| ------------ | --------- | ----------- | ---------- | -------- | -------------- |
+| id           | bigint    | ◯           |            | ◯        |                |
+| product\_id  | bigint    |             |            | ◯        | products(id)   |
+| category\_id | bigint    |             |            | ◯        | categories(id) |
+| user\_id     | bigint    |             |            | ◯        | users(id)      |
+| created\_at  | timestamp |             |            |          |                |
+| updated\_at  | timestamp |             |            |          |                |
+
 
 ### commentsテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| id | bigint | ◯ |  | ◯ |  |
-| user_id | bigint |  |  | ◯ | users(id) |
-| item_id | bigint |  |  | ◯ | items(id) |
-| comment | varchar(255) |  |  | ◯ |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
+| カラム名        | 型         | primary key | unique key | not null | foreign key  |
+| ----------- | --------- | ----------- | ---------- | -------- | ------------ |
+| id          | bigint    | ◯           |            | ◯        |              |
+| content     | text      |             |            | ◯        |              |
+| product\_id | bigint    |             |            | ◯        | products(id) |
+| user\_id    | bigint    |             |            | ◯        | users(id)    |
+| created\_at | timestamp |             |            |          |              |
+| updated\_at | timestamp |             |            |          |              |
 
-### likesテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| user_id | bigint |  | ◯(item_idとの組み合わせ) | ◯ | users(id) |
-| item_id | bigint |  | ◯(user_idとの組み合わせ) | ◯ | items(id) |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
 
-### sold_itemsテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| user_id | bigint |  |  | ◯ | users(id) |
-| item_id | bigint |  |  | ◯ | items(id) |
-| sending_postcode | varchar(255) |  |  | ◯ |  |
-| sending_address | varchar(255) |  |  | ◯ |  |
-| sending_building | varchar(255) |  |  |  |  |
-| created_at | created_at |  |  |  |  |
-| updated_at | updated_at |  |  |  |  |
+### favoritesテーブル
+| カラム名        | 型         | primary key | unique key | not null | foreign key  |
+| ----------- | --------- | ----------- | ---------- | -------- | ------------ |
+| id          | bigint    | ◯           |            | ◯        |              |
+| user\_id    | bigint    |             | ◯          | ◯        | users(id)    |
+| product\_id | bigint    |             | ◯          | ◯        | products(id) |
+| created\_at | timestamp |             |            |          |              |
+| updated\_at | timestamp |             |            |          |              |
 
-### category_itemsテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| item_id | bigint |  | ◯(category_idとの組み合わせ) | ◯ | items(id) |
-| category_id | bigint |  | ◯(item_idとの組み合わせ) | ◯ | categories(id) |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
 
-### categoriesテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| id | bigint | ◯ |  | ◯ |  |
-| category | varchar(255) |  |  | ◯ |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
+### messagesテーブル
+| カラム名         | 型           | primary key | unique key | not null | foreign key   |
+| ------------ | ----------- | ----------- | ---------- | -------- | ------------- |
+| id           | bigint      | ◯           |            | ◯        |               |
+| purchase\_id | bigint      |             |            | ◯        | purchases(id) |
+| sender\_id   | bigint      |             |            | ◯        | users(id)     |
+| is\_read     | boolean     |             |            | ◯        |               |
+| body         | text        |             |            | ◯        |               |
+| image\_path  | string(255) |             |            |          |               |
+| created\_at  | timestamp   |             |            |          |               |
+| updated\_at  | timestamp   |             |            |          |               |
 
-### conditionsテーブル
-| カラム名 | 型 | primary key | unique key | not null | foreign key |
-| --- | --- | --- | --- | --- | --- |
-| id | bigint | ◯ |  | ◯ |  |
-| condition | varchar(255) |  |  | ◯ |  |
-| created_at | timestamp |  |  |  |  |
-| updated_at | timestamp |  |  |  |  |
+
+### ratingsテーブル
+| カラム名         | 型         | primary key | unique key | not null | foreign key   |
+| ------------ | --------- | ----------- | ---------- | -------- | ------------- |
+| id           | bigint    | ◯           |            | ◯        |               |
+| purchase\_id | bigint    |             |            | ◯        | purchases(id) |
+| user\_id     | bigint    |             |            | ◯        | users(id)     |
+| rating       | tinyint   |             |            | ◯        |               |
+| created\_at  | timestamp |             |            |          |               |
+| updated\_at  | timestamp |             |            |          |               |
+
 
 ## 使用技術（実行環境）
 - Laravel 8.83.29 (PHPフレームワーク)
