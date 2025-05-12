@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/layouts/common.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     @yield('css')
+    @yield('js')
 </head>
 <body>
     <header class="header">

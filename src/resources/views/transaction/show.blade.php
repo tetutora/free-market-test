@@ -7,18 +7,15 @@
 
 @section('content')
 <div class="transaction-wrapper">
-    <!-- 左側：その他の取引中商品 -->
     <div class="sidebar">
-        <h4>他の取引中の商品</h4>
-        <ul class="other-products">
-            @foreach ($otherTransactions as $other)
-                <li class="{{ $other->id === $transaction->id ? 'active' : '' }}">
-                    <a href="{{ route('transaction.show', $other->id) }}">
+        <h4 class="other-transaction-item">他の取引中の商品</h4>
+        @foreach ($otherTransactions as $other)
+            <div class="other-product-item {{ $other->id === $transaction->id ? 'active' : '' }}">
+                <a href="{{ route('transaction.show', $other->id) }}">
                         {{ $other->product->name }}
-                    </a>
-                </li>
+                </a>
+            </div>
             @endforeach
-        </ul>
     </div>
 
     <div class="main-content">
@@ -49,38 +46,40 @@
         </div>
 
         <div class="chat-container">
-            <div class="chat-header">
-                <h4>取引チャット</h4>
-            </div>
+            <div class="chat-header"></div>
 
-            <div class="chat-messages">
-                @foreach ($transaction->messages as $message)
-                    <div class="chat-message {{ $message->sender_id === auth()->id() ? 'sent' : 'received' }}">
-                        <div class="message-header">
-                            <img src="{{ $message->sender->profile_picture ?? asset('images/default-profile.jpg') }}" alt="アイコン" class="message-avatar">
-                            <span class="message-username">{{ $message->sender->name }}</span>
-                        </div>
-                        <div class="message-body">
-                            <p>{{ $message->body }}</p>
-                            @if ($message->image_path)
-                                <img src="{{ asset('storage/' . $message->image_path) }}" alt="画像" class="message-image">
-                            @endif
-                            <span class="message-time">{{ $message->created_at->format('H:i') }}</span>
-                            @if ($message->sender_id === auth()->id())
-                                @if($message->is_read)
-                                    <span class="read-label">既読</span>
-                                @else
-                                    <span class="unread-label">未読</span>
-                                @endif
-                            @endif
-                        </div>
+            @foreach ($messages as $message)
+                <div class="chat-message {{ $message->sender_id === auth()->id() ? 'sent' : 'received' }}" id="message-{{ $message->id }}">
+                    <div class="message-header">
+                        <span class="message-username">{{ $message->sender->name }}</span>
+                        <img src="{{ $message->sender->profile_picture ?? asset('images/default-profile.jpg') }}" alt="アイコン" class="message-avatar">
                     </div>
+                    <div class="message-body">
+                        <p class="message-content">{{ $message->body }}</p>
+                        @if ($message->image_path)
+                            <img src="{{ asset('storage/' . $message->image_path) }}" alt="画像" class="message-image">
+                        @endif
+                        <span class="message-time">{{ $message->created_at->format('H:i') }}</span>
+                        @if ($message->sender_id === auth()->id())
+                            @if ($message->is_read)
+                                <span class="read-label">既読</span>
+                            @else
+                                <span class="unread-label">未読</span>
+                            @endif
+                        @endif
+                    </div>
+                    @if ($message->sender_id === auth()->id())
+                        <div class="message-actions">
+                            <button class="btn-edit" onclick="editMessage({{ $message->id }})">編集</button>
+                            <button class="btn-delete" onclick="deleteMessage({{ $message->id }})">削除</button>
+                        </div>
+                    @endif
+                </div>
                 @endforeach
-            </div>
 
             <form action="{{ route('transaction.sendMessage', $transaction->id) }}" method="POST" enctype="multipart/form-data" class="chat-form">
                 @csrf
-                <textarea name="body" id="unsent-message" placeholder="メッセージを入力..." rows="3">{{ old('body') }}</textarea>
+                <textarea name="body" id="unsent-message" placeholder="取引メッセージを入力してください" rows="1">{{ old('body') }}</textarea>
                 @if ($errors->has('body'))
                     <div class="form__error">
                         <p>{{ $errors->first('body') }}</p>
@@ -110,7 +109,8 @@
 <!-- 評価ポップアップ -->
 <div id="ratingPopup" class="rating-popup">
     <div class="rating-popup-content">
-        <h3>評価を送信してください</h3>
+        <p class="rating-popup-title">取引が完了しました。</p>
+        <p class="popup-sentence">今回の取引相手はどうでしたか？</p>
         <div class="rating-stars">
             <span class="star" data-value="1">&#9733;</span>
             <span class="star" data-value="2">&#9733;</span>
@@ -119,8 +119,8 @@
             <span class="star" data-value="5">&#9733;</span>
         </div>
         <div class="rating-actions">
-            <button class="btn-cancel" onclick="closeRatingPopup()">キャンセル</button>
-            <button class="btn-submit" onclick="submitRating()">評価を送信</button>
+            <div class="rating-divider"></div>
+            <button class="btn-submit" onclick="submitRating()">送信する</button>
         </div>
     </div>
 </div>
@@ -129,9 +129,9 @@
 
 @section('js')
 <script>
-    const messageKey = 'unsent_message_{{ $transaction->id }}';
-
     document.addEventListener('DOMContentLoaded', () => {
+        messageKey = 'unsent_message_{{ $transaction->id }}';
+
         const textarea = document.getElementById('unsent-message');
         const chatMessages = document.querySelector('.chat-messages');
 
@@ -152,6 +152,13 @@
         form.addEventListener('submit', () => {
             localStorage.removeItem(messageKey);
         });
+
+        const completeButton = document.querySelector('.btn-complete');
+        if (completeButton) {
+            completeButton.addEventListener('click', () => {
+                document.getElementById('ratingPopup').style.display = 'flex';
+            });
+        }
     });
 
     function previewImage() {
@@ -172,18 +179,18 @@
         }
     }
 
-    let selectedRating = null;
+    if (typeof selectedRating === 'undefined') {
+        var selectedRating = null;
+    }
 
     document.querySelectorAll('.rating-stars .star').forEach(star => {
         star.addEventListener('click', () => {
             selectedRating = star.dataset.value;
 
-            // 星の選択状態を変更
             document.querySelectorAll('.rating-stars .star').forEach(s => {
                 s.classList.remove('selected');
             });
 
-            // 選択した星以下の星に selected クラスを追加
             document.querySelectorAll('.rating-stars .star').forEach(s => {
                 if (s.dataset.value <= selectedRating) {
                     s.classList.add('selected');
@@ -198,13 +205,11 @@
 
     function submitRating() {
         if (!selectedRating) {
-            alert('評価を選択してください');
+            alert("評価を選択してください。");
             return;
         }
 
-        const transactionId = {{ $transaction->id }};
-
-        fetch(`/transactions/${transactionId}/rate`, {
+        fetch("{{ route('transaction.submitRating', $transaction->id) }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -215,11 +220,9 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('評価が送信され、取引が完了しました');
-                closeRatingPopup();
-                window.location.href = '{{ route('home') }}';
+                window.location.href = "{{ route('home') }}";
             } else {
-                alert(`評価の送信に失敗しました: ${data.message}`);
+                alert(data.message);
             }
         })
         .catch(error => {
@@ -227,12 +230,80 @@
             alert('評価の送信中にエラーが発生しました');
         });
     }
-</script>
-@if ($showRatingModalForSeller)
+
+    function editMessage(messageId) {
+        const messageBody = document.querySelector(`#message-${messageId} .message-content`);
+        const messageText = messageBody.textContent || messageBody.innerText;
+
+        const editFormHTML = `
+            <textarea id="editMessageText" rows="3">${messageText}</textarea>
+            <button onclick="saveEditedMessage(${messageId})">保存</button>
+            <button onclick="cancelEditMessage()">キャンセル</button>
+        `;
+        messageBody.innerHTML = editFormHTML;
+    }
+
+    function saveEditedMessage(messageId) {
+        const editedText = document.getElementById('editMessageText').value;
+
+        fetch(`/transactions/messages/${messageId}/edit`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            },
+            body: JSON.stringify({ body: editedText })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('メッセージが更新されました');
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('メッセージの更新に失敗しました');
+        });
+    }
+
+    function cancelEditMessage() {
+        location.reload();
+    }
+
+    function deleteMessage(messageId) {
+        if (confirm('このメッセージを削除しますか？')) {
+            fetch(`/transactions/messages/${messageId}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('メッセージが削除されました');
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('メッセージの削除に失敗しました');
+            });
+        }
+    }
+    </script>
+
+    @if ($showRatingModalForSeller)
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('ratingPopup').style.display = 'flex';
         });
     </script>
-@endif
+    @endif
 @endsection

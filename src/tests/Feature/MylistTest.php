@@ -19,7 +19,7 @@ class MylistTest extends TestCase
         $this->actingAs($user);
 
         $product = Product::factory()->create();
-        $user->favorites()->attach($product->id); // いいねをつける
+        $user->favorites()->attach($product->id);
 
         $response = $this->get('/?page=mylist&search=');
 
@@ -30,6 +30,7 @@ class MylistTest extends TestCase
     public function test_sold_label()
     {
         $user = User::factory()->create();
+        $seller = User::factory()->create();
         $this->actingAs($user);
 
         $product = Product::factory()->create();
@@ -37,6 +38,7 @@ class MylistTest extends TestCase
         $purchase = \App\Models\Purchase::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
+            'seller_id' => $seller->id,
         ]);
 
         $response = $this->get('/?page=mylist&search=');

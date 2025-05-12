@@ -14,7 +14,6 @@ class PurchaseProductTest extends TestCase
      * @return void
      */
 
-    
     // 購入ボタンクリック後、stripe画面へ遷移するか
     public function test_stripe_page()
     {
@@ -40,15 +39,18 @@ class PurchaseProductTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $product = Product::factory()->create();
+        $seller = User::factory()->create();
+        $product = Product::factory()->create([
+            'user_id' => $seller->id,
+        ]);
 
         $purchase = \App\Models\Purchase::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
+            'seller_id' => $seller->id,
         ]);
 
         $response = $this->get('/');
-
         $response->assertSee('Sold Out');
     }
 
@@ -58,15 +60,18 @@ class PurchaseProductTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $product = Product::factory()->create();
+        $seller = User::factory()->create();
+        $product = Product::factory()->create([
+            'user_id' => $seller->id,
+        ]);
 
         $purchase = \App\Models\Purchase::create([
             'user_id' => $user->id,
             'product_id' => $product->id,
+            'seller_id' => $seller->id,
         ]);
 
         $response = $this->get('/?page=mylist&search=');
-
         $response->assertStatus(200);
         $response->assertSee($product->name);
     }

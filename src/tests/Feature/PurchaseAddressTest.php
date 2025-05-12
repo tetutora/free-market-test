@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Profile;
+use App\Models\Purchase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -47,7 +48,6 @@ class PurchaseAddressTest extends TestCase
      * @return void
      */
     use RefreshDatabase;
-    
     // 購入した商品がユーザーに紐づくか
     public function test_purchased_item_is_linked_to_user()
     {
@@ -58,15 +58,16 @@ class PurchaseAddressTest extends TestCase
 
         $profile = Profile::create([
             'user_id' => $user->id,
-                'name' => 'テストユーザー',
+            'name' => 'テストユーザー',
             'zipcode' => '123-4567',
             'address' => '東京都渋谷区',
             'building' => '青山マンション101号',
         ]);
 
-        $purchase = \App\Models\Purchase::create([
+        $purchase = Purchase::factory()->create([
             'user_id' => $user->id,
             'product_id' => $product->id,
+            'seller_id' => $product->user_id,
         ]);
 
         $this->assertDatabaseHas('purchases', [

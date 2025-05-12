@@ -7,42 +7,42 @@
 @section('content')
 
 @php
-    $currentPage = request()->query('page', 'recommendation'); // デフォルトは "recommendation"
+    $currentPage = request()->query('page', 'recommendation');
 @endphp
 
-<!-- ボタンを配置 -->
 <div class="header-buttons">
     <button id="recommendation-btn" class="btn">おすすめ</button>
     <button id="mylist-btn" class="btn">マイリスト</button>
 </div>
 
-<!-- 商品一覧 (おすすめ表示) -->
-<div id="product-list" class="product-list" style="display: {{ $currentPage === 'recommendation' ? 'flex' : 'none' }};">
+<!-- 商品一覧 -->
+<div id="product-list" class="product-list" style="display: {{ $currentPage === 'recommendation' ? 'grid' : 'none' }};">
     @foreach($products as $product)
         <div class="product-item">
             <a href="{{ route('products.show', $product->id) }}">
-                @if(str_starts_with($product->image, 'http'))
-                    <img src="{{ $product->image }}" alt="{{ $product->name }}"> <!-- 外部リンク画像 -->
-                @else
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"> <!-- ローカル画像 -->
-                @endif
+                <div class="image-wrapper">
+                    @if(str_starts_with($product->image, 'http'))
+                        <img src="{{ $product->image }}" alt="{{ $product->name }}">
+                    @else
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                    @endif
+                    @if($product->is_sold)
+                        <span class="sold-label">Sold Out</span>
+                    @endif
+                </div>
             </a>
-            <p>{{ $product->name }}
-                @if($product->is_sold)
-                    <span class="sold-label">Sold Out</span>
-                @endif
-            </p>
+            <p>{{ $product->name }}</p>
         </div>
     @endforeach
 </div>
 
-<!-- マイリスト表示 -->
-<div id="mylist" class="product-list" style="display: {{ $currentPage === 'mylist' ? 'flex' : 'none' }};">
+<!-- マイリスト -->
+<div id="mylist" class="product-list" style="display: {{ $currentPage === 'mylist' ? 'grid' : 'none' }};">
     @if($likedProducts && $likedProducts->isNotEmpty())
         @foreach($likedProducts as $likedProduct)
             <div class="product-item">
                 <a href="{{ route('products.show', $likedProduct->id) }}">
-                    @if(str_starts_with($likedProduct->image, 'http')) <!-- 外部リンク対応 -->
+                    @if(str_starts_with($likedProduct->image, 'http'))
                         <img src="{{ $likedProduct->image }}" alt="{{ $likedProduct->name }}">
                     @else
                         <img src="{{ asset('storage/' . $likedProduct->image) }}" alt="{{ $likedProduct->name }}">
@@ -70,11 +70,11 @@
 
         if (recommendationBtn && mylistBtn) {
             recommendationBtn.addEventListener('click', () => {
-                window.location.href = '/?page=recommendation&search={{ request('search') }}'; // 「おすすめ」ページへ遷移
+                window.location.href = '/?page=recommendation&search={{ request('search') }}';
             });
 
             mylistBtn.addEventListener('click', () => {
-                window.location.href = '/?page=mylist&search={{ request('search') }}'; // 「マイリスト」ページへ遷移
+                window.location.href = '/?page=mylist&search={{ request('search') }}'; 
             });
         } else {
             console.error('ボタンが見つかりません');

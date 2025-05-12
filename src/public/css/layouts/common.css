@@ -16,7 +16,7 @@
 }
 
 .header__logo-icon {
-    width: 100%;
+    width: 80%;
 }
 
 .header__nav {
@@ -24,15 +24,15 @@
     display: flex;
     align-items: center;
     list-style: none;
-    justify-content: flex-end;
     width: 100%;
+    justify-content: space-between;
 }
 
 .header-nav {
     display: flex;
     flex-wrap: nowrap;
     list-style: none;
-    width: 80%;
+    width: 100%;
 }
 
 .header-nav__search-container {
@@ -42,7 +42,7 @@
 }
 
 .header-nav__search-input {
-    width: 100%;
+    width: 120%;
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -53,24 +53,23 @@
 .header-nav__item {
     flex: 1;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-/* リンクやボタン */
 .header-nav__button {
     width: 100%;
     text-decoration: none;
     color: white;
-    text-align: center;
+    text-align: right;
     font-size: 16px;
-    padding: 8px 5px;
+    padding: 8px 12px;
     cursor: pointer;
     background: none;
     border: none;
 }
 
 .header-nav__link {
-    width: 60%;
+    width: 50%;
     text-decoration: none;
     color: white;
     text-align: center;
@@ -93,11 +92,9 @@
     background-color: #f0f0f0;
 }
 
-/* Responsive */
 @media screen and (min-width: 850px) {
     .header__inner {
         flex-wrap: nowrap;
-        /* アイコンとナビゲーションを常に横並びに */
     }
 
     .header-nav {
@@ -117,7 +114,6 @@
 @media screen and (min-width: 768px) {
     .header__inner {
         flex-wrap: nowrap;
-        /* アイコンとナビゲーションを常に横並びに */
     }
 
     .header-nav {
@@ -136,7 +132,6 @@
     }
 }
 
-/* Prevent horizontal scroll */
 body,
 html {
     overflow-x: hidden;

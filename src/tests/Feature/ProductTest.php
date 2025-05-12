@@ -35,15 +35,17 @@ class ProductTest extends TestCase
     // 購入済み商品は「Sold Out」と表示されるか
     public function test_sold_label_products()
     {
-        $user = User::factory()->create();
+        $buyer = User::factory()->create();
+        $seller = User::factory()->create();
 
         $product = Product::factory()->create([
-            'user_id' => $user->id,
+            'user_id' => $seller->id,
         ]);
 
         $purchase = Purchase::factory()->create([
             'product_id' => $product->id,
-            'user_id' => $user->id,
+            'user_id' => $buyer->id,
+            'seller_id' => $seller->id,
         ]);
 
         $this->assertTrue($product->isSold());

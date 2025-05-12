@@ -27,7 +27,11 @@ class ProfileTest extends TestCase
         $profile = Profile::factory()->create(['user_id' => $user->id, 'name' => 'Fiona Murray']);
         $product1 = Product::factory()->create(['user_id' => $user->id]);
         $product2 = Product::factory()->create(['user_id' => $user->id]);
-        $purchase = Purchase::factory()->create(['user_id' => $user->id, 'product_id' => $product1->id]);
+        $purchase = Purchase::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => $product1->id,
+            'seller_id' => $product1->user_id,
+        ]);
 
         $this->actingAs($user);
 

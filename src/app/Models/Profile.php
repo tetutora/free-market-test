@@ -55,28 +55,21 @@ class Profile extends Model
 
     /**
      * 取引中の商品と未読メッセージ数を新しい順に並べたリストを取得
-     *
-     * @param $user
-     * @return \Illuminate\Support\Collection
      */
     public function getAllTradingProductsWithUnreadMessages($user)
     {
-        // 購入者としての取引を取得
         $tradingAsBuyer = \App\Models\Purchase::where('user_id', $user->id)
                                 ->where('status', 'trading')
                                 ->with('product', 'messages')
                                 ->get();
 
-        // 販売者としての取引を取得
         $tradingAsSeller = \App\Models\Purchase::where('seller_id', $user->id)
                                 ->where('status', 'trading')
                                 ->with('product', 'messages')
                                 ->get();
 
-        // 購入者としてと販売者としての取引を結合
         $allTradingProducts = $tradingAsBuyer->merge($tradingAsSeller);
 
-        // 未読メッセージが新しい順に並べる
         return $allTradingProducts->sortByDesc(function ($purchase) {
             $unreadMessage = $purchase->messages->where('is_read', false)->sortByDesc('created_at')->first();
 

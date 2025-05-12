@@ -35,7 +35,9 @@
 
         <div class="button-column">
             @if($product->is_sold)
-                <div class="sold-out-label">SOLD OUT</div>
+                <div class="purchase-button label-button">SOLD OUT</div>
+            @elseif($product->user_id === Auth::id())
+                <div class="purchase-button label-button">あなたの出品商品です</div>
             @else
                 <form action="{{ route('purchase.show', $product->id) }}" method="GET">
                     <button type="submit" class="purchase-button">購入手続き</button>
@@ -67,7 +69,7 @@
                 @if($comment->user && $comment->user->profile)
                     <div class="comment-profile">
                         <img 
-                            src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.png') }}" 
+                            src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.jpg') }}" 
                             alt="{{ $comment->user->name }}のプロフィール画像" 
                             class="profile-image"
                         >
