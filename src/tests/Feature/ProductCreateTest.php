@@ -2,17 +2,24 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
-use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Tests\TestCase;
 
 class ProductCreateTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutMiddleware(VerifyCsrfToken::class);
+    }
 
     public function test_product_can_be_created_with_valid_data()
     {
@@ -33,6 +40,9 @@ class ProductCreateTest extends TestCase
             'price' => 1000,
         ]);
 
+        $response->assertStatus(302);
+        $response->assertRedirect(route('products.index'));
+
         $this->assertDatabaseHas('products', [
             'name' => 'Test Product',
             'brand_name' => 'Test Brand',
@@ -41,6 +51,7 @@ class ProductCreateTest extends TestCase
             'status' => '良好',
             'user_id' => $user->id,
         ]);
+
         Storage::disk('public')->assertExists('products/' . $image->hashName());
 
         $product = Product::where('name', 'Test Product')->first();

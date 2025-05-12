@@ -2,23 +2,24 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
-use App\Models\Category;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ProductDetailsTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
     use RefreshDatabase;
 
-    // 商品詳細ページで必要な情報が表示されるか
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
+    /**
+     * 商品詳細ページで必要な情報が表示されるか
+     */
     public function test_product_detail_required_information()
     {
         $user = User::factory()->create();
@@ -51,15 +52,15 @@ class ProductDetailsTest extends TestCase
         $response->assertSee($product->description);
         $response->assertSee($product->image);
         $response->assertSee($product->status);
-
         $response->assertSee('0');
         $response->assertSee('0');
-
         $response->assertSee($category1->name);
         $response->assertSee($category2->name);
     }
 
-    // 商品詳細ページで複数選択されたカテゴリが表示されるか
+    /**
+     * 商品詳細ページで複数選択されたカテゴリが表示されるか
+     */
     public function test_multiple_categories_on_product()
     {
         $user = User::factory()->create();

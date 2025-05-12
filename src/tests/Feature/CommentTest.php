@@ -2,24 +2,26 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use App\Models\User;
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Models\Product;
+use App\Models\User;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class CommentTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
     use RefreshDatabase;
 
-    // ログイン済みのユーザーがコメントと投稿できるか
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutMiddleware(VerifyCsrfToken::class);
+    }
+
+    /**
+     * ログイン済みのユーザーがコメントを投稿できるかをテストする
+     */
     public function test_login_user_comment()
     {
         $user = User::factory()->create();
@@ -27,8 +29,7 @@ class CommentTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $response = $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-                    ->followingRedirects()
+        $response = $this->followingRedirects()
                     ->postJson("/products/{$product->id}/add-comment", [
                         'content' => 'This is a test comment.'
                     ]);
@@ -42,13 +43,14 @@ class CommentTest extends TestCase
         ]);
     }
 
-    // ログイン前のユーザーはコメントできないようになっているか
+    /**
+     * ログインしていないユーザーはコメントを投稿できないことをテストする
+     */
     public function test_not_login_user_cannot_comment()
     {
         $product = Product::factory()->create();
 
-        $response = $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-                    ->postJson("/products/{$product->id}/add-comment", [
+        $response = $this->postJson("/products/{$product->id}/add-comment", [
                         'content' => 'This is a test comment.'
                     ]);
 
@@ -59,7 +61,9 @@ class CommentTest extends TestCase
         ]);
     }
 
-    // コメントが未入力の場合、バリデーションメッセージが表示されるか
+    /**
+     * コメントが未入力の場合、バリデーションエラーが発生するかをテストする
+     */
     public function test_comment_required()
     {
         $user = User::factory()->create();
@@ -67,8 +71,7 @@ class CommentTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $response = $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-                    ->postJson("/products/{$product->id}/add-comment", [
+        $response = $this->postJson("/products/{$product->id}/add-comment", [
                         'content' => ''
                     ]);
 
@@ -76,7 +79,9 @@ class CommentTest extends TestCase
         $response->assertJsonValidationErrors(['content']);
     }
 
-    // コメントが255文字を超える場合mバリデーションメッセージが表示されるか
+    /**
+     * コメントが255文字を超える場合にバリデーションエラーが発生するかをテストする
+     */
     public function test_comment_255_characters()
     {
         $user = User::factory()->create();
@@ -84,12 +89,11 @@ class CommentTest extends TestCase
 
         $product = Product::factory()->create();
 
-        $longComment = str_repeat('a',256);
+        $longComment = str_repeat('a', 256);
 
-        $response = $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)
-                    ->postJson("/products/{$product->id}/add-comment", [
+        $response = $this->postJson("/products/{$product->id}/add-comment", [
                         'content' => $longComment
-                    ],[
+                    ], [
                         'Accept' => 'application/json'
                     ]);
 

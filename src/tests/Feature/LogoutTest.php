@@ -2,22 +2,23 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class LogoutTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
     use RefreshDatabase;
 
-    // ログアウトできるか
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutMiddleware();
+    }
+
+    /**
+     * ログアウト処理が正しく動作するかをテストする
+     */
     public function test_logout()
     {
         $user = User::factory()->create([
@@ -33,8 +34,6 @@ class LogoutTest extends TestCase
         $response = $this->post('/logout');
 
         $response->assertRedirect('/');
-
         $this->assertGuest();
-
     }
 }

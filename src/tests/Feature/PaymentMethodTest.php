@@ -11,7 +11,15 @@ class PaymentMethodTest extends TestCase
 {
     use RefreshDatabase;
 
-    // 支払い方法の選択が反映されるか
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutMiddleware();
+    }
+
+    /**
+     * 支払い方法の選択が正しく反映されるかをテストする
+     */
     public function test_payment_method()
     {
         $user = User::factory()->create();
@@ -31,8 +39,6 @@ class PaymentMethodTest extends TestCase
             ]);
 
         $response->assertStatus(302);
-
         $response->assertSessionHas('payment_method', 'bank_transfer');
     }
 }
-

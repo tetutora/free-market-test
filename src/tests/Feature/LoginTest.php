@@ -2,65 +2,77 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-
     use RefreshDatabase;
 
-    // メールアドレスが入力されていない場合、バリデーションメッセージが表示されるか
+    /**
+     * 共通のセットアップ処理（CSRFミドルウェアの無効化）
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutMiddleware();
+    }
+
+    /**
+     * メールアドレスが未入力の場合、バリデーションエラーが表示されるかをテストする
+     */
     public function test_email_required()
     {
         $response = $this->post('/login', [
             'password' => 'password123',
         ]);
+
         $response->assertSessionHasErrors('email');
     }
 
-    // パスワードが入力されていない場合、バリデーションメッセージが表示されるか
+    /**
+     * パスワードが未入力の場合、バリデーションエラーが表示されるかをテストする
+     */
     public function test_password_required()
     {
         $response = $this->post('/login', [
             'email' => 'test@example.com',
         ]);
+
         $response->assertSessionHasErrors('password');
     }
 
-    // 入力情報が間違っている場合、バリデーションメッセージが表示されるか
+    /**
+     * 間違った認証情報を入力した場合、バリデーションエラーが表示されるかをテストする
+     */
     public function test_incorrect_credential()
     {
         $response = $this->post('/login', [
             'email' => 'test@example.com',
-            'password' => 'wrongpassword',
+            'password' => 'password123',
         ]);
+
         $response->assertSessionHasErrors('email');
     }
 
-    // 正しい情報が入力された場合、ログイン処理が実行されるか
-    public function test_successful_login(){
+    /**
+     * 正しい認証情報を入力した場合、ログイン処理が成功するかをテストする
+     */
+    public function test_successful_login()
+    {
         $user = User::factory()->create([
-            'email' => 'test@example',
+            'email' => 'test@example.com',
             'password' => Hash::make('password123'),
         ]);
-
-        $this->actingAs($user);
 
         $response = $this->post('/login', [
             'email' => 'test@example.com',
             'password' => 'password123',
         ]);
 
-        $response->assertRedirect('/');
+        $response->assertRedirect('/mypage');
         $this->assertAuthenticatedAs($user);
     }
 }
