@@ -10,7 +10,7 @@
         @if(str_starts_with($product->image, 'http'))
             <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width: 300px;">
         @else
-            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 500px;">
+            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width: 300px;">
         @endif
     </div>
     <div class="product-details">
@@ -57,22 +57,16 @@
             @endforeach
         </div>
 
-        <!-- 商品の状態 -->
         <p class="product-status"><strong>商品の状態:</strong></p>
         <div>{{ $product->status ?? '情報なし' }}</div>
 
-        <!-- コメント一覧 -->
         @if($product->comments->isNotEmpty())
         <h2>コメント ({{ $commentCount }})</h2>
         @foreach($product->comments as $comment)
             <div class="comment-item">
                 @if($comment->user && $comment->user->profile)
                     <div class="comment-profile">
-                        <img 
-                            src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.jpg') }}" 
-                            alt="{{ $comment->user->name }}のプロフィール画像" 
-                            class="profile-image"
-                        >
+                        <img src="{{ $comment->user->profile->profile_picture ? asset('storage/' . $comment->user->profile->profile_picture) : asset('images/default-profile.jpg') }}" alt="{{ $comment->user->name }}のプロフィール画像" class="profile-image">
                     </div>
                     <div class="comment-content">
                         <strong>{{ $comment->user->name }}:</strong>
@@ -90,7 +84,6 @@
             <p class="no-comments">まだコメントはありません。</p>
         @endif
 
-        <!-- コメント入力欄 -->
         <p><strong>商品へのコメント</strong></p>
         <form action="{{ route('product.addComment', $product->id) }}" method="POST">
             @csrf
@@ -129,33 +122,31 @@
     });
 
     document.getElementById('comment-form').addEventListener('submit', function(e) {
-    e.preventDefault();  // フォームのデフォルト送信を防ぐ
+        e.preventDefault();
 
-    fetch('{{ route('product.addComment', $product->id) }}', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            content: document.querySelector('textarea[name="content"]').value
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.error) {
-            alert(data.error);  // エラーメッセージをアラートで表示
-        } else if (data.success) {
-            alert(data.success);  // 成功時のメッセージ
-            
-            // リロード後にコメントが表示されるようにする
-            location.reload();
-        }
-    })
-    .catch(error => {
-        alert('エラーが発生しました');
+        fetch('{{ route('product.addComment', $product->id) }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: document.querySelector('textarea[name="content"]').value
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else if (data.success) {
+                alert(data.success);
+                location.reload();
+            }
+        })
+        .catch(error => {
+            alert('エラーが発生しました');
+        });
     });
-});
 
 </script>
 @endsection

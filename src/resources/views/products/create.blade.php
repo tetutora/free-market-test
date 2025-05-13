@@ -50,8 +50,6 @@
             {{ $message }}
         @enderror
 
-
-        <!-- 商品名とブランド名と商品説明 -->
         <div class="form-group">
             <label for="name"><strong>商品名</strong></label>
             <input type="text" id="name" name="name" value="{{ old('name') }}">
@@ -76,7 +74,6 @@
             {{ $message }}
         @enderror
 
-        <!-- 販売価格 -->
         <div class="form-group">
             <label for="price"><strong>価格</strong></label>
             <input type="number" id="price" name="price" value="{{ old('price') }}">
@@ -85,14 +82,11 @@
             {{ $message }}
         @enderror
 
-
-        <!-- 出品ボタン -->
         <div class="form-group">
             <button type="submit" class="submit-btn">出品する</button>
         </div>
     </form>
 </div>
-
 @endsection
 
 @section('js')
@@ -105,27 +99,21 @@
 
         let selectedCategories = [];
 
-        // カテゴリ選択
         categoryTags.forEach(tag => {
             tag.addEventListener('click', function () {
                 const categoryId = this.getAttribute('data-id');
 
                 if (selectedCategories.includes(categoryId)) {
-                    // すでに選択済みの場合、選択を解除
                     selectedCategories = selectedCategories.filter(id => id !== categoryId);
                     this.classList.remove('selected');
                 } else {
-                    // 未選択の場合、選択リストに追加
                     selectedCategories.push(categoryId);
                     this.classList.add('selected');
                 }
-
-                // hidden input に選択されたカテゴリ ID を保存
                 categoryIdInput.value = selectedCategories.join(',');
             });
         });
 
-        // 画像プレビュー表示
         imageInput.addEventListener('change', function () {
             const file = this.files[0];
             if (file) {

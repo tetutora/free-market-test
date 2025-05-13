@@ -2,7 +2,6 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/transaction/show.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 @endsection
 
 @section('content')
@@ -106,7 +105,6 @@
         </div>
     </div>
 </div>
-<!-- 評価ポップアップ -->
 <div id="ratingPopup" class="rating-popup">
     <div class="rating-popup-content">
         <p class="rating-popup-title">取引が完了しました。</p>

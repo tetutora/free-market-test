@@ -30,7 +30,6 @@
             </div>
         </div>
 
-        <!-- 住所 -->
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">住所</span>
@@ -47,7 +46,6 @@
             </div>
         </div>
 
-        <!-- 建物名 -->
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">建物名</span>

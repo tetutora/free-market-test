@@ -175,13 +175,11 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 ## PHPUnitを利用したテストに関して
 
 - テスト用データベースの作成
-docker-compose exec mysql bash
-mysql -u root -p
+- docker-compose exec mysql mysql -u root -p
 - パスワードはrootと入力
-create database demo_test;
-
-docker-compose exec php bash
-php artisan migrate:fresh --env=testing
-./vendor/bin/phpunit
+- create database demo_test;
+- docker-compose exec php bashでphpコンテナに入り下記コマンド実行
+- php artisan migrate:fresh --env=testing
+- ./vendor/bin/phpunit
 
 ※.env.testingにもStripeのAPIキーを設定してください。

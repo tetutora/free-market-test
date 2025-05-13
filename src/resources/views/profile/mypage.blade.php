@@ -61,7 +61,7 @@
 
         <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'completed' ? 'grid' : 'none' }};">
             @forelse ($purchasedProducts as $purchase)
-                @if ($purchase->product)  <!-- 商品が存在する場合 -->
+                @if ($purchase->product)
                     <div class="product-item">
                         <a href="{{ route('products.show', $purchase->product->id) }}" class="product-link">
                             <div class="image-container">

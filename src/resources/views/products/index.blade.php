@@ -7,24 +7,22 @@
 @section('content')
 
 @php
-    $currentPage = request()->query('page', 'recommendation'); // デフォルトは "recommendation"
+    $currentPage = request()->query('page', 'recommendation');
 @endphp
 
-<!-- ボタンを配置 -->
 <div class="header-buttons">
     <button id="recommendation-btn" class="btn">おすすめ</button>
     <button id="mylist-btn" class="btn">マイリスト</button>
 </div>
 
-<!-- 商品一覧 (おすすめ表示) -->
 <div id="product-list" class="product-list" style="display: {{ $currentPage === 'recommendation' ? 'flex' : 'none' }};">
     @foreach($products as $product)
         <div class="product-item">
             <a href="{{ route('products.show', $product->id) }}">
                 @if(str_starts_with($product->image, 'http'))
-                    <img src="{{ $product->image }}" alt="{{ $product->name }}"> <!-- 外部リンク画像 -->
+                    <img src="{{ $product->image }}" alt="{{ $product->name }}">
                 @else
-                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"> <!-- ローカル画像 -->
+                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                 @endif
             </a>
             <p>{{ $product->name }}
@@ -36,13 +34,12 @@
     @endforeach
 </div>
 
-<!-- マイリスト表示 -->
 <div id="mylist" class="product-list" style="display: {{ $currentPage === 'mylist' ? 'flex' : 'none' }};">
     @if($likedProducts && $likedProducts->isNotEmpty())
         @foreach($likedProducts as $likedProduct)
             <div class="product-item">
                 <a href="{{ route('products.show', $likedProduct->id) }}">
-                    @if(str_starts_with($likedProduct->image, 'http')) <!-- 外部リンク対応 -->
+                    @if(str_starts_with($likedProduct->image, 'http'))
                         <img src="{{ $likedProduct->image }}" alt="{{ $likedProduct->name }}">
                     @else
                         <img src="{{ asset('storage/' . $likedProduct->image) }}" alt="{{ $likedProduct->name }}">
@@ -59,7 +56,6 @@
         <p>マイリストに商品はありません。</p>
     @endif
 </div>
-
 @endsection
 
 @section('js')
@@ -67,14 +63,12 @@
     document.addEventListener('DOMContentLoaded', () => {
         const recommendationBtn = document.getElementById('recommendation-btn');
         const mylistBtn = document.getElementById('mylist-btn');
-
         if (recommendationBtn && mylistBtn) {
             recommendationBtn.addEventListener('click', () => {
-                window.location.href = '/?page=recommendation&search={{ request('search') }}'; // 「おすすめ」ページへ遷移
+                window.location.href = '/?page=recommendation&search={{ request('search') }}';
             });
-
             mylistBtn.addEventListener('click', () => {
-                window.location.href = '/?page=mylist&search={{ request('search') }}'; // 「マイリスト」ページへ遷移
+                window.location.href = '/?page=mylist&search={{ request('search') }}';
             });
         } else {
             console.error('ボタンが見つかりません');

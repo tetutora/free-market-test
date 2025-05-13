@@ -12,8 +12,6 @@ class TransactionTest extends TestCase
 {
     /**
      * マイページから取引中の商品を確認できるかテスト
-     *
-     * @return void
      */
     public function test_user_can_view_in_progress_products_on_my_page()
     {
@@ -21,23 +19,21 @@ class TransactionTest extends TestCase
         $this->actingAs($user);
 
         $product = Product::factory()->create();
-        $seller = User::factory()->create();  // 出品者を作成
+        $seller = User::factory()->create();
 
         $purchase = Purchase::factory()->create([
             'product_id' => $product->id,
             'user_id' => $user->id,
-            'seller_id' => $seller->id,  // 出品者IDを追加
+            'seller_id' => $seller->id,
         ]);
 
         $response = $this->get('/mypage');
         $response->assertStatus(200);
-        $response->assertSee($product->name);  // 商品名が表示されることを確認
+        $response->assertSee($product->name);
     }
 
     /**
      * マイページの取引中の商品を押下して取引チャット画面に遷移することができるかテスト
-     *
-     * @return void
      */
     public function test_user_can_navigate_to_transaction_chat_screen()
     {
@@ -95,8 +91,6 @@ class TransactionTest extends TestCase
 
     /**
      * 他ユーザーからの取引評価の平均をプロフィール画面に表示するかテスト
-     *
-     * @return void
      */
     public function test_user_can_see_average_rating_from_other_users_on_profile()
     {
@@ -104,12 +98,12 @@ class TransactionTest extends TestCase
         $this->actingAs($user);
 
         $product = Product::factory()->create();
-        $seller = User::factory()->create();  // 出品者を作成
+        $seller = User::factory()->create();
 
         $purchase = Purchase::factory()->create([
             'product_id' => $product->id,
             'user_id' => $user->id,
-            'seller_id' => $seller->id,  // 出品者IDを追加
+            'seller_id' => $seller->id,
         ]);
 
         $rating = 5;
@@ -120,13 +114,11 @@ class TransactionTest extends TestCase
 
         $response = $this->get(route('profile.show'));
         $response->assertStatus(200);
-        $response->assertSee('5');  // 評価が表示されることを確認
+        $response->assertSee('5');
     }
 
     /**
      * 評価がまだないユーザーには評価が表示されないかテスト
-     *
-     * @return void
      */
     public function test_user_without_ratings_does_not_see_average_rating_on_profile()
     {

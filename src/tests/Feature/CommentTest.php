@@ -91,11 +91,10 @@ class CommentTest extends TestCase
 
         $longComment = str_repeat('a', 256);
 
-        $response = $this->postJson("/products/{$product->id}/add-comment", [
-                        'content' => $longComment
-                    ], [
-                        'Accept' => 'application/json'
-                    ]);
+        $response = $this->postJson(
+            "/products/{$product->id}/add-comment", ['content' => $longComment],
+            ['Accept' => 'application/json']
+        );
 
         $response->assertStatus(422);
         $response->assertJsonValidationErrors(['content']);

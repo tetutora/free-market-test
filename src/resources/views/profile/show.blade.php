@@ -25,8 +25,6 @@
             @enderror
         </div>
     </div>
-
-    <!-- ユーザー名 -->
     <div class="form__group">
         <div class="form__group-title">
             <span class="form__label--item">ユーザー名</span>
@@ -42,23 +40,13 @@
             </div>
         </div>
     </div>
-
-    <!-- 郵便番号 -->
     <div class="form__group">
         <div class="form__group-title">
             <span class="form__label--item">郵便番号</span>
         </div>
         <div class="form__group-content">
             <div class="form__input">
-                <input 
-                class="form__input-text" 
-                type="text" 
-                id="zipcode" 
-                name="zipcode" 
-                value="{{ old('zipcode', Auth::user()->zipcode) }}" 
-                pattern="\d{3}-\d{4}" 
-                maxlength="8" 
-                placeholder="123-4567">
+                <input class="form__input-text" type="text" id="zipcode" name="zipcode" value="{{ old('zipcode', Auth::user()->zipcode) }}" pattern="\d{3}-\d{4}" maxlength="8" placeholder="123-4567">
             </div>
             <div class="form__error">
                 @error('zipcode')
@@ -67,8 +55,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 住所 -->
     <div class="form__group">
         <div class="form__group-title">
             <span class="form__label--item">住所</span>
@@ -84,8 +70,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 建物名 -->
     <div class="form__group">
         <div class="form__group-title">
             <span class="form__label--item">建物名</span>
@@ -101,7 +85,6 @@
             </div>
         </div>
     </div>
-
     <div class="form__button">
         <button class="form__button-submit" type="submit">更新する</button>
     </div>
@@ -117,15 +100,12 @@ function previewImage(event) {
     reader.onload = function(e) {
         var preview = document.getElementById('image-preview');
         var previewImg = document.getElementById('image-preview-img');
-        
-        preview.style.display = 'block'; // プレビューを表示
-        previewImg.src = e.target.result; // 画像を表示
+        preview.style.display = 'block';
+        previewImg.src = e.target.result;
     };
-
     if (file) {
-        reader.readAsDataURL(file); // 画像を読み込む
+        reader.readAsDataURL(file);
     }
 }
-
 </script>
 @endsection

@@ -16,8 +16,6 @@
     <form class="form" action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
-        <!-- プロフィール画像 -->
         <div class="form__group-photo">
             <div id="image-preview" style="{{ $profile_picture ? '' : 'display:none;' }}">
                 <img id="image-preview-img" src="{{ $imageSrc }}" alt="プロフィール画像" width="200" height="200" />
@@ -32,8 +30,6 @@
                 @enderror
             </div>
         </div>
-
-        <!-- ユーザー名 -->
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">ユーザー名</span>
@@ -49,8 +45,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 郵便番号 -->
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">郵便番号</span>
@@ -66,8 +60,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 住所 -->
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">住所</span>
@@ -83,8 +75,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 建物名 -->
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">建物名</span>
@@ -100,7 +90,6 @@
                 </div>
             </div>
         </div>
-
         <div class="form__button">
             <button class="form__button-submit" type="submit">更新する</button>
         </div>
@@ -116,12 +105,11 @@ function previewImage(event) {
         var preview = document.getElementById('image-preview');
         var previewImg = document.getElementById('image-preview-img');
         
-        preview.style.display = 'block'; // プレビューを表示
-        previewImg.src = e.target.result; // 画像を表示
+        preview.style.display = 'block';
+        previewImg.src = e.target.result;
     };
-
     if (file) {
-        reader.readAsDataURL(file); // 画像を読み込む
+        reader.readAsDataURL(file);
     }
 }
 </script>
