@@ -159,31 +159,29 @@ https://docs.stripe.com/payments/checkout?locale=ja-JP
 ![alt](./ER図.png)
 
 ## テストアカウント
-name: ユーザー1
-email: user1@example.com
-password: password
+- name: ユーザー1
+- email: user1@example.com
+- password: password
 -------------------------
-name: ユーザー2
-email: user2@example.com
-password: password
+- name: ユーザー2
+- email: user2@example.com
+- password: password
 -------------------------
--------------------------
-name: ユーザー3
-email: user3@example.com
-password: password
+- name: ユーザー3
+- email: user3@example.com
+- password: password
 -------------------------
 
 ## PHPUnitを利用したテストに関して
-以下のコマンド:
-```
-//テスト用データベースの作成
+
+- テスト用データベースの作成
 docker-compose exec mysql bash
 mysql -u root -p
-//パスワードはrootと入力
+- パスワードはrootと入力
 create database demo_test;
 
 docker-compose exec php bash
 php artisan migrate:fresh --env=testing
 ./vendor/bin/phpunit
-```
+
 ※.env.testingにもStripeのAPIキーを設定してください。

@@ -298,7 +298,6 @@
         }
     }
     </script>
-
     @if ($showRatingModalForSeller)
     <script>
         document.addEventListener('DOMContentLoaded', () => {
