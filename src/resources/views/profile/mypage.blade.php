@@ -14,7 +14,7 @@
         <div class="profile-info">
         <img src="{{ $profile_picture ?? asset('images/default-profile.jpg') }}" alt="プロフィール画像" class="profile-image">
         <div class="name-rating">
-            <h2>{{ $profile->name ?? $user->name }}</h2>
+            <h2 class="user-name">{{ $profile->name ?? $user->name }}</h2>
             @if(!is_null($averageRatingRounded))
                 <div class="rating">
                     @for ($i = 1; $i <= 5; $i++)
@@ -32,10 +32,9 @@
     </div>
 
     <div class="mypage-buttons">
-        <button class="btn-toggle" id="btn-sell">出品した商品</button>
-        <button class="btn-toggle" id="btn-purchase">購入した商品</button>
-
-        <button class="btn-toggle" id="btn-trading">
+        <button class="btn-toggle {{ $currentPage === 'sell' ? 'active' : '' }}" id="btn-sell">出品した商品</button>
+        <button class="btn-toggle {{ $currentPage === 'completed' ? 'active' : '' }}" id="btn-purchase">購入した商品</button>
+        <button class="btn-toggle {{ $currentPage === 'trading' ? 'active' : '' }}" id="btn-trading">
             取引中の商品
             @if($unreadMessageCount > 0)
                 <span class="badge">{{ $unreadMessageCount }}</span>
@@ -45,18 +44,20 @@
 
     <div id="product-list" class="product-list">
         <div class="product-container" id="sell-products" style="display: {{ $currentPage === 'sell' ? 'grid' : 'none' }};">
-            @foreach ($user->sales ?? [] as $product)
-            <div class="product-item">
-                <a href="{{ route('products.show', $product->id) }}">
-                    @if(str_starts_with($product->image, 'http'))
-                        <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px">
-                    @else
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px">
-                    @endif
-                    <p class="product-name">{{ $product->name }}</p>
-                </a>
-            </div>
-            @endforeach
+            @forelse ($user->sales ?? [] as $product)
+                <div class="product-item">
+                    <a href="{{ route('products.show', $product->id) }}">
+                        @if(str_starts_with($product->image, 'http'))
+                            <img src="{{ $product->image }}" alt="{{ $product->name }}" style="max-width:600px">
+                        @else
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="max-width:600px">
+                        @endif
+                        <p class="product-name">{{ $product->name }}</p>
+                    </a>
+                </div>
+            @empty
+                <p>出品した商品はありません。</p>
+            @endforelse
         </div>
 
         <div class="product-container" id="purchase-products" style="display: {{ $currentPage === 'completed' ? 'grid' : 'none' }};">
@@ -93,6 +94,9 @@
                                 <img src="{{ $purchase->product->image }}" alt="{{ $purchase->product->name }}" class="product-img">
                             @else
                                 <img src="{{ asset('storage/' . $purchase->product->image) }}" alt="{{ $purchase->product->name }}" class="product-img">
+                            @endif
+                            @if($purchase->unread_messages_count > 0)
+                                <span class="badge message-badge">{{ $purchase->unread_messages_count }}</span>
                             @endif
                         </div>
                         <p class="product-name">{{ $purchase->product->name }}</p>

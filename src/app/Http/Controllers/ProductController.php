@@ -23,6 +23,10 @@ class ProductController extends Controller
 
         $products = Product::searchExcludingUser($search, $userId);
 
+        foreach ($products as $p) {
+        \Log::info("Product: {$p->name}, is_sold: {$p->is_sold}");
+    }
+
         $likedProducts = Auth::check() ? Auth::user()->favorites : collect([]);
 
         return view('products.index', compact('products', 'likedProducts', 'search'));

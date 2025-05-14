@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\AddressEditRequest;
 use App\Models\Message;
 use App\Models\Profile;
 use App\Models\Rating;
@@ -30,38 +31,10 @@ class ProfileController extends Controller
         }
 
         $profile = $user->profile ?: new Profile(['user_id' => $user->id]);
-        $profile_picture = $profile->profile_picture ? asset('storage/' . $profile->profile_picture) : asset('images/default-profile.jpg');
 
-        $purchasedProducts = $user->purchases()
-                            ->where('status', 'completed')
-                            ->with('product')
-                            ->get();
-                        // dd($purchasedProducts);
+        $myPageData = $profile->getMyPageData();
 
-        $allTradingProducts = $profile->getAllTradingProductsWithUnreadMessages($user);
-
-        $unreadMessageCount = Message::whereHas('purchase', function ($query) use ($user) {
-            $query->where('user_id', $user->id)
-                ->orWhere('seller_id', $user->id);
-        })->where('sender_id', '!=', $user->id)
-        ->where('is_read', false)
-        ->count();
-
-        $averageRating = Rating::whereHas('purchase', function ($query) use ($user) {
-            $query->where('seller_id', $user->id);
-        })->avg('rating');
-
-        $averageRatingRounded = $averageRating ? round($averageRating) : null;
-
-        return view('profile.mypage', compact(
-            'user',
-            'profile',
-            'profile_picture',
-            'unreadMessageCount',
-            'purchasedProducts',
-            'allTradingProducts',
-            'averageRatingRounded'
-        ));
+        return view('profile.mypage', array_merge($myPageData, ['profile' => $profile]));
     }
 
     /**
@@ -104,7 +77,7 @@ class ProfileController extends Controller
     /**
      * 購入画面からの住所更新処理
      */
-    public function updateAddress(Request $request, $item_id)
+    public function updateAddress(AddressEditRequest $request, $item_id)
     {
         $profile = auth()->user()->profile;
 

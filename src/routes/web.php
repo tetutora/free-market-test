@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'purchase'])->name('products.purchase');
     Route::get('/purchase/address/{item_id}', [ProfileController::class, 'editAddress'])->name('profile.address.edit');
     Route::post('/purchase/address/{item_id}', [ProfileController::class, 'updateAddress'])->name('profile.address.update');
+    Route::get('/receipt/{item_id}', [PurchaseController::class, 'showReceipt'])->name('receipt.print');
 });
 
 /**

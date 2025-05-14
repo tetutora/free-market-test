@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Stripe\Checkout\Session as StripeSession;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+
+
 
 class Product extends Model
 {
@@ -94,11 +100,11 @@ class Product extends Model
 
     public static function handlePurchaseSession($sessionId, $paymentMethod = null): array
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         try {
-            $session = \Stripe\Checkout\Session::retrieve($sessionId);
-            $paymentIntent = \Stripe\PaymentIntent::retrieve($session->payment_intent);
+            $session = StripeSession::retrieve($sessionId);
+            $paymentIntent = PaymentIntent::retrieve($session->payment_intent);
 
             if ($paymentIntent->status !== 'succeeded') {
                 return ['success' => false, 'message' => '支払いが完了していません。'];
@@ -118,16 +124,12 @@ class Product extends Model
 
             $user = auth()->user();
 
-            // ✅ 購入レコードを保存
-            \App\Models\Purchase::record($user, $product);
+            Purchase::record($user, $product);
 
             session()->put('payment_method', $paymentMethod);
 
-            \Log::info("Purchase saved: User ID - {$user->id}, Product ID - {$product->id}");
-
             return ['success' => true, 'message' => '購入が完了しました'];
         } catch (\Exception $e) {
-            \Log::error('Purchase error: ' . $e->getMessage());
             return ['success' => false, 'message' => '購入処理中にエラーが発生しました'];
         }
     }
@@ -139,10 +141,8 @@ class Product extends Model
 
     public static function createStripeSession($productId)
     {
-        // Stripe APIキー設定
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        // 商品情報を取得
         $product = self::find($productId);
 
         if (!$product) {
@@ -150,26 +150,25 @@ class Product extends Model
         }
 
         try {
-            // Stripe Checkoutセッションの作成
             $session = Session::create([
                 'payment_method_types' => ['card'],
                 'line_items' => [
                     [
                         'price_data' => [
-                            'currency' => 'usd', // 通貨設定（例：usd）
+                            'currency' => 'usd',
                             'product_data' => [
                                 'name' => $product->name,
                                 'description' => $product->description,
                             ],
-                            'unit_amount' => $product->price * 100, // 金額をセント単位で設定
+                            'unit_amount' => $product->price * 100,
                         ],
                         'quantity' => 1,
                     ],
                 ],
                 'mode' => 'payment',
-                'success_url' => route('purchase.success'), // 成功時のURL
-                'cancel_url' => route('purchase.cancel'), // キャンセル時のURL
-                'metadata' => ['item_id' => $productId], // 商品IDをメタデータに追加
+                'success_url' => route('purchase.success'),
+                'cancel_url' => route('purchase.cancel'),
+                'metadata' => ['item_id' => $productId],
             ]);
 
             return $session;

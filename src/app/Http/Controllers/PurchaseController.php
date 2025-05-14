@@ -44,6 +44,15 @@ class PurchaseController extends Controller
     }
 
     /**
+     * コンビニ払い処理後ページ
+     */
+    public function showReceipt($item_id)
+    {
+        $product = Product::findOrFail($item_id);
+        return view('purchase.receipt', ['product' => $product]);
+    }
+
+    /**
      * 購入キャンセル処理
      */
     public function cancel()

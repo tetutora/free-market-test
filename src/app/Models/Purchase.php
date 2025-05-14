@@ -13,41 +13,26 @@ class Purchase extends Model
         'user_id', 'seller_id', 'product_id', 'status',
     ];
 
-    /**
-     * ユーザーとのリレーションを取得
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * 売り手とのリレーションを取得
-     */
     public function seller()
     {
         return $this->belongsTo(User::class, 'seller_id');
     }
 
-    /**
-     * 商品とのリレーションを取得
-     */
     public function product()
     {
         return $this->belongsTo(Product::class)->with('user');
     }
 
-    /**
-     * メッセージとのリレーションを取得
-     */
     public function messages()
     {
         return $this->hasMany(Message::class);
     }
 
-    /**
-     * レーティングとのリレーションを取得
-     */
     public function ratings()
     {
         return $this->hasMany(Rating::class);
@@ -68,9 +53,6 @@ class Purchase extends Model
         return $this->hasOne(Transaction::class);
     }
 
-    /**
-     * 新しい取引を記録
-     */
     public static function record(User $user, Product $product): void
     {
         self::create([
@@ -81,9 +63,6 @@ class Purchase extends Model
         ]);
     }
 
-    /**
-     * 未読メッセージをユーザーに対してマークする
-     */
     public function markMessagesAsReadForUser(int $userId)
     {
         $this->messages()
@@ -95,9 +74,6 @@ class Purchase extends Model
             });
     }
 
-    /**
-     * 他の取引を取得
-     */
     public function getOtherTransactions(User $user)
     {
         return Purchase::where('status', 'trading')
@@ -108,5 +84,13 @@ class Purchase extends Model
             ->where('id', '!=', $this->id)
             ->with('product')
             ->get();
+    }
+
+    public function getUnreadMessagesCountForUser(int $userId): int
+    {
+        return $this->messages()
+            ->where('is_read', false)
+            ->where('sender_id', '!=', $userId)
+            ->count();
     }
 }

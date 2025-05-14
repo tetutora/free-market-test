@@ -11,29 +11,29 @@
             <div class="purchase-info">
                 <div class="purchase-image">
                     @if(str_starts_with($product->image, 'http'))
-                        <img src="{{ $product->image }}" alt="{{ $product->name }}" style="width: 100%; height: auto; border-radius: 5px;">
+                        <img src="{{ $product->image }}" alt="{{ $product->name }}" class="product-image">
                     @else
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: auto; border-radius: 5px;">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" class="product-image">
                     @endif
                 </div>
                 <div class="purchase-details">
-                    <h3>{{ $product->name }}</h3>
+                    <h3 class="purchase-title">{{ $product->name }}</h3>
                     <p><strong>¥</strong> {{ number_format(round($product->price)) }}</p>
                 </div>
             </div>
             <hr class="section-divider">
             <div class="payment-method">
-                <label for="payment-method"><strong>お支払い方法</strong></label>
-                <select name="payment-method" id="payment-method" onchange="updatePaymentMethod()">
+                <label for="payment-method" class="payment-label"><strong>お支払い方法</strong></label>
+                <select name="payment-method" id="payment-method" class="payment-select" onchange="updatePaymentMethod()">
                     <option value="credit_card">カード払い</option>
                     <option value="bank_transfer">コンビニ払い</option>
                 </select>
             </div>
             <hr class="section-divider">
             <div class="delivery-address">
-                <h3>配送先 <a href="{{ route('profile.address.edit', ['item_id' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
+                <h3 class="address-title">配送先 <a href="{{ route('profile.address.edit', ['item_id' => $product->id]) }}" class="address-change-button">住所変更</a></h3>
                 <p><strong>〒 {{$zipcode }}</strong></p>
-                <p><strong>{{ $address }} {{ $building }}</strong> </p>
+                <p><strong>{{ $address }} {{ $building }}</strong></p>
             </div>
         </div>
         <div class="purchase-right">
@@ -60,8 +60,9 @@
 
     checkoutButton.addEventListener('click', function(e) {
         e.preventDefault();
-        var paymentMethod = document.getElementById('payment-method').value;
-        var itemId = "{{ $product->id }}";
+        const paymentMethod = document.getElementById('payment-method').value;
+        const itemId = "{{ $product->id }}";
+
         fetch('/create-checkout-session', {
             method: 'POST',
             headers: {
@@ -75,11 +76,14 @@
         })
         .then(response => response.json())
         .then(session => {
-            console.log("Checkout Session:", session);
-            if (session.id) {
+            if (session.redirect_url) {
+                // コンビニ払い → レシート印刷画面へ
+                window.location.href = session.redirect_url;
+            } else if (session.id) {
+                // カード払い → Stripe Checkout
                 return stripe.redirectToCheckout({ sessionId: session.id });
             } else {
-                alert("決済セッションの作成に失敗しました。");
+                alert("決済処理に失敗しました。");
             }
         })
         .catch(error => console.error("Error:", error));

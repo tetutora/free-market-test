@@ -1,12 +1,4 @@
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
 .transaction-wrapper {
-    min-height: 100vh;
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
@@ -75,6 +67,7 @@ body {
 }
 
 .btn-complete {
+    margin: 0 20px;
     background-color: #FF8282;
     color: white;
     padding: 10px 15px;
@@ -125,7 +118,6 @@ body {
     padding: 20px;
     border-radius: 10px;
     flex: 1;
-    overflow: hidden;
 }
 
 .chat-header {
@@ -180,11 +172,7 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chat-message.sent .message-body {
-    background-color: gray;
-    color: white;
-}
-
+.chat-message.sent .message-body,
 .chat-message.received .message-body {
     background-color: gray;
     color: white;
@@ -213,8 +201,6 @@ body {
     border-radius: 10px;
     border: 1px solid #ccc;
     resize: none;
-    margin-bottom: 0;
-    /* 不要になった */
 }
 
 .chat-form-actions {
@@ -281,14 +267,7 @@ textarea {
     margin-top: 10px;
 }
 
-#imagePreview {
-    max-width: 200px;
-    max-height: 200px;
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-}
-
+#imagePreview,
 .message-image {
     max-width: 200px;
     max-height: 200px;
@@ -313,24 +292,20 @@ textarea {
     background: #FDFCE6;
     border-radius: 8px;
     text-align: center;
-    padding: 0;
 }
 
 .rating-popup-title {
     font-size: 35px;
     font-weight: bold;
     margin-bottom: 10px;
-    padding-bottom: 5px;
+    padding: 10px 50px;
     border-bottom: 1px solid #000000;
-    display: block;
-    padding: 10px 50px; 
 }
 
-.popup-sentence{
+.popup-sentence {
     text-align: left;
     font-size: 20px;
     color: gray;
-    display: block;
     padding: 10px 20px;
 }
 
@@ -387,12 +362,32 @@ textarea {
     cursor: pointer;
 }
 
+.edit-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+
+.edit-buttons button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-buttons .btn-cancel,
+.edit-buttons .btn-save {
+    color: gray;
+}
+
 .rating-divider {
     height: 1px;
     border-bottom: 1px solid #000000;
     width: 100%;
     margin: 20px 0;
-    display: block;
 }
 
 @media screen and (min-width: 1400px) and (max-width: 1540px) {

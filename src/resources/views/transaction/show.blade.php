@@ -25,7 +25,7 @@
             </div>
             @if (auth()->id() === $transaction->user_id)
                 <div class="complete-button">
-                    <button class="btn-complete">取引を完了する</button>
+                    <button class="button btn-complete">取引を完了する</button>
                 </div>
             @endif
         </div>
@@ -78,7 +78,7 @@
 
             <form action="{{ route('transaction.sendMessage', $transaction->id) }}" method="POST" enctype="multipart/form-data" class="chat-form">
                 @csrf
-                <textarea name="body" id="unsent-message" placeholder="取引メッセージを入力してください" rows="1">{{ old('body') }}</textarea>
+                <textarea class="textarea" name="body" id="unsent-message" placeholder="取引メッセージを入力してください" rows="1">{{ old('body') }}</textarea>
                 @if ($errors->has('body'))
                     <div class="form__error">
                         <p>{{ $errors->first('body') }}</p>
@@ -218,6 +218,7 @@
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                alert("評価を送信しました");
                 window.location.href = "{{ route('home') }}";
             } else {
                 alert(data.message);
@@ -235,8 +236,10 @@
 
         const editFormHTML = `
             <textarea id="editMessageText" rows="3">${messageText}</textarea>
-            <button onclick="saveEditedMessage(${messageId})">保存</button>
-            <button onclick="cancelEditMessage()">キャンセル</button>
+            <div class="edit-buttons">
+                <button class="btn-save" onclick="saveEditedMessage(${messageId})">保存</button>
+                <button class="btn-cancel" onclick="cancelEditMessage()">キャンセル</button>
+            </div>
         `;
         messageBody.innerHTML = editFormHTML;
     }

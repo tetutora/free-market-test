@@ -32,7 +32,6 @@ services:
             - ./docker/mysql/logs:/var/log/mysql
 
     phpmyadmin:
-        # image: arm64v8/phpmyadmin
         image: phpmyadmin/phpmyadmin
         environment:
             - PMA_ARBITRARY=1

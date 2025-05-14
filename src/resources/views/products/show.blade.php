@@ -87,11 +87,12 @@
         <p><strong>商品へのコメント</strong></p>
         <form action="{{ route('product.addComment', $product->id) }}" method="POST">
             @csrf
-            <textarea name="content" rows="4" cols="50" placeholder="コメントを入力してください"></textarea>
-            <br>
+            <textarea class="textarea" name="content" rows="4" cols="50" placeholder="コメントを入力してください"></textarea>
+            <div class="form__error">
             @error('content')
-                <div class="alert alert-danger">{{ $message }}</div>
+                {{ $message }}
             @enderror
+            </div>
             <button type="submit" class="comment-submit-button">コメントを送信</button>
         </form>
     </div>

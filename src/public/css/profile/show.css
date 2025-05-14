@@ -1,45 +1,6 @@
-@media screen and (max-width: 1540px) {
-    .form__group-content {
-        width: 100%;
-        height: 40px;
-        margin-bottom: 30px;
-    }
-
-}
-
-@media screen and (max-width: 850px) {
-    .form__group-content {
-        width: 100%;
-        height: 40px;
-        margin-bottom: 30px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .form__group {
-        width: 100%;
-        margin: auto;
-        text-align: center;
-    }
-
-    .form__group-content {
-        width: 100%;
-        height: 40px;
-        margin-bottom: 30px;
-    }
-
-    .form__input {
-        width: 100%;
-        height: 100%;
-    }
-
-    .form__input-text {
-        width: 100%;
-        height: 100%;
-        border: 1px solid rgba(95, 95, 95, 1);
-        border-radius: 4px;
-    }
-}
+/* ===============================
+   共通スタイル
+================================= */
 
 .profile__content {
     margin: auto;
@@ -70,8 +31,14 @@
 }
 
 .form__input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     height: 100%;
+    margin-top: 10px;
 }
 
 .form__input-text {
@@ -105,8 +72,8 @@
     gap: 20px;
     width: 30%;
     margin: auto;
-    height: auto;
     margin-bottom: 50px;
+    height: auto;
 }
 
 #image-preview {
@@ -122,16 +89,6 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.form__input {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    margin-top: 10px;
 }
 
 .form__input input[type="file"]::file-selector-button {
@@ -152,4 +109,18 @@
 
 .favorite-icon {
     font-size: 24px;
+}
+
+/* ===============================
+   メディアクエリ
+================================= */
+
+@media screen and (max-width: 1540px),
+screen and (max-width: 850px) {
+    .form__group-content {
+        /* すでに共通で設定されているので上書き不要だが、維持したいならOK */
+        width: 100%;
+        height: 40px;
+        margin-bottom: 30px;
+    }
 }

@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Message;
+use App\Models\Purchase;
+use App\Models\Rating;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Profile extends Model
@@ -17,6 +21,51 @@ class Profile extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getMyPageData()
+    {
+        $user = $this->user;
+
+        $profile_picture = $this->profile_picture
+            ? asset('storage/' . $this->profile_picture)
+            : asset('images/default-profile.jpg');
+
+        $purchasedProducts = $user->purchases()
+            ->where('status', 'completed')
+            ->with('product')
+            ->get();
+
+        $allTradingProducts = $this->getAllTradingProductsWithUnreadMessages($user);
+
+        foreach ($allTradingProducts as $purchase) {
+            $purchase->unread_messages_count = $purchase->messages()
+                ->where('is_read', false)
+                ->where('sender_id', '!=', $user->id)
+                ->count();
+        }
+
+        $unreadMessageCount = Message::whereHas('purchase', function ($query) use ($user) {
+            $query->where('user_id', $user->id)
+                ->orWhere('seller_id', $user->id);
+        })->where('sender_id', '!=', $user->id)
+        ->where('is_read', false)
+        ->count();
+
+        $averageRating = Rating::whereHas('purchase', function ($query) use ($user) {
+            $query->where('seller_id', $user->id);
+        })->avg('rating');
+
+        $averageRatingRounded = $averageRating ? round($averageRating) : null;
+
+        return compact(
+            'user',
+            'profile_picture',
+            'purchasedProducts',
+            'allTradingProducts',
+            'unreadMessageCount',
+            'averageRatingRounded'
+        );
     }
 
     public static function updateOrCreateForUser($user, $data, $file = null)
@@ -53,24 +102,25 @@ class Profile extends Model
         $this->save();
     }
 
-    /**
-     * 取引中の商品と未読メッセージ数を新しい順に並べたリストを取得
-     */
     public function getAllTradingProductsWithUnreadMessages($user)
     {
-        $tradingAsBuyer = \App\Models\Purchase::where('user_id', $user->id)
-                                ->where('status', 'trading')
-                                ->with('product', 'messages')
-                                ->get();
+        $tradingAsBuyer = Purchase::where('user_id', $user->id)
+            ->where('status', 'trading')
+            ->with('product', 'messages')
+            ->get();
 
-        $tradingAsSeller = \App\Models\Purchase::where('seller_id', $user->id)
-                                ->where('status', 'trading')
-                                ->with('product', 'messages')
-                                ->get();
+        $tradingAsSeller = Purchase::where('seller_id', $user->id)
+            ->where('status', 'trading')
+            ->with('product', 'messages')
+            ->get();
 
         $allTradingProducts = $tradingAsBuyer->merge($tradingAsSeller);
 
-        return $allTradingProducts->sortByDesc(function ($purchase) {
+        return $allTradingProducts->map(function ($purchase) {
+            $purchase->unread_messages_count = $purchase->messages->where('is_read', false)->count();
+
+            return $purchase;
+        })->sortByDesc(function ($purchase) {
             $unreadMessage = $purchase->messages->where('is_read', false)->sortByDesc('created_at')->first();
 
             if ($unreadMessage) {

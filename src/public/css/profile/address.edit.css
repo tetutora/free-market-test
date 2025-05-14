@@ -1,12 +1,7 @@
+/* ===== コンテナ・レイアウト ===== */
 .profile__content {
     margin: auto;
     text-align: center;
-}
-
-.profile-form__heading {
-    text-align: center;
-    color: rgba(0, 0, 0, 1);
-    margin: 20px 0;
 }
 
 .form__group {
@@ -15,6 +10,22 @@
     text-align: left;
 }
 
+.form__group-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ===== 見出し ===== */
+.profile-form__heading {
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    margin: 20px 0;
+}
+
+/* ===== フォームグループ ===== */
 .form__group-title {
     color: rgba(0, 0, 0, 1);
     font-weight: bold;
@@ -38,6 +49,7 @@
     border-radius: 4px;
 }
 
+/* ===== ボタン ===== */
 .form__button {
     width: 100%;
     margin-top: 70px;
@@ -53,27 +65,14 @@
     border: none;
 }
 
-.form__group-photo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 20px;
-}
-
+/* ===== プレビュー画像 ===== */
 #image-preview img {
     max-width: 150px;
     max-height: 150px;
     border-radius: 50%;
 }
 
-@media screen and (max-width: 480px) {
-    #image-preview img {
-        max-width: 120px;
-        max-height: 120px;
-    }
-}
-
+/* ===== ファイルアップロードUI ===== */
 .custom-file-label {
     display: inline-block;
     padding: 10px 20px;
@@ -95,8 +94,10 @@ input[type="file"] {
     z-index: -1;
 }
 
-#image-preview img {
-    max-width: 150px;
-    max-height: 150px;
-    border-radius: 50%;
+/* ===== レスポンシブ ===== */
+@media screen and (max-width: 480px) {
+    #image-preview img {
+        max-width: 120px;
+        max-height: 120px;
+    }
 }
