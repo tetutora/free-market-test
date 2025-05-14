@@ -215,13 +215,13 @@
             },
             body: JSON.stringify({ rating: selectedRating })
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
+        .then(async response => {
+            const data = await response.json();
+            if (response.ok) {
                 alert("評価を送信しました");
                 window.location.href = "{{ route('home') }}";
             } else {
-                alert(data.message);
+                alert(data.message || "エラーが発生しました");
             }
         })
         .catch(error => {

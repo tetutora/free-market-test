@@ -14,19 +14,19 @@
         <div class="profile-info">
         <img src="{{ $profile_picture ?? asset('images/default-profile.jpg') }}" alt="プロフィール画像" class="profile-image">
         <div class="name-rating">
-            <h2 class="user-name">{{ $profile->name ?? $user->name }}</h2>
-            @if(!is_null($averageRatingRounded))
-                <div class="rating">
-                    @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $averageRatingRounded)
-                            ★
-                        @else
-                            ☆
-                        @endif
-                    @endfor
-                </div>
-            @endif
-        </div>
+        <h2 class="user-name">{{ $profile->name ?? $user->name }}</h2>
+        @if(!is_null($allReceivedRatingsRounded))
+            <div class="rating">
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $allReceivedRatingsRounded)
+                        ★
+                    @else
+                        ☆
+                    @endif
+                @endfor
+            </div>
+        @endif
+    </div>
         <a href="{{ route('profile.edit') }}" class="btn-edit-profile">プロフィール編集</a>
     </div>
     </div>

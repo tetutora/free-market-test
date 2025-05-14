@@ -52,11 +52,21 @@ class Profile extends Model
         ->where('is_read', false)
         ->count();
 
-        $averageRating = Rating::whereHas('purchase', function ($query) use ($user) {
+        $ratingReceivedAsSeller = Rating::whereHas('purchase', function ($query) use ($user) {
             $query->where('seller_id', $user->id);
-        })->avg('rating');
+        })->where('user_id', '!=', $user->id)
+        ->avg('rating');
 
-        $averageRatingRounded = $averageRating ? round($averageRating) : null;
+        $ratingReceivedAsBuyer = Rating::whereHas('purchase', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->where('user_id', '!=', $user->id)
+        ->avg('rating');
+
+        $allReceivedRatings = collect([$ratingReceivedAsSeller, $ratingReceivedAsBuyer])
+                                ->filter()
+                                ->avg();
+
+        $allReceivedRatingsRounded = $allReceivedRatings ? round($allReceivedRatings) : null;
 
         return compact(
             'user',
@@ -64,7 +74,7 @@ class Profile extends Model
             'purchasedProducts',
             'allTradingProducts',
             'unreadMessageCount',
-            'averageRatingRounded'
+            'allReceivedRatingsRounded',
         );
     }
 

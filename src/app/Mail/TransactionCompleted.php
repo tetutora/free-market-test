@@ -13,25 +13,14 @@ class TransactionCompleted extends Mailable
 
     public $transaction;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param Purchase $transaction
-     * @return void
-     */
-    public function __construct(Purchase $transaction)
+    public function __construct(Purchase $purchase)
     {
-        $this->transaction = $transaction;
+        $this->transaction = $purchase;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->subject('取引が完了しました')
+        return $this->subject('取引完了のお知らせ')
                     ->view('emails.transaction.completed');
     }
 }

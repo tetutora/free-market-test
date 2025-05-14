@@ -110,3 +110,4 @@ Route::post('/transaction/{id}/send-message', [TransactionController::class, 'se
 Route::post('/transactions/{transactionId}/rate', [TransactionController::class, 'rate'])->name('transaction.submitRating');
 Route::post('/transactions/messages/{messageId}/edit', [TransactionController::class, 'editMessage'])->name('transaction.editMessage');
 Route::delete('/transactions/messages/{messageId}/delete', [TransactionController::class, 'deleteMessage'])->name('transaction.deleteMessage');
+Route::post('/complete-transaction', [TransactionController::class, 'complete'])->name('transaction.complete');
