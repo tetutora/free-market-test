@@ -77,10 +77,13 @@ class TransactionController extends Controller
             'rating' => $rating,
         ]);
 
+        if ($userId === $transaction->user_id) {
+            $this->sendCompletionEmailToSeller($transaction);
+        }
+
         if ($transaction->isBuyerRated() && $transaction->isSellerRated()) {
             $transaction->status = 'completed';
             $transaction->save();
-            $this->sendCompletionEmailToSeller($transaction);
         }
 
         return response()->json(['success' => true, 'message' => '評価が送信されました']);
