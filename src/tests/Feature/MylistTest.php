@@ -70,7 +70,9 @@ class MylistTest extends TestCase
             'status' => 'selling',
         ]);
 
-        $response = $this->get('/?page=mylist&search=');
+        $response = $this->actingAs($user)->get(route('products.index'));
+
+        $response->assertStatus(200);
         $response->assertDontSee($product->name);
     }
 
